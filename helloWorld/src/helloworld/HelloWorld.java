@@ -19,6 +19,7 @@ public class HelloWorld {
         System.out.println("Hello world");
         System.out.println("My name is Chase Glasper");
         System.out.println("This is Robert");
+        System.out.println("This is Faith");
     }
     
 }
