@@ -26,10 +26,17 @@ understanding of programming, but did not seek a degree in it. In his free time,
 games or projects that remind him of the simplicity of the games he would play when he was young. Similarly, he will
 occasionally replay the games he would play as a kid. He's antiquated with running and playing games on the command line
 and has experience with similar types of games.
-# Persona 4
+
+
+# Persona 4: Consulting associate interested in technology
+Lucy is a 39 year old pharmaceutical consultant based in Delaware. She has three children and finds it hard to juggle daily tasks. She knows how to use computers and technology in general at the basic level that her job requires. During her spare time she enjoys going to the movies, golfing, and spending time with her family. Although Lucy is not too proficient in technology, her job requires her to travel a lot and she often finds herself bored on these trips while waiting long hours at the aiport and on long flights. She also has a lot of spare time between meetings.
+
+Having a gaming technology at her fingertips whose basic functionality does not require extensive knowledge of usage and does not need internet connectivity will be a useful addition to Lucy's routine. The ease of use will also allow her to introduce it to her children and can be used as a form of relationship building.
 
 # How to Run
 
 # How to Install
 
+# Vision statement
 
+For anyone who is interested in Role Playing Games with access to technology who needs a simple and efficient text based game that is interactive and exciting. The Text Battle System is a gaming application that is easy to manipulate and use as a form of entertainment or a way to de-stress. Unlike other services and providers that offer command line gaming, our product is more user friendy, is open-source, and can be further modified to satisfy the needs of the user if any.
