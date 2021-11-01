@@ -16,7 +16,9 @@ fork the project into his own github in order to examine how it implements the o
 
 
 # Persona 2
+Tyler, age 24, is a professional gamer. He keeps a log of all games he plays. He aims to play and rate every single game in the world. Tyler never graduated college and spends a lot of time at home on his computer. He is a twitch streamer who likes to educate his audience on the vast world of gaming, as well as the many options available to the public. He is interested in games that are not commonly played and not available for popular gaming consoles. The majority of Tyler's twitch audience are between the ages of 16 and 30 years old. He finds that his audience's love for gaming typically overlaps with an interest in coding. 
 
+Tyler is not a proficient coder but his extensive experience in gaming makes him a natural problem solver. He is particularly interested in Text-Based Battle Game because it combines coding and gaming in a way his audience can more easily understand. 
 # Persona 3
 
 # Persona 4
