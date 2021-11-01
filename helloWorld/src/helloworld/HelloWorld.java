@@ -20,6 +20,9 @@ public class HelloWorld {
         System.out.println("My name is Chase Glasper");
         System.out.println("This is Robert");
         System.out.println("This is Faith");
+        System.out.println("This is Owen King typing into the hello world program \n" +
+                "I plan on creating the executable for this program, and explaining in the readMe \n" +
+                "How it is created and how to build it yourself");
     }
     
 }
