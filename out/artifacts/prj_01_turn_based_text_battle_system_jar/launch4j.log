@@ -1,0 +1,25 @@
+
+
+Version:	3.14
+CmdLine:	C:\Users\0king\IdeaProjects\prj-01-turn-based-text-battle-system\out\artifacts\prj_01_turn_based_text_battle_system_jar\battleExecutable.exe --l4j-debug
+WOW64:		yes
+Working dir:	C:\Users\0king\IdeaProjects\prj-01-turn-based-text-battle-system\out\artifacts\prj_01_turn_based_text_battle_system_jar\.
+Java min ver:	1.014.000
+Java max ver:	
+64-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+32-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+64-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+32-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+64-bit search:	SOFTWARE\JavaSoft\JRE...
+32-bit search:	SOFTWARE\JavaSoft\JRE...
+64-bit search:	SOFTWARE\JavaSoft\JDK...
+Check:		SOFTWARE\JavaSoft\JDK\12.0.2
+Ignore:		1.012.000_002
+Check:		SOFTWARE\JavaSoft\JDK\14.0.2
+Check launcher:	C:\Program Files\Java\jdk-14.0.2\bin\javaw.exe (OK)
+Match:		1.014.000_002
+Runtime used:	1.014.000_002 (64-bit)
+Launcher:	C:\Program Files\Java\jdk-14.0.2\bin\javaw.exe
+Launcher args:	-jar "C:\Users\0king\IdeaProjects\prj-01-turn-based-text-battle-system\out\artifacts\prj_01_turn_based_text_battle_system_jar\battleExecutable.exe"
+Args length:	147/32768 chars
+Exit code:	0
