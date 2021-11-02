@@ -34,8 +34,13 @@ Lucy is a 39 year old pharmaceutical consultant based in Delaware. She has three
 Having a gaming technology at her fingertips whose basic functionality does not require extensive knowledge of usage and does not need internet connectivity will be a useful addition to Lucy's routine. The ease of use will also allow her to introduce it to her children and can be used as a form of relationship building.
 
 # How to Run
+To run this program, go to the location of the jarfile in the command line, in out/artifacts/prj_01_turn_based_text_battle_system_jar,
+then run java -jar prj-01-turn-based-text-battle-system.jar.  This will execute the main function of our program.
 
 # How to Install
+To install this program, you simply need to download it to your local computer from our github repo.  The current method we 
+employ to create our jarFile is to use our IDE of choice to add it as an artifact, but we are working on creating an executable
+version of the project soon.  At that stage, you will simply need to download and run it by clicking on it in your file explorer.
 
 # Vision statement
 

@@ -1,0 +1,19 @@
+## Tasks Finished this Week:
+- Owen
+  - Added to HelloWorld Program
+  - Created Persona 1
+  - Added basic build and installation instructions
+  - created release and basic jar file
+  - created week1 markdown page
+- Chase
+  - Added to hello world program
+  - Created persona 4
+  - Wrote project proposal
+- Robert
+  - contributed to hello world
+  - created persona 3
+  - added project backlog
+- Faith
+  - Created hello world program
+  - Created persona 2
+  - Added vision statement
