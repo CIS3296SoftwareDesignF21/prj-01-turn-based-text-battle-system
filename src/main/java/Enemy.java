@@ -1,7 +1,5 @@
-package helloworld;
-
+package main.java;
 public class Enemy extends Battler{
-
     public Enemy(){
         super();
     }

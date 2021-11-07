@@ -1,5 +1,4 @@
-package helloworld;
-
+package main.java;
 import java.util.*;
 
 public class Battler {

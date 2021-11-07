@@ -1,4 +1,3 @@
-package helloworld;
-
+package main.java;
 public interface Attack {
 }

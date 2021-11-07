@@ -1,5 +1,4 @@
-package helloworld;
-
+package main.java;
 public class Character extends Battler{
 
     public Character(){
