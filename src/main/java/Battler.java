@@ -15,7 +15,7 @@ public class Battler {
 
     public Battler(){
         HP = MaxHP = MP = MaxMP = Atk = Def = 0;
-        name = "Ugly Monster";
+        name = "";
         guard = false;
     }
 
