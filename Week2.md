@@ -2,6 +2,18 @@
 - Owen
   - Update Run and install instructions
   - Created Battler class and character/enemy subclasses
+  - Added basic battle to main, including damage
+  - Created batch file to run jar
+  - Created the newest release
 - Faith
+  - Created abstract attack class
+  - 
 - Chase
+  - Created basic battle UI
+  - Updated personas
 - Robert
+  - Created UML Class Diagram of project so far
+  - Created task descriptions in Project Board, general organizing
+  - Created 4 Different Attacks
+  - Implemented Default Attack into currentAttack, added new constructors
+  - Minor changes to Attack Class
