@@ -7,6 +7,7 @@
   - Created the newest release
 - Faith
   - Created abstract attack class
+  - Updated vision statement
 - Chase
   - Created basic battle UI
   - Updated persona headers
