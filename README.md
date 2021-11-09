@@ -2,6 +2,9 @@
 
 For this project, a text-based game will be created. There won't be any visuals outside of text on a command line, unless somehow time is permitted, but very likely not. What this game will be is a simple program demonstrating a battle between an enemy and player. The user will be controlling the player's actions. These actions will be a list of commands that can be used to alter the battle. After selecting a command, it will commence and afterwards the enemy will perform an action. Then repeat. Details such as character statistics, multiple playable characters, and multiple various enemies may be included if time is permitted. The current status of the battle will be shown in the text, along with player options. This will be completed completely by scratch.
 
+# Project Structure
+
+[UML Class Diagram](RPG.jpg)
 
 # Persona 1: The intro programmer
 Steven, age 19, is a college student at Temple.  He is taking some introductory computer science courses, and has developed
@@ -14,11 +17,11 @@ Steven plays lots of single player games in his spare time, and because of his t
 of learning is a natural draw.  He would download the executable version of the game first, to see how the game runs, then
 fork the project into his own github in order to examine how it implements the options presented to him as a player.
 
-
-# Persona 2
+# Persona 2: The Avid Gamer
 Tyler, age 24, is a professional gamer. He keeps a log of all games he plays. He aims to play and rate every single game in the world. Tyler never graduated college and spends a lot of time at home on his computer. He is a twitch streamer who likes to educate his audience on the vast world of gaming, as well as the many options available to the public. He is interested in games that are not commonly played and not available for popular gaming consoles. The majority of Tyler's twitch audience are between the ages of 16 and 30 years old. He finds that his audience's love for gaming typically overlaps with an interest in coding. 
 
-Tyler is not a proficient coder but his extensive experience in gaming makes him a natural problem solver. He is particularly interested in Text-Based Battle Game because it combines coding and gaming in a way his audience can more easily understand. 
+Tyler is not a proficient coder but his extensive experience in gaming makes him a natural problem solver. He is particularly interested in Text-Based Battle Game because it combines coding and gaming in a way his audience can more easily understand.
+
 # Persona 3: Experienced With Old PC Games
 Howard is a 53-year-old man who has had an interest in computers since he was a child, growing up mostly with computer games
 with no notable graphics or visual information aside from text. He's still quite familiar with technology and has a basic
@@ -26,7 +29,6 @@ understanding of programming, but did not seek a degree in it. In his free time,
 games or projects that remind him of the simplicity of the games he would play when he was young. Similarly, he will
 occasionally replay the games he would play as a kid. He's antiquated with running and playing games on the command line
 and has experience with similar types of games.
-
 
 # Persona 4: Consulting associate interested in technology
 Lucy is a 39 year old pharmaceutical consultant based in Delaware. She has three children and finds it hard to juggle daily tasks. She knows how to use computers and technology in general at the basic level that her job requires. During her spare time she enjoys going to the movies, golfing, and spending time with her family. Although Lucy is not too proficient in technology, her job requires her to travel a lot and she often finds herself bored on these trips while waiting long hours at the aiport and on long flights. She also has a lot of spare time between meetings.
