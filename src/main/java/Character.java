@@ -9,5 +9,7 @@ public class Character extends Battler{
         super(name, HP, MaxHP, MP, MaxMP, Atk, Def);
     }
 
-
+    public Character(String name, int MaxHP, int MaxMP, int Atk, int Def){
+        super(name, MaxHP, MaxMP, Atk, Def);
+    }
 }
