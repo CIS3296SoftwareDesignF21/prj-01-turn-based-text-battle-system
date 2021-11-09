@@ -7,10 +7,9 @@
   - Created the newest release
 - Faith
   - Created abstract attack class
-  - 
 - Chase
   - Created basic battle UI
-  - Updated personas
+  - Updated persona headers
 - Robert
   - Created UML Class Diagram of project so far
   - Created task descriptions in Project Board, general organizing
