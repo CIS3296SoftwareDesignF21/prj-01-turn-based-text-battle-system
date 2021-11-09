@@ -34,14 +34,37 @@ Lucy is a 39 year old pharmaceutical consultant based in Delaware. She has three
 Having a gaming technology at her fingertips whose basic functionality does not require extensive knowledge of usage and does not need internet connectivity will be a useful addition to Lucy's routine. The ease of use will also allow her to introduce it to her children and can be used as a form of relationship building.
 
 # How to Run
-To run this program, go to the location of the jarfile in the command line, in out/artifacts/prj_01_turn_based_text_battle_system_jar,
-then run java -jar prj-01-turn-based-text-battle-system.jar.  This will execute the main function of our program.
+To run this program, navigate to the latest release on our github page.  Once there, you can download the jarfile attached,
+and place it in the same folder as battleBatch.bat, in out/artifacts/prj_01_turn_based_text_battle_system_jar.  Once there, 
+for some you may be able to click the jarfile and launch it.  If not, click on the batchfile and it will run the following command: \
+java -jar prj-01-turn-based-text-battle-system.jar, the command line function to run the jarfile.
 
-# How to Install
-To install this program, you simply need to download it to your local computer from our github repo.  The current method we 
-employ to create our jarFile is to use our IDE of choice to add it as an artifact, but we are working on creating an executable
-version of the project soon.  At that stage, you will simply need to download and run it by clicking on it in your file explorer.
+# How to Install/Build
+
+To install this program, you simply need to download it to your local computer from our github repo.  If you would like to 
+have a local version, you can download git to your computer, and clone the repo to your local computer using the url of the
+project with the following command: \
+git clone https://github.com/CIS3296SoftwareDesignF21/prj-01-turn-based-text-battle-system.git
+
+To build the files from here, we use IntelliJ, which provides another method to directly get from version control when opening
+a project, and also can build from inside the IDE.  To build the jarFile manually instead of downloading from the version, under 
+the file tab you go to project structure.  Then, go to the Artifcats section, and add a new jar file, choosing "From modules with dependencies".
+From here, choose the main class to be our main.java file under src/main/java, and chose your manifest directory to be where our
+manifest is, under src/main/resources. 
+
+From here, to build the jar, you go to the build tab, select build artifacts, then build the jar you just created.  
+
+
+[comment]: <> (employ to create our jarFile is to use our IDE of choice to add it as an artifact, but we are working on creating an executable)
+
+[comment]: <> (version of the project soon.  At that stage, you will simply need to download and run it by clicking on it in your file explorer.)
 
 # Vision statement
 
 For anyone who is interested in Role Playing Games with access to technology who needs a simple and efficient text based game that is interactive and exciting. The Text Battle System is a gaming application that is easy to manipulate and use as a form of entertainment or a way to de-stress. Unlike other services and providers that offer command line gaming, our product is more user friendy, is open-source, and can be further modified to satisfy the needs of the user if any.
+
+# Weekly Markdown Pages
+
+[Week 1 Markdown](Week1.md)
+
+[Week 2 Markdown](Week2.md)
