@@ -1,6 +1,5 @@
 package main.java;
-public abstract class Attack implements attackInterface {
-
+public abstract class Attack {
 
     private int mpCost = 0;
     private int numOfHits = 0;
@@ -14,53 +13,37 @@ public abstract class Attack implements attackInterface {
     }
 
 
-    @Override
-    public void setMpCosts(int mpCosts) {
-        
+    public void setMpCosts(int mpCost) {
+        this.mpCost = mpCost;
     }
 
-    @Override
     public int getMpCosts() {
-        return 0;
+        return mpCost;
     }
 
-    @Override
     public void setNumOfHits(int numOfHits) {
-
+        this.numOfHits = numOfHits;
     }
 
-    @Override
     public int getNumOfHits() {
-        return 0;
+        return numOfHits;
     }
 
-    @Override
     public void setSkillName(String skillName) {
-
+        this.skillName = skillName;
     }
 
-    @Override
     public String getSkillName() {
-        return null;
+        return skillName;
     }
 
-    @Override
-    public int calcDamage(Battler user, Battler target) {
-        return 0;
-    }
+    abstract int calcDamage(Battler user, Battler target);
 
-    @Override
-    public int addEffects(Battler user, Battler target) {
-        return 0;
-    }
+    abstract int addEffects(Battler user, Battler target);
 
-    @Override
+    abstract String getMessage(Battler user, Battler target);
+
     public boolean isUsableMp(Battler user) {
         return false;
-    }
-
-    @Override
-    public String getMessage(Battler user, Battler target) {
-        return null;
     }
 }//end attack class
