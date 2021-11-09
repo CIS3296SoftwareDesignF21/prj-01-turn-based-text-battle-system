@@ -4,7 +4,7 @@ For this project, a text-based game will be created. There won't be any visuals 
 
 # Project Structure
 
-[UML Class Diagram](RPG.jpg)
+![UML Class Diagram](RPG.jpg)
 
 # Persona 1: The intro programmer
 Steven, age 19, is a college student at Temple.  He is taking some introductory computer science courses, and has developed
