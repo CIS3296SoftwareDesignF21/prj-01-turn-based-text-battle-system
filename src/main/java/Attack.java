@@ -1,53 +1,66 @@
 package main.java;
-public interface Attack {
-    private int mpCosts;
-    private int numOfHits;
-    private String name;
+public abstract class Attack implements attackInterface {
 
-    public Attack(){
-        mpCosts = numOfHits = 0;
-        name = "";
-    }
-    public Attack(int mpCosts, int numOfHits, String name) {
+
+    private int mpCost = 0;
+    private int numOfHits = 0;
+    private String skillName = "";
+
+    public Attack(int mpCosts, int numOfHits, String skillName) {
 
         this.mpCost = mpCost;
         this.numOfHits = numOfHits;
-        this.name = name;
-    }
-
-    //getter and setter methods
-    public void setMpCosts(int mpCosts){
-        this.mpCosts = mpCosts;
-    }
-    public int getMpCosts(){
-        return mpCosts;
-    }
-    public void setNumOfHits(int numOfHits){
-        this.numOfHits = numOfHits;
-    }
-    public int getNumOfHits(){
-        return numOfHits;
-    }
-    public void setName(String name) {
-        this.name = name;
-    }
-    public String getName() {
-        return name;
-    }
-
-    public int calcDamage(Character a, Enemy b){ //assuming a is the characters current mp and b is the amount of damage
-        this.calcDamage = a - b;
-        if (this.calcDamage < 0) {
-            this.calcDamage = 0;
-        }
-    }
-    public boolean isUsableMp(){
-        if(mpCosts > 0)
-            return mpCosts;
-    }
-    public String getMessage(){
-        return "";
+        this.skillName = skillName;
     }
 
 
+    @Override
+    public void setMpCosts(int mpCosts) {
+        
+    }
+
+    @Override
+    public int getMpCosts() {
+        return 0;
+    }
+
+    @Override
+    public void setNumOfHits(int numOfHits) {
+
+    }
+
+    @Override
+    public int getNumOfHits() {
+        return 0;
+    }
+
+    @Override
+    public void setSkillName(String skillName) {
+
+    }
+
+    @Override
+    public String getSkillName() {
+        return null;
+    }
+
+    @Override
+    public int calcDamage(Battler user, Battler target) {
+        return 0;
+    }
+
+    @Override
+    public int addEffects(Battler user, Battler target) {
+        return 0;
+    }
+
+    @Override
+    public boolean isUsableMp(Battler user) {
+        return false;
+    }
+
+    @Override
+    public String getMessage(Battler user, Battler target) {
+        return null;
+    }
 }//end attack class
