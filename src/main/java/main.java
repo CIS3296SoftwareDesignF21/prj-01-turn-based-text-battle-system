@@ -38,7 +38,7 @@ public class main {
 
 			case 2:  
 				
-				person2.setName("charName");
+				person2.setName(charName);
 				System.out.println("You chose to be a villain " + person2.getName());
 				break;
 				
