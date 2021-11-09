@@ -59,7 +59,7 @@ public class main {
 			System.out.printf("The enemy has %d health remaining\n\n",enemy.getHP());
 			if(enemy.getHP() > 0) {
 				System.out.println("" + attack.getMessage(enemy, player));
-				System.out.printf("%s lost %d hp\n", player.getName(), playerDamage);
+				System.out.printf("%s lost %d hp\n", player.getName(), enemyDamage);
 				player.setHP(player.getHP() - enemyDamage);
 				System.out.printf("%s have %d health remaining\n\n",player.getName(),player.getHP());
 			}
