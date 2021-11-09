@@ -8,5 +8,7 @@ public class Enemy extends Battler{
         super(name, HP, MaxHP, MP, MaxMP, Atk, Def);
     }
 
-
+    public Enemy(String name, int HP, int MP, int Atk, int Def){
+        super(name, HP, MP, Atk, Def);
+    }
 }

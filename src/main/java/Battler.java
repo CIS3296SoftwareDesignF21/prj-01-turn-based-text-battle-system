@@ -17,9 +17,10 @@ public class Battler {
         HP = MaxHP = MP = MaxMP = Atk = Def = 0;
         name = "";
         guard = false;
+        currentAttack = new DefaultAttack();
     }
 
-    public Battler(String name, int HP,int MaxHP, int MP, int MaxMP, int Atk, int Def){
+    public Battler(String name, int HP, int MaxHP, int MP, int MaxMP, int Atk, int Def){
         this.name = name;
         this.HP = HP;
         this.MaxHP = MaxHP;
@@ -28,6 +29,19 @@ public class Battler {
         this.Atk = Atk;
         this.Def = Def;
         guard = false;
+        currentAttack = new DefaultAttack();
+    }
+
+    public Battler(String name, int HP, int MP, int Atk, int Def){
+        this.name = name;
+        this.HP = HP;
+        this.MaxHP = HP;
+        this.MP = MP;
+        this.MaxMP = MP;
+        this.Atk = Atk;
+        this.Def = Def;
+        guard = false;
+        currentAttack = new DefaultAttack();
     }
 
 /**Getters and setters for basic variables**/
