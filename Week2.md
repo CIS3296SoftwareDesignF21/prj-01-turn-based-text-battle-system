@@ -8,3 +8,8 @@
 - Faith
 - Chase
 - Robert
+  - Created UML Class Diagram of project so far
+  - Created task descriptions in Project Board, general organizing
+  - Created 4 Different Attacks
+  - Implemented Default Attack into currentAttack, added new constructors
+  - Minor changes to Attack Class
