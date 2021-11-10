@@ -1,9 +1,12 @@
 package main.java;
 public class Bash extends Attack{
 
-    private final int mpCost = 20;
-    private final int numOfHits = 1;
-    private final String skillName = "Bash";
+    /** Default Bash values **/
+    Bash(){
+        super();
+        setMpCost(20);
+        setSkillName("Bash");
+    }
 
     /** Attack methods **/
     int calcDamage(Battler user, Battler target){

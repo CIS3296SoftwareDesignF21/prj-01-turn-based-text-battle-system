@@ -1,9 +1,12 @@
 package main.java;
 public class Pierce extends Attack{
 
-    private final int mpCost = 15;
-    private final int numOfHits = 1;
-    private final String skillName = "Pierce";
+    /** Default Pierce values **/
+    Pierce(){
+        super();
+        setMpCost(15);
+        setSkillName("Pierce");
+    }
 
     /** Attack methods **/
     int calcDamage(Battler user, Battler target){

@@ -1,9 +1,13 @@
 package main.java;
 public class DualSlash extends Attack{
 
-    private final int mpCost = 10;
-    private final int numOfHits = 2;
-    private final String skillName = "Dual Slash";
+    /** Default DualSlash values **/
+    DualSlash(){
+        super();
+        setMpCost(10);
+        setNumOfHits(2);
+        setSkillName("Dual Slash");
+    }
 
     /** Attack methods **/
     int calcDamage(Battler user, Battler target){
