@@ -44,6 +44,20 @@ public class Battler {
         this(name, HP, HP, MP, MP, Atk, Def);
     }
 
+    public void useSkill(Battler user, Battler target){
+        int damage = currentAttack.calcDamage(user, target);
+        currentAttack.applyCrit(user, damage); //add crit damage if it worked
+        if(currentAttack.isMiss(user)){ //if missed
+            System.out.println(currentAttack.getMissMessage(user, target));
+        }
+        else if(currentAttack.isEvade(target)){ //if attack evaded
+            System.out.println(currentAttack.getEvaMessage(user, target));
+        }
+        else{ //if hit
+
+        }
+    }
+
 /**Getters and setters for basic variables**/
     public int getHP() {return HP;}
 
@@ -76,6 +90,10 @@ public class Battler {
     public int getHitRate() {return HitRate;}
 
     public void setHitRate(int hitRate) {HitRate = hitRate;}
+
+    public int getEvaRate() {return EvaRate;}
+
+    public void setEvaRate(int evaRate) {EvaRate = evaRate;}
 
     public String getName() {return name;}
 

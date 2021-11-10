@@ -6,6 +6,7 @@ public abstract class Attack {
     private int numOfHits;
     private String skillName;
     private int critRate;
+    private int critMultiplier;
     private int hitRate;
 
     /** Default Attack Parameters **/
@@ -14,6 +15,7 @@ public abstract class Attack {
         numOfHits = 1;
         skillName = "Undefined";
         critRate = 0;
+        critMultiplier = 3;
         hitRate = 100;
     }
 
@@ -30,21 +32,41 @@ public abstract class Attack {
     /* Method for applying crits after calling calcDamage() */
     public int applyCrit(Battler user, int damage) {
         int rate = user.getCritRate() + getCritRate();
-        if(rand(rate,100) <= rate) return damage * 3;
-        else return damage;
+        if(isRateApplied(rate)) return damage * critMultiplier;
+        return damage;
+    }
+    /* Check if miss */
+    public boolean isMiss(Battler user){
+        int rate = user.getHitRate() + getHitRate();
+        return isRateApplied(rate);
+    }
+    /* Check if evaded */
+    public boolean isEvade(Battler target){
+        int rate = target.getEvaRate();
+        return isRateApplied(rate);
+    }
+    /* Calculate a percentage chance into a boolean
+    * rate: a number from 0 to 100
+    * */
+    public boolean isRateApplied(int rate){
+        if(rate > 100) rate = 100;
+        else if(rate < 0) rate = 0;
+        if(rand(rate,100) <= rate) return true;
+        return false;
     }
     /* Random function for easy use */
     public int rand(int min, int max){
         return (int)Math.floor(Math.random()*(max-min+1)+min);
     }
+    /* Get Messages for cases of a Critical Hit, Miss, or Evaded Hit */
     public String getCritMessage(Battler user, Battler target){
-        return user.getName() + "dealt a critical blow!";
+        return user.getName() + " dealt a critical blow!";
     }
     public String getMissMessage(Battler user, Battler target){
-        return user.getName() + "missed!";
+        return user.getName() + " missed!";
     }
     public String getEvaMessage(Battler user, Battler target){
-        return target.getName() + "evaded the attack!";
+        return target.getName() + " evaded the attack!";
     }
 
     /** Getters and setters for variables **/
