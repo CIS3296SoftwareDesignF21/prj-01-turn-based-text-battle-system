@@ -38,10 +38,15 @@ public abstract class Attack {
         int rate = user.getCritRate() + getCritRate();
         return isRateApplied(rate);
     }
+    /* Check if hit */
+    public boolean isHit(Battler user){
+        int rate1 = user.getHitRate();
+        int rate2 = getHitRate();
+        return isRateApplied(rate1) && isRateApplied(rate2);
+    }
     /* Check if miss */
     public boolean isMiss(Battler user){
-        int rate = user.getHitRate() + getHitRate();
-        return isRateApplied(rate);
+        return !isHit(user);
     }
     /* Check if evaded */
     public boolean isEvade(Battler target){
@@ -49,8 +54,7 @@ public abstract class Attack {
         return isRateApplied(rate);
     }
     /* Calculate a percentage chance into a boolean
-    * rate: a number from 0 to 100
-    * */
+    * rate: a number from 0 to 100 */
     public boolean isRateApplied(int rate){
         if(rate > 100) rate = 100;
         else if(rate < 0) rate = 0;
