@@ -2,17 +2,18 @@ package main.java;
 public abstract class Attack {
 
     /** Attack Constants **/
-    private static final int PHYSICAL = 0;
-    private static final int GUARANTEED = 1;
+    private static final int PHYSICAL = 0; //subject to hit/evasion rates
+    private static final int GUARANTEED = 1; //guaranteed to hit, ignore hit/evasion rates
 
     /** Attack Parameters **/
-    private int mpCost;
-    private int numOfHits;
-    private String skillName;
-    private int critRate;
-    private int critMultiplier;
-    private int hitRate;
-    private int attackType;
+    private int mpCost; //cost of skill to use
+    private int numOfHits; //number times calcDamage() applied
+    private String skillName; //name of skill
+    private int critRate; //crit rate of skill (0-100)
+    private int critMultiplier; //amount multiplied when crit
+    private int hitRate; //hit rate of skill (0-100)
+    private int attackType; //type of skill
+    private boolean critAbility; //if skill can crit
 
     /** Default Attack Parameters **/
     Attack(){
@@ -23,6 +24,7 @@ public abstract class Attack {
         critMultiplier = 3;
         hitRate = 100;
         attackType = PHYSICAL;
+        critAbility = true;
     }
 
     /** Abstract methods **/
@@ -41,6 +43,7 @@ public abstract class Attack {
     }
     /* Check if crit */
     public boolean crit(Battler user){
+        if(!canCrit()) return false;
         int rate = user.getCritRate() + getCritRate();
         return Rates.percentRateApplied(rate);
     }
@@ -85,5 +88,7 @@ public abstract class Attack {
     public int getHitRate() { return hitRate;}
     public void setAttackType(int attackType) { this.attackType = attackType;}
     public int getAttackType() { return attackType;}
+    public void setCritAbility(boolean critAbility) { this.critAbility = critAbility;}
+    public boolean canCrit() { return critAbility;}
 
 }//end attack class

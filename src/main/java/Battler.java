@@ -8,9 +8,9 @@ public class Battler {
     private int MaxMP;
     private int Atk;
     private int Def;
-    private int CritRate;
-    private int HitRate;
-    private int EvaRate;
+    private int CritRate; //crit rate (0-100)
+    private int HitRate; //hit rate (0-100)
+    private int EvaRate; //evasion rate (0-100)
     private String name;
     private boolean guard;
     private Attack currentAttack;
