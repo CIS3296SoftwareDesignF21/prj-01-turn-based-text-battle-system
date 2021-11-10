@@ -17,12 +17,7 @@ public class Battler {
     private Set<Attack> specialAttacks;
 
     public Battler(){
-        HP = MaxHP = MP = MaxMP = Atk = Def = 0;
-        CritRate = 0.0;
-        HitRate = 1.0;
-        EvaRate = 0.0;
-        name = "";
-        guard = false;
+        this("",0,0,0,0,0,0,0,1,0);
         currentAttack = new DefaultAttack();
     }
 
