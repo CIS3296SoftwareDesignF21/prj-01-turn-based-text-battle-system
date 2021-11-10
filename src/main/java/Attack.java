@@ -30,10 +30,13 @@ public abstract class Attack {
         return (user.getMP() >= mpCost);
     }
     /* Method for applying crits after calling calcDamage() */
-    public int applyCrit(Battler user, int damage) {
+    public int applyCrit(int damage) {
+        return damage * critMultiplier;
+    }
+    /* Check if crit */
+    public boolean isCrit(Battler user){
         int rate = user.getCritRate() + getCritRate();
-        if(isRateApplied(rate)) return damage * critMultiplier;
-        return damage;
+        return isRateApplied(rate);
     }
     /* Check if miss */
     public boolean isMiss(Battler user){
