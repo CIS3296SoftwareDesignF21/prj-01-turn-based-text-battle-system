@@ -46,17 +46,17 @@ public class Battler {
 
     public void useSkill(Battler user, Battler target){
         int damage = currentAttack.calcDamage(user, target);
-        if(currentAttack.isCrit(user)){ //if crit
+        if(currentAttack.crit(user)){ //if crit
             int oldDamage = damage;
             damage = currentAttack.applyCrit(damage); //multiply attack
             if(oldDamage < damage){ //if damage was actually changed (you can remove this check lol)
                 System.out.println(currentAttack.getCritMessage(user, target));
             }
         }
-        if(currentAttack.isMiss(user)){ //if missed
+        if(currentAttack.missed(user)){ //if missed
             System.out.println(currentAttack.getMissMessage(user, target));
         }
-        else if(currentAttack.isEvade(target)){ //if attack evaded
+        else if(currentAttack.evaded(target)){ //if attack evaded
             System.out.println(currentAttack.getEvaMessage(user, target));
         }
         else{ //if hit

@@ -1,6 +1,10 @@
 package main.java;
 public abstract class Attack {
 
+    /** Attack Constants **/
+    private static final int PHYSICAL = 0;
+    private static final int GUARANTEED = 1;
+
     /** Attack Parameters **/
     private int mpCost;
     private int numOfHits;
@@ -8,6 +12,7 @@ public abstract class Attack {
     private int critRate;
     private int critMultiplier;
     private int hitRate;
+    private int attackType;
 
     /** Default Attack Parameters **/
     Attack(){
@@ -17,6 +22,7 @@ public abstract class Attack {
         critRate = 0;
         critMultiplier = 3;
         hitRate = 100;
+        attackType = PHYSICAL;
     }
 
     /** Abstract methods **/
@@ -34,36 +40,26 @@ public abstract class Attack {
         return damage * critMultiplier;
     }
     /* Check if crit */
-    public boolean isCrit(Battler user){
+    public boolean crit(Battler user){
         int rate = user.getCritRate() + getCritRate();
-        return isRateApplied(rate);
+        return Rates.percentRateApplied(rate);
     }
     /* Check if hit */
-    public boolean isHit(Battler user){
+    public boolean hit(Battler user){
+        if(attackType == GUARANTEED) return true;
         int rate1 = user.getHitRate();
         int rate2 = getHitRate();
-        return isRateApplied(rate1) && isRateApplied(rate2);
+        return Rates.percentRateApplied(rate1) && Rates.percentRateApplied(rate2);
     }
     /* Check if miss */
-    public boolean isMiss(Battler user){
-        return !isHit(user);
+    public boolean missed(Battler user){
+        return !hit(user);
     }
     /* Check if evaded */
-    public boolean isEvade(Battler target){
+    public boolean evaded(Battler target){
+        if(attackType == GUARANTEED) return false;
         int rate = target.getEvaRate();
-        return isRateApplied(rate);
-    }
-    /* Calculate a percentage chance into a boolean
-    * rate: a number from 0 to 100 */
-    public boolean isRateApplied(int rate){
-        if(rate > 100) rate = 100;
-        else if(rate < 0) rate = 0;
-        if(rand(rate,100) <= rate) return true;
-        return false;
-    }
-    /* Random function for easy use */
-    public int rand(int min, int max){
-        return (int)Math.floor(Math.random()*(max-min+1)+min);
+        return Rates.percentRateApplied(rate);
     }
     /* Get Messages for cases of a Critical Hit, Miss, or Evaded Hit */
     public String getCritMessage(Battler user, Battler target){
@@ -87,5 +83,7 @@ public abstract class Attack {
     public int getCritRate() { return critRate;}
     public void setHitRate(int hitRate) { this.hitRate = hitRate;}
     public int getHitRate() { return hitRate;}
+    public void setAttackType(int attackType) { this.attackType = attackType;}
+    public int getAttackType() { return attackType;}
 
 }//end attack class
