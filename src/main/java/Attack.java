@@ -14,7 +14,7 @@ public abstract class Attack {
     private int hitRate; //hit rate of skill (0-100)
     private int attackType; //type of skill
     private boolean critAbility; //if skill can crit
-    private int variance; //random percent multiplied to attack (-var to +var)
+    private int variance; //random percent multiplied to attack, then added to attack (-var to +var)
 
     /** Default Attack Parameters **/
     Attack(){
