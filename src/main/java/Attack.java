@@ -41,7 +41,7 @@ public abstract class Attack {
     }
     /* Method for applying variance after calling calcDamage() */
     public int applyVariance(int damage){
-        return (int)(damage * Rates.variance(getVariance()));
+        return damage + (int)(damage * Rates.variance(getVariance()));
     }
     /* Method for applying crits after calling calcDamage() */
     public int applyCrit(int damage) {
