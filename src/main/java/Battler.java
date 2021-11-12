@@ -46,6 +46,7 @@ public class Battler {
 
     public void useSkill(Battler user, Battler target){
         int damage = currentAttack.calcDamage(user, target);
+        damage = currentAttack.applyVariance(damage);
         if(currentAttack.crit(user)){ //if crit
             int oldDamage = damage;
             damage = currentAttack.applyCrit(damage); //multiply attack
