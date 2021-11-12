@@ -8,19 +8,20 @@ public class Battler {
     private int MaxMP;
     private int Atk;
     private int Def;
+    private int CritRate; //crit rate (0-100)
+    private int HitRate; //hit rate (0-100)
+    private int EvaRate; //evasion rate (0-100)
     private String name;
     private boolean guard;
     private Attack currentAttack;
     private Set<Attack> specialAttacks;
 
     public Battler(){
-        HP = MaxHP = MP = MaxMP = Atk = Def = 0;
-        name = "";
-        guard = false;
-        currentAttack = new DefaultAttack();
+        this("",0,0,0,0,0,0,0,100,0);
     }
 
-    public Battler(String name, int HP, int MaxHP, int MP, int MaxMP, int Atk, int Def){
+    public Battler(String name, int HP, int MaxHP, int MP, int MaxMP, int Atk, int Def,
+                   int CritRate, int HitRate, int EvaRate){
         this.name = name;
         this.HP = HP;
         this.MaxHP = MaxHP;
@@ -28,20 +29,39 @@ public class Battler {
         this.MaxMP = MaxMP;
         this.Atk = Atk;
         this.Def = Def;
+        this.CritRate = CritRate;
+        this.HitRate = HitRate;
+        this.EvaRate = EvaRate;
         guard = false;
         currentAttack = new DefaultAttack();
     }
 
+    public Battler(String name, int HP, int MaxHP, int MP, int MaxMP, int Atk, int Def){
+        this(name, HP, MaxHP, MP, MaxMP, Atk, Def, 10, 100, 10);
+    }
+
     public Battler(String name, int HP, int MP, int Atk, int Def){
-        this.name = name;
-        this.HP = HP;
-        this.MaxHP = HP;
-        this.MP = MP;
-        this.MaxMP = MP;
-        this.Atk = Atk;
-        this.Def = Def;
-        guard = false;
-        currentAttack = new DefaultAttack();
+        this(name, HP, HP, MP, MP, Atk, Def);
+    }
+
+    public void useSkill(Battler user, Battler target){
+        int damage = currentAttack.calcDamage(user, target);
+        if(currentAttack.crit(user)){ //if crit
+            int oldDamage = damage;
+            damage = currentAttack.applyCrit(damage); //multiply attack
+            if(oldDamage < damage){ //if damage was actually changed (you can remove this check lol)
+                System.out.println(currentAttack.getCritMessage(user, target));
+            }
+        }
+        if(currentAttack.missed(user)){ //if missed
+            System.out.println(currentAttack.getMissMessage(user, target));
+        }
+        else if(currentAttack.evaded(target)){ //if attack evaded
+            System.out.println(currentAttack.getEvaMessage(user, target));
+        }
+        else{ //if hit
+
+        }
     }
 
 /**Getters and setters for basic variables**/
@@ -68,6 +88,18 @@ public class Battler {
     public int getDef() {return Def;}
 
     public void setDef(int def) {Def = def;}
+
+    public int getCritRate() {return CritRate;}
+
+    public void setCritRate(int critRate) {CritRate = critRate;}
+
+    public int getHitRate() {return HitRate;}
+
+    public void setHitRate(int hitRate) {HitRate = hitRate;}
+
+    public int getEvaRate() {return EvaRate;}
+
+    public void setEvaRate(int evaRate) {EvaRate = evaRate;}
 
     public String getName() {return name;}
 

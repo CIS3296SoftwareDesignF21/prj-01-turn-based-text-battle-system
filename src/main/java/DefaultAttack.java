@@ -1,9 +1,11 @@
 package main.java;
 public class DefaultAttack extends Attack{
 
-    private final int mpCost = 0;
-    private final int numOfHits = 1;
-    private final String skillName = "Attack";
+    /** DefaultAttack values **/
+    DefaultAttack(){
+        super();
+        setSkillName("Attack");
+    }
 
     /** Attack methods **/
     int calcDamage(Battler user, Battler target){
