@@ -14,6 +14,7 @@ public abstract class Attack {
     private int hitRate; //hit rate of skill (0-100)
     private int attackType; //type of skill
     private boolean critAbility; //if skill can crit
+    private int variance; //random percent multiplied to attack, then added to attack (-var to +var)
 
     /** Default Attack Parameters **/
     Attack(){
@@ -25,6 +26,7 @@ public abstract class Attack {
         hitRate = 100;
         attackType = PHYSICAL;
         critAbility = true;
+        variance = 20;
     }
 
     /** Abstract methods **/
@@ -36,6 +38,10 @@ public abstract class Attack {
     /* Check if skill is usable with current MP */
     public boolean isUsableMp(Battler user) {
         return (user.getMP() >= mpCost);
+    }
+    /* Method for applying variance after calling calcDamage() */
+    public int applyVariance(int damage){
+        return damage + (int)(damage * Rates.variance(getVariance()));
     }
     /* Method for applying crits after calling calcDamage() */
     public int applyCrit(int damage) {
@@ -90,5 +96,7 @@ public abstract class Attack {
     public int getAttackType() { return attackType;}
     public void setCritAbility(boolean critAbility) { this.critAbility = critAbility;}
     public boolean canCrit() { return critAbility;}
+    public void setVariance(int variance) { this.variance = variance;}
+    public int getVariance() { return variance;}
 
 }//end attack class

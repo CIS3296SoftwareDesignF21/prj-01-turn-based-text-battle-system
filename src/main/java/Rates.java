@@ -13,4 +13,8 @@ public class Rates {
     public static int rand(int min, int max){
         return (int)Math.floor(Math.random()*(max-min+1)+min);
     }
+    /* Randomly choose a number from -percent to +percent */
+    public static double variance(int percent){
+        return (double)rand(percent*-1,percent) / 100;
+    }
 }
