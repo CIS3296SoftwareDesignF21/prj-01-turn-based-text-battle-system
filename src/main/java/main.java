@@ -36,7 +36,7 @@ public class main {
 
 			case 2:
 				//Enemy(String name, int HP, int MP, int Atk, int Def)
-				player = new Enemy(charName,1000,50,150,150);
+				player = new Enemy(charName,750,50,100,30);
 				System.out.println("You chose to be a villain " + player.getName());
 				break;
 			default:
@@ -44,7 +44,6 @@ public class main {
 				System.exit(0);
 				break;
 		}
-
 		Battler enemy = new Enemy("Evil Dude", ThreadLocalRandom.current().nextInt(1000,2000),
 				ThreadLocalRandom.current().nextInt(1,101),
 				ThreadLocalRandom.current().nextInt(30,50),ThreadLocalRandom.current().nextInt(50,60));
@@ -61,7 +60,7 @@ public class main {
 				System.out.println("" + attack.getMessage(enemy, player));
 				System.out.printf("%s lost %d hp\n", player.getName(), enemyDamage);
 				player.setHP(player.getHP() - enemyDamage);
-				System.out.printf("%s have %d health remaining\n\n",player.getName(),player.getHP());
+				System.out.printf("%s has %d health remaining\n\n",player.getName(),player.getHP());
 			}
 		}
 

@@ -8,8 +8,6 @@ public class Battler {
     private int MaxMP;
     private int Atk;
     private int Def;
-    private int CritRate; //crit rate (0-100)
-    private int HitRate; //hit rate (0-100)
     private int EvaRate; //evasion rate (0-100)
     private String name;
     private boolean guard;
@@ -17,11 +15,11 @@ public class Battler {
     private Set<Attack> specialAttacks;
 
     public Battler(){
-        this("",0,0,0,0,0,0,0,100,0);
+        this("",0,0,0,0,0,100,0);
     }
 
     public Battler(String name, int HP, int MaxHP, int MP, int MaxMP, int Atk, int Def,
-                   int CritRate, int HitRate, int EvaRate){
+                    int EvaRate){
         this.name = name;
         this.HP = HP;
         this.MaxHP = MaxHP;
@@ -29,15 +27,13 @@ public class Battler {
         this.MaxMP = MaxMP;
         this.Atk = Atk;
         this.Def = Def;
-        this.CritRate = CritRate;
-        this.HitRate = HitRate;
         this.EvaRate = EvaRate;
         guard = false;
         currentAttack = new DefaultAttack();
     }
 
     public Battler(String name, int HP, int MaxHP, int MP, int MaxMP, int Atk, int Def){
-        this(name, HP, MaxHP, MP, MaxMP, Atk, Def, 10, 100, 10);
+        this(name, HP, MaxHP, MP, MaxMP, Atk, Def, 10);
     }
 
     public Battler(String name, int HP, int MP, int Atk, int Def){
@@ -89,14 +85,6 @@ public class Battler {
     public int getDef() {return Def;}
 
     public void setDef(int def) {Def = def;}
-
-    public int getCritRate() {return CritRate;}
-
-    public void setCritRate(int critRate) {CritRate = critRate;}
-
-    public int getHitRate() {return HitRate;}
-
-    public void setHitRate(int hitRate) {HitRate = hitRate;}
 
     public int getEvaRate() {return EvaRate;}
 

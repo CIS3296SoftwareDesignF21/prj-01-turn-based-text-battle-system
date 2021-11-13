@@ -7,9 +7,8 @@ public class Character extends Battler{
         addSpecialAttack(new Pierce());
     }
 
-    public Character(String name, int HP, int MaxHP, int MP, int MaxMP, int Atk, int Def,
-                     int CritRate, int HitRate, int EvaRate){
-        super(name, HP, MaxHP, MP, MaxMP, Atk, Def, CritRate, HitRate, EvaRate);
+    public Character(String name, int HP, int MaxHP, int MP, int MaxMP, int Atk, int Def, int EvaRate){
+        super(name, HP, MaxHP, MP, MaxMP, Atk, Def, EvaRate);
         addSpecialAttack(new DualSlash());
         addSpecialAttack(new Pierce());
     }
