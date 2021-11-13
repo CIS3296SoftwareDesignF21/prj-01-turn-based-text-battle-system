@@ -40,24 +40,10 @@ public class Battler {
         this(name, HP, HP, MP, MP, Atk, Def);
     }
 
-    public void useSkill(Battler user, Battler target){
-        int damage = currentAttack.calcDamage(user, target);
-        damage = currentAttack.applyVariance(damage);
-        if(currentAttack.crit(user)){ //if crit
-            int oldDamage = damage;
-            damage = currentAttack.applyCrit(damage); //multiply attack
-            if(oldDamage < damage){ //if damage was actually changed (you can remove this check lol)
-                System.out.println(currentAttack.getCritMessage(user, target));
-            }
-        }
-        if(currentAttack.missed(user)){ //if missed
-            System.out.println(currentAttack.getMissMessage(user, target));
-        }
-        else if(currentAttack.evaded(target)){ //if attack evaded
-            System.out.println(currentAttack.getEvaMessage(user, target));
-        }
-        else{ //if hit
-
+    public void useSkill(Battler target){
+        int damage = currentAttack.returnDamage(this,target);
+        if(damage != 0){
+            target.setHP(target.getHP() - damage);
         }
     }
 

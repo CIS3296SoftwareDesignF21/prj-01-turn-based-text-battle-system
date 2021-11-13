@@ -52,37 +52,5 @@ public class Enemy extends Battler{
         return newEnemy;
     }
 
-//    public Enemy(int level, String name){
-//        int hp, mp, atk, def;
-//        if(level == 1){
-//            hp = ThreadLocalRandom.current().nextInt(1000,2000);
-//            mp = ThreadLocalRandom.current().nextInt(1,101);
-//            atk = ThreadLocalRandom.current().nextInt(30,50);
-//            def = ThreadLocalRandom.current().nextInt(50,60);
-//            setStats(hp,mp,atk,def);
-//            //    private Set<Attack> specialAttacks;
-//        } else if(level == 2){
-//
-//        } else if (level == 3){
-//
-//        } else {
-//            System.out.println("Level must be between one and three");
-//            System.exit(-1);
-//        }
-//    }
-//
-//    //Used in generating a random enemy since we can't use the super constructor when we need to have multiple cases
-//    public void setStats(int hp,int mp,int atk,int def){
-//        super.setHP(hp);
-//        super.setMaxHP(hp);
-//        super.setMP(mp);
-//        super.setMaxMP(mp);
-//        super.setAtk(atk);
-//        super.setDef(def);
-//        super.setEvaRate(10);
-//        super.setName("Level one enemy");
-//        super.setGuard(false);
-//        super.setCurrentAttack(new DefaultAttack());
-//    }
 
 }

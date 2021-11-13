@@ -29,6 +29,48 @@ public abstract class Attack {
         variance = 20;
     }
 
+    Attack(int mpCost, int numOfHits, String skillName, int critRate, int critMultiplier, int hitRate, int attackType, boolean critAbility, int variance){
+          this.mpCost = mpCost; //cost of skill to use
+        this.numOfHits = numOfHits; //number times calcDamage() applied
+        this.skillName = skillName; //name of skill
+        this.critRate = critRate; //crit rate of skill (0-100)
+        this.critMultiplier = critMultiplier; //amount multiplied when crit
+        this.hitRate = hitRate; //hit rate of skill (0-100)
+        this.attackType = attackType; //type of skill
+        this.critAbility = critAbility; //if skill can crit
+        this.variance = variance; //random percent multiplied to attack, then added to attack (-var to +var)
+    }
+
+
+    int returnDamage(Battler user, Battler target){
+        int damage = calcDamage(user,target);
+        damage = applyVariance(damage);
+
+        if(crit(user)){
+            damage = applyCrit(damage);
+            System.out.println(getCritMessage(user,target));
+        }
+
+        if(missed(user)){
+            System.out.println(getMissMessage(user,target));
+        }
+
+        if(evaded(target)){
+            System.out.println(getEvaMessage(user,target));
+        }
+
+        if(damage <= 0){
+            System.out.printf("%s hit %s but did no damage!", user.getName(),target.getName());
+        }
+
+        return damage;
+    }
+
+
+
+
+
+
     /** Abstract methods **/
     abstract int calcDamage(Battler user, Battler target);
     abstract void addEffects(Battler user, Battler target);
