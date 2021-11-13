@@ -30,6 +30,7 @@ public class Battler {
         this.EvaRate = EvaRate;
         guard = false;
         currentAttack = new DefaultAttack();
+        specialAttacks = new HashSet<Attack>();
     }
 
     public Battler(String name, int HP, int MaxHP, int MP, int MaxMP, int Atk, int Def){
@@ -43,7 +44,9 @@ public class Battler {
     public void useSkill(Battler target){
         int damage = currentAttack.returnDamage(this,target);
         if(damage != 0){
+            System.out.printf("%s lost %d hp\n",target.getName(),damage);
             target.setHP(target.getHP() - damage);
+            System.out.printf("%s has %d health remaining\n\n",target.getName(),target.getHP());
         }
     }
 

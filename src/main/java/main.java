@@ -55,51 +55,27 @@ public class main {
 				break;
 		}
 
-//		Battler player = null;
-//
-//		System.out.println("Enter 1 to be Hero. Enter 2 to be villain. Enter -1 to quit");
-//		userInt = stdin.nextInt();
-//
-//		switch(userInt) {
-//
-//			case -1:
-//				System.out.println("You quit");
-//				System.exit(0);
-//				break;
-//
-//			case 1:
-//				//Character(String name, int HP,int MaxHP, int MP, int MaxMP, int Atk, int Def)
-//				player = new Character(charName,1500,35,45,55);
-//				System.out.println("You chose to be a hero " + player.getName());
-//				break;
-//
-//			case 2:
-//				//Enemy(String name, int HP, int MP, int Atk, int Def)
-//				player = new Enemy(charName,750,50,100,30);
-//				System.out.println("You chose to be a villain " + player.getName());
-//				break;
-//			default:
-//				System.out.println("Invalid entry.");
-//				System.exit(0);
-//				break;
-//		}
 
 
-		
+
 		int playerDamage, enemyDamage;
 		DefaultAttack attack = new DefaultAttack();
 		while(player.getHP() > 0  && enemy.getHP() > 0){
-			playerDamage = attack.calcDamage(player,enemy);
-			enemyDamage = attack.calcDamage(enemy,player);
-			System.out.println("" + attack.getMessage(player,enemy));
-			System.out.printf("%s lost %d hp\n",enemy.getName(),playerDamage);
-			enemy.setHP(enemy.getHP() - playerDamage);
-			System.out.printf("The enemy has %d health remaining\n\n",enemy.getHP());
+//			playerDamage = attack.calcDamage(player,enemy);
+//			enemyDamage = attack.calcDamage(enemy,player);
+
+//			System.out.println("" + attack.getMessage(player,enemy));
+//			System.out.printf("%s lost %d hp\n",enemy.getName(),playerDamage);
+//			enemy.setHP(enemy.getHP() - playerDamage);
+//			System.out.printf("The enemy has %d health remaining\n\n",enemy.getHP());
+
+			player.useSkill(enemy);
 			if(enemy.getHP() > 0) {
-				System.out.println("" + attack.getMessage(enemy, player));
-				System.out.printf("%s lost %d hp\n", player.getName(), enemyDamage);
-				player.setHP(player.getHP() - enemyDamage);
-				System.out.printf("%s has %d health remaining\n\n",player.getName(),player.getHP());
+//				System.out.println("" + attack.getMessage(enemy, player));
+//				System.out.printf("%s lost %d hp\n", player.getName(), enemyDamage);
+//				player.setHP(player.getHP() - enemyDamage);
+//				System.out.printf("%s has %d health remaining\n\n",player.getName(),player.getHP());
+				enemy.useSkill(player);
 			}
 		}
 

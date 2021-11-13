@@ -43,6 +43,7 @@ public abstract class Attack {
 
 
     int returnDamage(Battler user, Battler target){
+        System.out.println(getMessage(user,target));
         int damage = calcDamage(user,target);
         damage = applyVariance(damage);
 
