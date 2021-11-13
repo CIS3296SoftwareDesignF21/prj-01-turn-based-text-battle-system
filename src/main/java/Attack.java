@@ -50,13 +50,13 @@ public abstract class Attack {
     /* Check if crit */
     public boolean crit(Battler user){
         if(!canCrit()) return false;
-        int rate = user.getCritRate() + getCritRate();
+        int rate = getCritRate() + getCritRate();
         return Rates.percentRateApplied(rate);
     }
     /* Check if hit */
     public boolean hit(Battler user){
         if(attackType == GUARANTEED) return true;
-        int rate1 = user.getHitRate();
+        int rate1 = getHitRate();
         int rate2 = getHitRate();
         return Rates.percentRateApplied(rate1) && Rates.percentRateApplied(rate2);
     }
