@@ -24,7 +24,7 @@ public class Enemy extends Battler{
     }
 
 
-    public static Enemy randomEnemy(int level, String name){
+    public static Enemy randomEnemy(int level){
         int hp, mp, atk, def;
         hp = mp = atk = def = 0;
         Enemy newEnemy;
@@ -47,7 +47,8 @@ public class Enemy extends Battler{
             System.out.println("Level must be between one and three");
             System.exit(-1);
         }
-        newEnemy = new Enemy("Level one enemy",hp,mp,atk,def);
+        String enemyName = String.format("Level %d enemy",level);
+        newEnemy = new Enemy(enemyName,hp,mp,atk,def);
         return newEnemy;
     }
 
