@@ -10,7 +10,7 @@ public class Pierce extends Attack{
 
     /** Attack methods **/
     int calcDamage(Battler user, Battler target){
-        return user.getAtk();
+        return Math.max(0, user.getAtk());
     }
     void addEffects(Battler user, Battler target){
         // does nothing

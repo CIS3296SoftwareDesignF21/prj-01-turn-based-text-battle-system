@@ -11,7 +11,7 @@ public class DualSlash extends Attack{
 
     /** Attack methods **/
     int calcDamage(Battler user, Battler target){
-        return user.getAtk() * 2 - target.getDef();
+        return Math.max(0, user.getAtk() * 2 - target.getDef());
     }
     void addEffects(Battler user, Battler target){
         // does nothing

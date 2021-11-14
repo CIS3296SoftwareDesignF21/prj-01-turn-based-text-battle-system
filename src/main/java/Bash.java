@@ -10,7 +10,7 @@ public class Bash extends Attack{
 
     /** Attack methods **/
     int calcDamage(Battler user, Battler target){
-        return user.getAtk() * 4 - target.getDef() * 2;
+        return Math.max(0, user.getAtk() * 4 - target.getDef() * 2);
     }
     void addEffects(Battler user, Battler target){
         // does nothing

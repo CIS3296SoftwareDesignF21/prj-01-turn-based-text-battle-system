@@ -45,30 +45,43 @@ public class Battler {
     }
 
     public void useSkill(Battler user, Battler target){
-        int damage = currentAttack.calcDamage(user, target);
-        damage = currentAttack.applyVariance(damage);
-        if(currentAttack.crit(user)){ //if crit
-            int oldDamage = damage;
-            damage = currentAttack.applyCrit(damage); //multiply attack
-            if(oldDamage < damage){ //if damage was actually changed (you can remove this check lol)
-                System.out.println(currentAttack.getCritMessage(user, target));
+        for(int i = 0; i < currentAttack.getNumOfHits(); i++) {
+            int damage = currentAttack.calcDamage(user, target);
+            damage = currentAttack.applyVariance(damage);
+            if (currentAttack.crit(user)) { //if crit
+                int oldDamage = damage;
+                damage = currentAttack.applyCrit(damage); //multiply attack
+                if (oldDamage < damage) { //if damage was actually changed (you can remove this check lol)
+                    System.out.println(currentAttack.getCritMessage(user, target));
+                }
+            }
+            if (currentAttack.missed(user)) { //if missed
+                System.out.println(currentAttack.getMissMessage(user, target));
+            } else if (currentAttack.evaded(target)) { //if attack evaded
+                System.out.println(currentAttack.getEvaMessage(user, target));
+            } else { //if hit
+                System.out.println(currentAttack.getMessage(user, target));
+                currentAttack.addEffects(user, target);
+                if(target.isGuarding()) damage /= 2;
+                target.subtractHP(damage);
+                if(!isGuarding()) {
+                    if (damage >= 0) System.out.println(target.getName() + " took " + damage + " damage!");
+                    else System.out.println(target.getName() + " recovered " + Math.abs(damage) + " HP");
+                }
             }
         }
-        if(currentAttack.missed(user)){ //if missed
-            System.out.println(currentAttack.getMissMessage(user, target));
-        }
-        else if(currentAttack.evaded(target)){ //if attack evaded
-            System.out.println(currentAttack.getEvaMessage(user, target));
-        }
-        else{ //if hit
-
-        }
+        guard = false;
     }
 
 /**Getters and setters for basic variables**/
     public int getHP() {return HP;}
 
     public void setHP(int HP) {this.HP = HP;}
+
+    public void subtractHP(int HP) {
+        this.HP -= HP;
+        if(HP < 0) HP = 0;
+    }
 
     public int getMaxHP() {return MaxHP;}
 
