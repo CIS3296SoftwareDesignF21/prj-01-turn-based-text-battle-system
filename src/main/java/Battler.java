@@ -63,11 +63,12 @@ public class Battler {
             } else if (currentAttack.evaded(target)) { //if attack evaded
                 System.out.println(currentAttack.getEvaMessage(user, target));
             } else { //if hit
+                user.subtractMP(currentAttack.getMpCost());
                 System.out.println(currentAttack.getMessage(user, target));
                 currentAttack.addEffects(user, target);
-                if(target.isGuarding()) damage /= 2;
-                target.subtractHP(damage);
-                if(!isGuarding()) {
+                if(target.isGuarding() && damage > 0) damage /= 2; //guarding halves damage if losing health
+                if(!isGuarding()) { //cant damage if guarding
+                    target.subtractHP(damage);
                     if (damage >= 0) System.out.println(target.getName() + " took " + damage + " damage!");
                     else System.out.println(target.getName() + " recovered " + Math.abs(damage) + " HP");
                 }
@@ -93,6 +94,11 @@ public class Battler {
     public int getMP() {return MP;}
 
     public void setMP(int MP) {this.MP = MP;}
+
+    public void subtractMP(int MP) {
+        this.MP -= MP;
+        if(MP < 0) MP = 0;
+    }
 
     public int getMaxMP() {return MaxMP;}
 
