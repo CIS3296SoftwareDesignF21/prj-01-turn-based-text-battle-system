@@ -49,21 +49,9 @@ public class Battler {
 
     public void useSkill(Battler user, Battler target){
         for(int i = 0; i < currentAttack.getNumOfHits(); i++) {
-            int damage = currentAttack.calcDamage(user, target);
-            damage = currentAttack.applyVariance(damage);
-            if (currentAttack.crit(user)) { //if crit
-                int oldDamage = damage;
-                damage = currentAttack.applyCrit(damage); //multiply attack
-                if (oldDamage < damage) { //if damage was actually changed (you can remove this check lol)
-                    System.out.println(currentAttack.getCritMessage(user, target));
-                }
-            }
-            if (currentAttack.missed(user)) { //if missed
-                System.out.println(currentAttack.getMissMessage(user, target));
-            } else if (currentAttack.evaded(target)) { //if attack evaded
-                System.out.println(currentAttack.getEvaMessage(user, target));
-            } else { //if hit
-                user.subtractMP(currentAttack.getMpCost());
+            int damage = currentAttack.damageProcessing(user, target);
+            user.subtractMP(currentAttack.getMpCost());
+            if(currentAttack.hitProcessing(user, target)){
                 System.out.println(currentAttack.getMessage(user, target));
                 currentAttack.addEffects(user, target);
                 if(target.isGuarding() && damage > 0) damage /= 2; //guarding halves damage if losing health
