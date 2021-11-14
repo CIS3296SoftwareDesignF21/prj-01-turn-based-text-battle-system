@@ -1,4 +1,6 @@
 package main.java;
+import main.java.Attacks.*;
+
 import java.util.*;
 
 public class Battler {
