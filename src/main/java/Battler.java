@@ -74,7 +74,6 @@ public class Battler {
                 }
             }
         }
-        guard = false;
     }
 
 /**Getters and setters for basic variables**/
