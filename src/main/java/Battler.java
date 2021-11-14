@@ -34,6 +34,7 @@ public class Battler {
         this.EvaRate = EvaRate;
         guard = false;
         currentAttack = new DefaultAttack();
+        specialAttacks = new HashSet<Attack>();
     }
 
     public Battler(String name, int HP, int MaxHP, int MP, int MaxMP, int Atk, int Def){

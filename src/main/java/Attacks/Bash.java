@@ -1,21 +1,25 @@
-package main.java;
-public class Bash extends Attack{
+package main.java.Attacks;
+
+import main.java.Attacks.Attack;
+import main.java.Battler;
+
+public class Bash extends Attack {
 
     /** Default Bash values **/
-    Bash(){
+    public Bash(){
         super();
         setMpCost(20);
         setSkillName("Bash");
     }
 
     /** Attack methods **/
-    int calcDamage(Battler user, Battler target){
+    public int calcDamage(Battler user, Battler target){
         return Math.max(0, user.getAtk() * 4 - target.getDef() * 2);
     }
-    void addEffects(Battler user, Battler target){
+    public void addEffects(Battler user, Battler target){
         // does nothing
     }
-    String getMessage(Battler user, Battler target){
+    public String getMessage(Battler user, Battler target){
         return user.getName() + " bashes into " + target.getName() + "!";
     }
 

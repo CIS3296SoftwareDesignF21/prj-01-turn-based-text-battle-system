@@ -1,4 +1,8 @@
-package main.java;
+package main.java.Attacks;
+
+import main.java.Battler;
+import main.java.Rates;
+
 public abstract class Attack {
 
     /** Attack Constants **/
@@ -30,9 +34,9 @@ public abstract class Attack {
     }
 
     /** Abstract methods **/
-    abstract int calcDamage(Battler user, Battler target);
-    abstract void addEffects(Battler user, Battler target);
-    abstract String getMessage(Battler user, Battler target);
+    abstract public int calcDamage(Battler user, Battler target);
+    abstract public void addEffects(Battler user, Battler target);
+    abstract public String getMessage(Battler user, Battler target);
 
     /** Methods for attacks **/
     /* Check if skill is usable with current MP */

@@ -1,8 +1,12 @@
-package main.java;
-public class DualSlash extends Attack{
+package main.java.Attacks;
+
+import main.java.Attacks.Attack;
+import main.java.Battler;
+
+public class DualSlash extends Attack {
 
     /** Default DualSlash values **/
-    DualSlash(){
+    public DualSlash(){
         super();
         setMpCost(10);
         setNumOfHits(2);
@@ -10,13 +14,13 @@ public class DualSlash extends Attack{
     }
 
     /** Attack methods **/
-    int calcDamage(Battler user, Battler target){
+    public int calcDamage(Battler user, Battler target){
         return Math.max(0, user.getAtk() * 2 - target.getDef());
     }
-    void addEffects(Battler user, Battler target){
+    public void addEffects(Battler user, Battler target){
         // does nothing
     }
-    String getMessage(Battler user, Battler target){
+    public String getMessage(Battler user, Battler target){
         return user.getName() + " attacks twice!";
     }
 
