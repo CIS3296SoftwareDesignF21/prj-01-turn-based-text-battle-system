@@ -1,6 +1,5 @@
-package main.java;
-
-import main.java.Attacks.*;
+package Battlers;
+import Attacks.*;
 
 public class Enemy extends Battler{
     public Enemy(){

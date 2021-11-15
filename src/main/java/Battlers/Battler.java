@@ -1,5 +1,5 @@
-package main.java;
-import main.java.Attacks.*;
+package Battlers;
+import Attacks.*;
 
 import java.util.*;
 

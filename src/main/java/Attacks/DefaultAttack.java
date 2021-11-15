@@ -1,6 +1,5 @@
-package main.java.Attacks;
-
-import main.java.Battler;
+package Attacks;
+import Battlers.*;
 
 public class DefaultAttack extends Attack {
 

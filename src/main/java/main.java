@@ -1,6 +1,5 @@
-package main.java;
-
-import main.java.Attacks.*;
+import Attacks.*;
+import Battlers.*;
 
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
@@ -31,7 +30,7 @@ public class main {
 
 			case 1:
 				//Character(String name, int HP,int MaxHP, int MP, int MaxMP, int Atk, int Def)
-				player = new Character(charName,1500,35,45,55);
+				player = new Player(charName,1500,35,45,55);
 				System.out.println("You chose to be a hero " + player.getName());
 				break;
 
@@ -52,18 +51,18 @@ public class main {
 		int playerDamage, enemyDamage;
 		DefaultAttack attack = new DefaultAttack();
 		while(player.getHP() > 0  && enemy.getHP() > 0){
-			playerDamage = attack.calcDamage(player,enemy);
-			enemyDamage = attack.calcDamage(enemy,player);
-			System.out.println("" + attack.getMessage(player,enemy));
-			System.out.printf("%s lost %d hp\n",enemy.getName(),playerDamage);
-			enemy.setHP(enemy.getHP() - playerDamage);
-			System.out.printf("The enemy has %d health remaining\n\n",enemy.getHP());
-			if(enemy.getHP() > 0) {
-				System.out.println("" + attack.getMessage(enemy, player));
-				System.out.printf("%s lost %d hp\n", player.getName(), enemyDamage);
-				player.setHP(player.getHP() - enemyDamage);
-				System.out.printf("%s have %d health remaining\n\n",player.getName(),player.getHP());
-			}
+//			playerDamage = attack.calcDamage(player,enemy);
+//			enemyDamage = attack.calcDamage(enemy,player);
+//			System.out.println("" + attack.getMessage(player,enemy));
+//			System.out.printf("%s lost %d hp\n",enemy.getName(),playerDamage);
+//			enemy.setHP(enemy.getHP() - playerDamage);
+//			System.out.printf("The enemy has %d health remaining\n\n",enemy.getHP());
+//			if(enemy.getHP() > 0) {
+//				System.out.println("" + attack.getMessage(enemy, player));
+//				System.out.printf("%s lost %d hp\n", player.getName(), enemyDamage);
+//				player.setHP(player.getHP() - enemyDamage);
+//				System.out.printf("%s have %d health remaining\n\n",player.getName(),player.getHP());
+			//}
 		}
 
 		if(player.getHP() < 0){

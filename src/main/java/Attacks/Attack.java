@@ -1,7 +1,5 @@
-package main.java.Attacks;
-
-import main.java.Battler;
-import main.java.Rates;
+package Attacks;
+import Battlers.*;
 
 public abstract class Attack {
 
