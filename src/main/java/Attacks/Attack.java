@@ -41,20 +41,28 @@ public abstract class Attack {
     /** Methods for attacks **/
 
     /* Damage Processing: Processes and Applies Critical Hits and Random Variance */
-    public int damageProcessing(Battler user, Battler target){
+    public int getDamage(Battler user, Battler target){
         int damage = calcDamage(user, target);
         damage = applyVariance(damage);
         if (crit(user)) { //if crit
-            int oldDamage = damage;
             damage = applyCrit(damage); //multiply attack
-            if (oldDamage < damage) { //if damage was actually changed (you can remove this check lol)
-                System.out.println(getCritMessage(user, target));
-            }
         }
+
+        if(target.isGuarding())
+            damage /= 2;
+
+        //If you are targeting yourself, negative damage can heal
+        //So we don't set a floor, but if you are attempting to hit an enemy,
+        //the damage shouldn't fall below 0
+        if(!target.equals(user) && damage < 0){
+            damage = 0;
+        }
+
+
         return damage;
     }
     /* Hit Processing: Processes Misses and Evasions */
-    public boolean hitProcessing(Battler user, Battler target){
+    public boolean doesHit(Battler user, Battler target){
         if (missed(user)) { //if missed
             System.out.println(getMissMessage(user, target));
             return false;
@@ -64,6 +72,36 @@ public abstract class Attack {
         }
         return true;
     }
+
+    public void processAttack(Battler user, Battler target){
+        int damage = 0;
+
+        if(mpCost > user.getMP()){
+            System.out.printf("%s does not have enough mana to perform %s, Attack failed!\n",user.getName(),skillName);
+            return;
+        } else {
+            user.subtractMP(mpCost);
+        }
+
+
+        for(int i = 0; i < numOfHits; i++){
+            damage = getDamage(user,target);
+            if(doesHit(user,target)){
+                System.out.println(getMessage(user,target));
+                addEffects(user,target);
+                target.subtractHP(damage);
+                if(damage >= 0)
+                    System.out.println(target.getName() + " took " + damage + " damage!");
+                else
+                    System.out.println(target.getName() + " recovered " + Math.abs(damage) + " HP");
+                System.out.printf("%s has %d health remaining\n\n",target.getName(),target.getHP());
+            }
+        }
+
+    }
+
+
+
     /* Check if skill is usable with current MP */
     public boolean isUsableMp(Battler user) {
         return (user.getMP() >= mpCost);
