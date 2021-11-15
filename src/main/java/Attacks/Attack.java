@@ -1,4 +1,8 @@
-package main.java;
+package main.java.Attacks;
+
+import main.java.Battler;
+import main.java.Rates;
+
 public abstract class Attack {
 
     /** Attack Constants **/
@@ -29,12 +33,39 @@ public abstract class Attack {
         variance = 20;
     }
 
+
+
     /** Abstract methods **/
-    abstract int calcDamage(Battler user, Battler target);
-    abstract void addEffects(Battler user, Battler target);
-    abstract String getMessage(Battler user, Battler target);
+    abstract public int calcDamage(Battler user, Battler target);
+    abstract public void addEffects(Battler user, Battler target);
+    abstract public String getMessage(Battler user, Battler target);
 
     /** Methods for attacks **/
+
+    /* Damage Processing: Processes and Applies Critical Hits and Random Variance */
+    public int damageProcessing(Battler user, Battler target){
+        int damage = calcDamage(user, target);
+        damage = applyVariance(damage);
+        if (crit(user)) { //if crit
+            int oldDamage = damage;
+            damage = applyCrit(damage); //multiply attack
+            if (oldDamage < damage) { //if damage was actually changed (you can remove this check lol)
+                System.out.println(getCritMessage(user, target));
+            }
+        }
+        return damage;
+    }
+    /* Hit Processing: Processes Misses and Evasions */
+    public boolean hitProcessing(Battler user, Battler target){
+        if (missed(user)) { //if missed
+            System.out.println(getMissMessage(user, target));
+            return false;
+        } else if (evaded(target)) { //if attack evaded
+            System.out.println(getEvaMessage(user, target));
+            return false;
+        }
+        return true;
+    }
     /* Check if skill is usable with current MP */
     public boolean isUsableMp(Battler user) {
         return (user.getMP() >= mpCost);

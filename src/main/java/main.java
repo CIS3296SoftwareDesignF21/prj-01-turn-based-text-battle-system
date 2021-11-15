@@ -1,6 +1,7 @@
 package main.java;
 
-import java.io.*;
+import main.java.Attacks.*;
+
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 

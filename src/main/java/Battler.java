@@ -1,4 +1,6 @@
 package main.java;
+import main.java.Attacks.*;
+
 import java.util.*;
 
 public class Battler {
@@ -34,6 +36,7 @@ public class Battler {
         this.EvaRate = EvaRate;
         guard = false;
         currentAttack = new DefaultAttack();
+        specialAttacks = new HashSet<Attack>();
     }
 
     public Battler(String name, int HP, int MaxHP, int MP, int MaxMP, int Atk, int Def){
@@ -45,23 +48,19 @@ public class Battler {
     }
 
     public void useSkill(Battler user, Battler target){
-        int damage = currentAttack.calcDamage(user, target);
-        damage = currentAttack.applyVariance(damage);
-        if(currentAttack.crit(user)){ //if crit
-            int oldDamage = damage;
-            damage = currentAttack.applyCrit(damage); //multiply attack
-            if(oldDamage < damage){ //if damage was actually changed (you can remove this check lol)
-                System.out.println(currentAttack.getCritMessage(user, target));
+        for(int i = 0; i < currentAttack.getNumOfHits(); i++) {
+            int damage = currentAttack.damageProcessing(user, target);
+            user.subtractMP(currentAttack.getMpCost());
+            if(currentAttack.hitProcessing(user, target)){
+                System.out.println(currentAttack.getMessage(user, target));
+                currentAttack.addEffects(user, target);
+                if(target.isGuarding() && damage > 0) damage /= 2; //guarding halves damage if losing health
+                if(!isGuarding()) { //cant damage if guarding
+                    target.subtractHP(damage);
+                    if (damage >= 0) System.out.println(target.getName() + " took " + damage + " damage!");
+                    else System.out.println(target.getName() + " recovered " + Math.abs(damage) + " HP");
+                }
             }
-        }
-        if(currentAttack.missed(user)){ //if missed
-            System.out.println(currentAttack.getMissMessage(user, target));
-        }
-        else if(currentAttack.evaded(target)){ //if attack evaded
-            System.out.println(currentAttack.getEvaMessage(user, target));
-        }
-        else{ //if hit
-
         }
     }
 
@@ -70,6 +69,11 @@ public class Battler {
 
     public void setHP(int HP) {this.HP = HP;}
 
+    public void subtractHP(int HP) {
+        this.HP -= HP;
+        if(HP < 0) HP = 0;
+    }
+
     public int getMaxHP() {return MaxHP;}
 
     public void setMaxHP(int maxHP) {MaxHP = maxHP;}
@@ -77,6 +81,11 @@ public class Battler {
     public int getMP() {return MP;}
 
     public void setMP(int MP) {this.MP = MP;}
+
+    public void subtractMP(int MP) {
+        this.MP -= MP;
+        if(MP < 0) MP = 0;
+    }
 
     public int getMaxMP() {return MaxMP;}
 

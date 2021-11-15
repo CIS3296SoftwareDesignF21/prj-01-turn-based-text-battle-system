@@ -1,4 +1,7 @@
 package main.java;
+
+import main.java.Attacks.*;
+
 public class Enemy extends Battler{
     public Enemy(){
         super();
