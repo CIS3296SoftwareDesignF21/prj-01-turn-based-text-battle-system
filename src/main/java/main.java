@@ -55,7 +55,7 @@ public class main {
 		}
 
 		while (player.getHP() > 0 && enemy.getHP() > 0) {
-			System.out.println("Enter 1 for attack. Enter 2 for Guard. Enter -1 to quit. ");
+			System.out.println("Enter 1 for attack. Enter 2 for Guard. Enter -1 to quit.\n\n ");
 			userInt = stdin.nextInt();
 
 			if (userInt == 1) {
@@ -65,7 +65,6 @@ public class main {
 				}
 			} else if (userInt == 2) {
 				player.useAction(enemy, "Guard");
-				System.out.print("test");
 				if (enemy.getHP() > 0) {
 					enemy.useAction(player, "Attack");
 				}
