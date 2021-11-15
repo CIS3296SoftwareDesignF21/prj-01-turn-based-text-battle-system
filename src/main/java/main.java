@@ -72,7 +72,7 @@ public class main {
 				System.out.print("You have quit");
 				System.exit(-1);
 			} else {
-				System.out.print("Invalid Entry");
+				System.out.println("Invalid Entry\n");
 			}
 			player.endTurn();
 			enemy.endTurn();

@@ -115,7 +115,7 @@ public class Battler {
 
     public void setGuard(boolean guard) {
     	this.guard = guard;
-    	Def = Def * 2; 
+    	//Def = Def * 2; 
     	}
 
     public Attack getCurrentAttack() {
@@ -134,7 +134,7 @@ public class Battler {
         this.specialAttacks.add(specialAttack);
     }
     public void endTurn() {
-    	Def = Def / 2;
+    	//Def = Def / 2;
     	this.guard = false;
     	
     }
