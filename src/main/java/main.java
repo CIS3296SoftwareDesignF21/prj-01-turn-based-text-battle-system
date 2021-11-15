@@ -55,7 +55,7 @@ public class main {
 		}
 
 		while (player.getHP() > 0 && enemy.getHP() > 0) {
-			System.out.println("Enter 1 for attack. Enter 2 for Guard. Enter -1 to quit.\n\n ");
+			System.out.println("Enter 1 for attack. Enter 2 for Guard. Enter -1 to quit.\n ");
 			userInt = stdin.nextInt();
 
 			if (userInt == 1) {
