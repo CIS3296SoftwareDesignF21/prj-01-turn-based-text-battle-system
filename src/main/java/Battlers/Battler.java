@@ -51,6 +51,7 @@ public class Battler {
         if(action.equals("Attack")){
             currentAttack.processAttack(this,target);
         } else if(action.equals("Guard")){
+        	System.out.printf(name + " is guarding\n\n");
             setGuard(true);
         } else{
             System.out.println("Invalid action selected");
@@ -112,7 +113,10 @@ public class Battler {
 
     public boolean isGuarding() {return guard;}
 
-    public void setGuard(boolean guard) {this.guard = guard;}
+    public void setGuard(boolean guard) {
+    	this.guard = guard;
+    	Def = Def * 2; 
+    	}
 
     public Attack getCurrentAttack() {
         return currentAttack;
@@ -128,5 +132,10 @@ public class Battler {
 
     public void addSpecialAttack(Attack specialAttack) {
         this.specialAttacks.add(specialAttack);
+    }
+    public void endTurn() {
+    	Def = Def / 2;
+    	this.guard = false;
+    	
     }
 }
