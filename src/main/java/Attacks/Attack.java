@@ -45,6 +45,7 @@ public abstract class Attack {
         int damage = calcDamage(user, target);
         damage = applyVariance(damage);
         if (crit(user)) { //if crit
+            System.out.println(getCritMessage(user,target));
             damage = applyCrit(damage); //multiply attack
         }
 
