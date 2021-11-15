@@ -14,7 +14,7 @@ public class Battler {
     private String name;
     private boolean guard;
     private Attack currentAttack;
-    private Set<Attack> specialAttacks;
+    private Set<Attack> specialAttacks = new HashSet<Attack>();
 
     public Battler(){
         this("",0,0,0,0,0,0,0,100,0);
@@ -107,7 +107,10 @@ public class Battler {
 
     public boolean isGuarding() {return guard;}
 
-    public void setGuard(boolean guard) {this.guard = guard;}
+    public void setGuard(boolean guard) {
+    	
+    this.guard = guard;
+    Def = Def * 2;} //defense is doubled
 
     public Attack getCurrentAttack() {
         return currentAttack;
@@ -123,5 +126,9 @@ public class Battler {
 
     public void addSpecialAttack(Attack specialAttack) {
         this.specialAttacks.add(specialAttack);
+    }
+    public void endTurn() {
+    this.guard = false;
+    Def = Def / 2; //defense returned to normal
     }
 }

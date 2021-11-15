@@ -8,14 +8,17 @@ public class DefaultAttack extends Attack{
     }
 
     /** Attack methods **/
-    int calcDamage(Battler user, Battler target){
-        return user.getAtk() * 2 - target.getDef();
+    int calcDamage(Battler user, Battler target){  		
+    	return user.getAtk() * 3 - target.getDef();
+    	
     }
     void addEffects(Battler user, Battler target){
         // does nothing
     }
     String getMessage(Battler user, Battler target){
+
         return user.getName() + " attacks!";
+    	} 
     }
 
-}
+
