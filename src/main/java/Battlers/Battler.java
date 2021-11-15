@@ -1,5 +1,5 @@
-package main.java;
-import main.java.Attacks.*;
+package Battlers;
+import Attacks.*;
 
 import java.util.*;
 
@@ -47,22 +47,17 @@ public class Battler {
         this(name, HP, HP, MP, MP, Atk, Def);
     }
 
-    public void useSkill(Battler user, Battler target){
-        for(int i = 0; i < currentAttack.getNumOfHits(); i++) {
-            int damage = currentAttack.damageProcessing(user, target);
-            user.subtractMP(currentAttack.getMpCost());
-            if(currentAttack.hitProcessing(user, target)){
-                System.out.println(currentAttack.getMessage(user, target));
-                currentAttack.addEffects(user, target);
-                if(target.isGuarding() && damage > 0) damage /= 2; //guarding halves damage if losing health
-                if(!isGuarding()) { //cant damage if guarding
-                    target.subtractHP(damage);
-                    if (damage >= 0) System.out.println(target.getName() + " took " + damage + " damage!");
-                    else System.out.println(target.getName() + " recovered " + Math.abs(damage) + " HP");
-                }
-            }
+    public void useAction(Battler target,String action){
+        if(action.equals("Attack")){
+            currentAttack.processAttack(this,target);
+        } else if(action.equals("Guard")){
+            setGuard(true);
+        } else{
+            System.out.println("Invalid action selected");
         }
+
     }
+
 
 /**Getters and setters for basic variables**/
     public int getHP() {return HP;}
@@ -71,7 +66,7 @@ public class Battler {
 
     public void subtractHP(int HP) {
         this.HP -= HP;
-        if(HP < 0) HP = 0;
+        if(this.HP < 0) this.HP = 0;
     }
 
     public int getMaxHP() {return MaxHP;}
@@ -84,7 +79,7 @@ public class Battler {
 
     public void subtractMP(int MP) {
         this.MP -= MP;
-        if(MP < 0) MP = 0;
+        if(this.MP < 0) this.MP = 0;
     }
 
     public int getMaxMP() {return MaxMP;}

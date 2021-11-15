@@ -1,6 +1,6 @@
-package main.java.Attacks;
+package Attacks;
+import Battlers.*;
 
-import main.java.Battler;
 
 public class DualSlash extends Attack {
 

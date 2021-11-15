@@ -1,4 +1,4 @@
-package main.java;
+package Attacks;
 
 public class Rates {
     /* Calculate a percentage chance into a boolean
