@@ -51,8 +51,10 @@ public class Battler {
         if(action.equals("Attack")){
             currentAttack.processAttack(this,target);
         } else if(action.equals("Guard")){
-        	System.out.printf(name + " is guarding\n\n");
+        	System.out.println(name + " guards\n");
             setGuard(true);
+        } else if(action.equals("Cower")){
+            System.out.println(name + " cowers in fear!\n");
         } else{
             System.out.println("Invalid action selected");
         }

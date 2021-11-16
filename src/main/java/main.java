@@ -53,7 +53,12 @@ public class main {
 						break;
 					case 2:
 						player.setCurrentAttack(player.attackMenu(player.getSpecialAttacksArray()));
-						player.useAction(enemy, "Attack");
+						if(player.getCurrentAttack().getSkillName().equals("Attack")){
+							player.useAction(enemy, "Cower");
+						}
+						else{
+							player.useAction(enemy, "Attack");
+						}
 						if (enemy.getHP() > 0) {
 							enemy.useAction(player, "Attack");
 						}

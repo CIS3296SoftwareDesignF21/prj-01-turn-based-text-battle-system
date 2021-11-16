@@ -96,7 +96,7 @@ public class Player extends Battler{
             System.out.println("Choose an action:");
             userInt = sc.nextInt();
             if(userInt == -1){
-                System.out.println(getName() + " out of options selects Attack!");
+                //System.out.println(getName() + " out of options selects Attack!");
                 return new DefaultAttack();
             }
             else if(userInt < 1 || userInt > specials.length){ System.out.println("Invalid Skill!");}
