@@ -2,7 +2,6 @@ import Attacks.*;
 import Battlers.*;
 
 import java.util.*;
-import java.util.concurrent.ThreadLocalRandom;
 
 public class main {
 	static Scanner stdin = new Scanner(System.in);
@@ -12,22 +11,21 @@ public class main {
 	static boolean fin = false;
 	static Player player = null;
 	static Enemy enemy = null;
-	static Scanner sc = new Scanner(System.in);
 
 	public static void main(String[] args) {
 		System.out.println("Enter your name:");
-		charName = sc.nextLine();
+		charName = stdin.nextLine();
 
 		setDifficulty();
 		battleLoop();
 	}
 
-	static void setDifficulty(){
+	static private void setDifficulty(){
 		//System.out.println("How powerful is your character (1 - 3):");
 		userInt = 0;
 		while(userInt > 3 || userInt < 1) {
 			System.out.println("Select your power level (1-3):");
-			userInt = sc.nextInt();
+			userInt = stdin.nextInt();
 		}
 		player = Player.randomPlayer(userInt, charName);
 
@@ -35,7 +33,7 @@ public class main {
 		userInt = 0;
 		while(userInt > 3 || userInt < 1) {
 			System.out.println("Select your enemy's power level (1-3)");
-			userInt = sc.nextInt();
+			userInt = stdin.nextInt();
 		}
 		enemy = Enemy.randomEnemy(userInt);
 	}
@@ -44,7 +42,7 @@ public class main {
 		while(!fin){
 			while (player.getHP() > 0 && enemy.getHP() > 0) {
 				System.out.println("Enter 1 for attack. Enter 2 for Guard. Enter -1 to quit.");
-				userInt = sc.nextInt();
+				userInt = stdin.nextInt();
 				switch(userInt){
 					case 1:
 						player.useAction(enemy, "Attack");
@@ -88,7 +86,7 @@ public class main {
 
 		while(true) {
 			System.out.println("Do you want to play again? Enter \"yes\" or \"no\".");
-			String response = sc.nextLine();
+			String response = stdin.nextLine();
 			if (response.equals("yes")) {
 				System.out.println("NEW ROUND!!!\n");
 				setDifficulty();
