@@ -75,3 +75,5 @@ For anyone who is interested in Role Playing Games, has access to a personal com
 [Week 1 Markdown](Week1.md)
 
 [Week 2 Markdown](Week2.md)
+
+[Week 3 Markdown](Week3.md)
