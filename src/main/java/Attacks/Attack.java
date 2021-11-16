@@ -72,7 +72,7 @@ public abstract class Attack {
     public void processAttack(Battler user, Battler target){
         int damage = 0;
         if(mpCost > user.getMP()){
-            System.out.printf("%s does not have enough mana to perform %s, Attack failed!\n",user.getName(),skillName);
+            System.out.printf("Not enough MP! %s failed!\n",skillName);
             return;
         } else {
             user.subtractMP(mpCost);
@@ -87,9 +87,9 @@ public abstract class Attack {
                     System.out.println(target.getName() + " took " + damage + " damage!");
                 else
                     System.out.println(target.getName() + " recovered " + Math.abs(damage) + " HP");
-                System.out.printf("%s has %d health remaining\n\n",target.getName(),target.getHP());
             }
         }
+        System.out.printf("%s has %d health remaining\n\n",target.getName(),target.getHP());
     }
 
     /* Check if skill is usable with current MP */
