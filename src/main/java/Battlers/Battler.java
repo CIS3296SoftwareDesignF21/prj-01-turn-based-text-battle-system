@@ -70,6 +70,8 @@ public class Battler {
         if(this.HP < 0) this.HP = 0;
     }
 
+    public void recoverHP() {HP = MaxHP;}
+
     public int getMaxHP() {return MaxHP;}
 
     public void setMaxHP(int maxHP) {MaxHP = maxHP;}
@@ -82,6 +84,10 @@ public class Battler {
         this.MP -= MP;
         if(this.MP < 0) this.MP = 0;
     }
+
+    public void recoverMP() {MP = MaxMP;}
+
+    public void recoverAll() {recoverHP(); recoverMP();}
 
     public int getMaxMP() {return MaxMP;}
 
