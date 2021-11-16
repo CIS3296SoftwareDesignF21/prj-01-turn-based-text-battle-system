@@ -1,0 +1,225 @@
+title Josh Attacks weak opponent until victory
+
+#autoactivation
+actor User -> main: start battleBatch.bat
+activate main
+
+note left of main:Enter your name
+main ->actor User: nextLine()
+deactivate main
+activate actor User
+actor User -> main: Josh
+deactivate actor User
+activate main
+activate main
+main->main: setDifficulty()
+deactivate main
+
+
+note left of main:How powerful is your character(1 - 3):
+main->actor User:nextInt();
+deactivate main
+activate actor User
+actor User->main: 3
+deactivate actor User
+activate main
+
+
+main->Player: randomPlayer(3,Josh)
+deactivate main
+activate Player
+Player->Player: <<create>>
+Player->Battler: super(name,hp,mp,atk,def)
+activate Battler
+Battler->Battler: <<create>>
+deactivate Battler
+Player->Battler: addSpecialAttack(new DualSlash())
+deactivate Player
+activate Battler
+Player<--Battler:
+deactivate Battler
+activate Player
+Player->DualSlash: <<create>>
+deactivate Player
+activate DualSlash
+DualSlash->Attack: super()
+deactivate DualSlash
+activate Attack
+Attack->Attack: <<create>>
+Attack-->DualSlash:
+deactivate Attack
+activate DualSlash
+DualSlash-->Player:
+deactivate DualSlash
+activate Player
+
+Player->Battler: addSpecialAttack(new Pierce())
+deactivate Player
+activate Battler
+Player<--Battler:
+deactivate Battler
+activate Player
+Player->Pierce: <<create>>
+deactivate Player
+activate Pierce
+Pierce->Attack: super()
+deactivate Pierce
+activate Attack
+Attack->Attack: <<create>>
+Attack-->Pierce:
+deactivate Attack
+activate Pierce
+Pierce-->Player:
+deactivate Pierce
+activate Player
+main<--Player:
+deactivate Player
+activate main
+
+
+note left of main:How strong of an enemy can you manage (1 - 3):
+main->actor User: nextInt();
+deactivate main
+activate actor User
+actor User->main: 1
+deactivate actor User
+activate main
+
+
+main->Enemy: randomEnemy(1)
+deactivate main
+activate Enemy
+Enemy->Enemy: <<create>>
+Enemy->Battler: super(name,hp,mp,atk,def)
+activate Battler
+Battler->Battler: <<create>>
+deactivate Battler
+Enemy->Battler: addSpecialAttack(new Bash())
+deactivate Enemy
+activate Battler
+Enemy<--Battler:
+deactivate Battler
+activate Enemy
+Enemy->Bash: <<create>>
+deactivate Enemy
+activate Bash
+Bash->Attack: super()
+deactivate Bash
+activate Attack
+Attack->Attack:<<create>>
+Attack-->Bash:
+deactivate Attack
+activate Bash
+Bash-->Enemy:
+deactivate Bash
+activate Enemy
+main<--Enemy:
+deactivate Enemy
+
+activate main
+activate main
+main->main: battleLoop()
+deactivate main
+loop while(!fin)
+loop while (player.getHP() > 0 && enemy.getHP() > 0)
+note right of main: need to call player and enemy to getHP, part of while condition
+
+main->Player: player.getHP()
+deactivate main
+activate Player
+main<--Player:
+deactivate Player
+activate main
+
+main->Enemy:enemy.getHP()
+deactivate main
+activate Enemy
+main<--Enemy:
+deactivate Enemy
+activate main
+
+note left of main: Enter 1 for attack. Enter 2 for Guard. Enter -1 to quit.
+main->actor User: nextInt()
+deactivate main
+activate actor User
+note right of actor User: For this simulation, User will always attack
+actor User->main: 1
+deactivate actor User
+activate main
+
+main->Player: useAction(enemy,"Attack")
+deactivate main
+activate Player
+Player->Attack: processAttack()
+deactivate Player
+activate Attack
+activate Attack
+Attack->Attack: processHit()
+deactivate Attack
+activate Attack
+Attack->Attack: processDamage()
+deactivate Attack
+Player<--Attack:
+deactivate Attack
+activate Player
+main<--Player:
+deactivate Player
+activate main
+
+main->Enemy: useAction(player,"Attack")
+deactivate main
+activate Enemy
+Enemy->Attack: processAttack()
+deactivate Enemy
+activate Attack
+activate Attack
+Attack->Attack: processHit()
+deactivate Attack
+activate Attack
+Attack->Attack: processDamage()
+deactivate Attack
+Enemy<--Attack:
+deactivate Attack
+activate Enemy
+main<--Enemy:
+deactivate Enemy
+activate main
+
+note right of main: After both parties attack, we end the turn
+main->Player: endTurn()
+deactivate main
+activate Player
+main<--Player:
+deactivate Player
+activate main
+main->Enemy: endTurn()
+deactivate main
+activate Enemy
+main<--Enemy:
+deactivate Enemy
+activate main
+
+end
+
+activate main
+main->main: checkIfFinished();
+deactivate main
+note left of main: Do you want to play again? Enter yes or no
+main->actor User: nextLine()
+deactivate main
+activate actor User
+note right of actor User: For this example, the user will not play again
+actor User -> main: no
+deactivate actor User
+activate main
+end
+
+destroysilent actor User
+destroysilent main
+destroysilent Player
+destroysilent Battler
+destroysilent DualSlash
+destroysilent Pierce
+destroysilent Enemy
+destroysilent Bash
+destroysilent Attack
