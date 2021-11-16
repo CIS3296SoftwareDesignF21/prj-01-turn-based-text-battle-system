@@ -91,6 +91,7 @@ public class main {
 			String response = sc.nextLine();
 			if (response.equals("yes")) {
 				System.out.println("NEW ROUND!!!\n");
+				setDifficulty();
 				player.recoverAll();
 				enemy.recoverAll();
 				fin = false;
