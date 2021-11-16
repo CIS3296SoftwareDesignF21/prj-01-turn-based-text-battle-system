@@ -1,9 +1,27 @@
 ## Tasks Finished this Week:
 - Owen
-
+  - Created processAttack function in Attack class
+  - Creating simple difficulty setting
+  - Created useAction function to help with actions in UI task
+  - Restructured project so battler/attack classes were in their own packages
+  - Created UML Sequence Diagram 1
 - Faith
+  - UML Sequence Diagram 2
+  - Consecutive Battles option in main
 
 - Chase
-
+  - Description for sequence diagrams
+  - Guard Skill
+  - Created main loop for battleUI
 - Robert
-
+  - Implemented Critical Hit Rates and Hit Rates into both Battler and Attack
+  - Implemented Evasion Rates into Battler
+  - Implemented random variance in attacks
+  - Added three new special attacks: Heal, Desperate Hit, and Variant Strike
+  - Restructured project so attack classes were in their own package
+  - Restructured main to be more efficient
+  - Restructured Attack subclasses to call super() which sets default values
+  - Updated UML Class Diagram
+  - Created Rates class which takes care of calculating random values
+  - Created simple implementation of useAction
+  - Overall Optimization and Project Organization
