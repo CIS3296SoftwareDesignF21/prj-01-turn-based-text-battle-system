@@ -6,9 +6,13 @@
   - Restructured project so battler/attack classes were in their own packages
   - Created UML Sequence Diagram 1
 - Faith
+  - UML Sequence Diagram 2
+  - Consecutive Battles option in main
 
 - Chase
-
+  - Description for sequence diagrams
+  - Guard Skill
+  - Created main loop for battleUI
 - Robert
   - Implemented Critical Hit Rates and Hit Rates into both Battler and Attack
   - Implemented Evasion Rates into Battler
