@@ -147,6 +147,8 @@ public abstract class Attack {
     public String getSkillName() { return skillName;}
     public void setCritRate(int critRate) { this.critRate = critRate;}
     public int getCritRate() { return critRate;}
+    public void setCritMultiplier(int critMultiplier) { this.critMultiplier = critMultiplier;}
+    public int getCritMultiplier() { return critMultiplier;}
     public void setHitRate(int hitRate) { this.hitRate = hitRate;}
     public int getHitRate() { return hitRate;}
     public void setAttackType(int attackType) { this.attackType = attackType;}
