@@ -52,6 +52,13 @@ public class main {
 							enemy.useAction(player, "Attack");
 						}
 						break;
+					/*case 2:
+						player.setCurrentAttack(player.attackMenu(player.getSpecialAttacksArray()));
+						player.useAction(enemy, "Attack");
+						if (enemy.getHP() > 0) {
+							enemy.useAction(player, "Attack");
+						}
+						break;*/
 					case 2:
 						player.useAction(enemy, "Guard");
 						if (enemy.getHP() > 0) {

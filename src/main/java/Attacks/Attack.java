@@ -77,8 +77,8 @@ public abstract class Attack {
         } else {
             user.subtractMP(mpCost);
         }
+        System.out.println(getMessage(user,target));
         for(int i = 0; i < numOfHits; i++){
-            System.out.println(getMessage(user,target));
             if(processHit(user,target)){
                 damage = processDamage(user,target);
                 addEffects(user,target);

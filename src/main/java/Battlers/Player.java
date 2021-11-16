@@ -5,29 +5,34 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class Player extends Battler{
 
-    public Player(){
-        super();
+    public void addSpecials(){
         addSpecialAttack(new DualSlash());
         addSpecialAttack(new Pierce());
+        /*addSpecialAttack(new Bash());
+        addSpecialAttack(new VariantStrike());
+        addSpecialAttack(new DesperateHit());
+        addSpecialAttack(new Heal());*/
+    }
+
+    public Player(){
+        super();
+        addSpecials();
     }
 
     public Player(String name, int HP, int MaxHP, int MP, int MaxMP, int Atk, int Def,
                   int CritRate, int HitRate, int EvaRate){
         super(name, HP, MaxHP, MP, MaxMP, Atk, Def, CritRate, HitRate, EvaRate);
-        addSpecialAttack(new DualSlash());
-        addSpecialAttack(new Pierce());
+        addSpecials();
     }
 
     public Player(String name, int HP, int MaxHP, int MP, int MaxMP, int Atk, int Def){
         super(name, HP, MaxHP, MP, MaxMP, Atk, Def);
-        addSpecialAttack(new DualSlash());
-        addSpecialAttack(new Pierce());
+        addSpecials();
     }
 
     public Player(String name, int MaxHP, int MaxMP, int Atk, int Def){
         super(name, MaxHP, MaxMP, Atk, Def);
-        addSpecialAttack(new DualSlash());
-        addSpecialAttack(new Pierce());
+        addSpecials();
     }
 
     public static Player randomPlayer(int level, String name){

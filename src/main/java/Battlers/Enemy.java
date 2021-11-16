@@ -4,25 +4,30 @@ import Attacks.*;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Enemy extends Battler{
+
+    public void addSpecials(){
+        addSpecialAttack(new Bash());
+    }
+
     public Enemy(){
         super();
-        addSpecialAttack(new Bash());
+        addSpecials();
     }
 
     public Enemy(String name, int HP, int MaxHP, int MP, int MaxMP, int Atk, int Def,
                      int CritRate, int HitRate, int EvaRate) {
         super(name, HP, MaxHP, MP, MaxMP, Atk, Def, CritRate, HitRate, EvaRate);
-        addSpecialAttack(new Bash());
+        addSpecials();
     }
 
     public Enemy(String name, int HP, int MaxHP, int MP, int MaxMP, int Atk, int Def){
         super(name, HP, MaxHP, MP, MaxMP, Atk, Def);
-        addSpecialAttack(new Bash());
+        addSpecials();
     }
 
     public Enemy(String name, int HP, int MP, int Atk, int Def){
         super(name, HP, MP, Atk, Def);
-        addSpecialAttack(new Bash());
+        addSpecials();
     }
 
     public static Enemy randomEnemy(int level){
