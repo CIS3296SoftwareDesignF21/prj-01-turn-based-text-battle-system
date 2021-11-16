@@ -70,6 +70,10 @@ For anyone who is interested in Role Playing Games, has access to a personal com
 
 [Sequence Diagram 1](UML%20Sequence%20Diagram%201.png)
 
+# Uml Sequence Diagram 2
+
+[Sequence Diagram 2](UML%20sequence%20diagram%202.png)
+
 # Weekly Markdown Pages
 
 [Week 1 Markdown](Week1.md)
