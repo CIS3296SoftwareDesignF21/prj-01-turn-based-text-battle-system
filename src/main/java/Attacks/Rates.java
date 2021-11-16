@@ -6,7 +6,7 @@ public class Rates {
     public static boolean percentRateApplied(int rate){
         if(rate > 100) rate = 100;
         else if(rate < 0) rate = 0;
-        if(rand(rate,100) <= rate) return true;
+        if(rand(0,100) <= rate) return true;
         return false;
     }
     /* Random function for easy use */
