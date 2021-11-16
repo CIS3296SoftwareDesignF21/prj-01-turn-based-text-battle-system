@@ -1,8 +1,6 @@
 package Battlers;
 import Attacks.*;
 
-import java.util.concurrent.ThreadLocalRandom;
-
 public class Enemy extends Battler{
 
     public void addSpecials(){
@@ -35,20 +33,20 @@ public class Enemy extends Battler{
         hp = mp = atk = def = 0;
         Enemy newEnemy;
         if(level == 1){
-            hp = ThreadLocalRandom.current().nextInt(1000,2000);
-            mp = ThreadLocalRandom.current().nextInt(1,101);
-            atk = ThreadLocalRandom.current().nextInt(30,50);
-            def = ThreadLocalRandom.current().nextInt(50,60);
+            hp = Rates.rand(1000,2000);
+            mp = Rates.rand(1,101);
+            atk = Rates.rand(30,50);
+            def = Rates.rand(50,60);
         } else if(level == 2){
-            hp = ThreadLocalRandom.current().nextInt(1500,2500);
-            mp = ThreadLocalRandom.current().nextInt(51,151);
-            atk = ThreadLocalRandom.current().nextInt(45,65);
-            def = ThreadLocalRandom.current().nextInt(55,65);
+            hp = Rates.rand(1500,2500);
+            mp = Rates.rand(51,151);
+            atk = Rates.rand(45,65);
+            def = Rates.rand(55,65);
         } else if (level == 3){
-            hp = ThreadLocalRandom.current().nextInt(2000,3000);
-            mp = ThreadLocalRandom.current().nextInt(101,201);
-            atk = ThreadLocalRandom.current().nextInt(50,70);
-            def = ThreadLocalRandom.current().nextInt(60,70);
+            hp = Rates.rand(2000,3000);
+            mp = Rates.rand(101,201);
+            atk = Rates.rand(50,70);
+            def = Rates.rand(60,70);
         } else {
             System.out.println("Level must be between one and three");
             System.exit(-1);

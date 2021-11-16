@@ -2,17 +2,17 @@ package Battlers;
 import Attacks.*;
 
 import java.util.Scanner;
-import java.util.concurrent.ThreadLocalRandom;
 
 public class Player extends Battler{
 
     public void addSpecials(){
         addSpecialAttack(new DualSlash());
         addSpecialAttack(new Pierce());
-        /*addSpecialAttack(new Bash());
+        addSpecialAttack(new Bash());
         addSpecialAttack(new VariantStrike());
         addSpecialAttack(new DesperateHit());
-        addSpecialAttack(new Heal());*/
+        addSpecialAttack(new Heal());
+        addSpecialAttack(new InstantKill());
     }
 
     public Player(){
@@ -41,20 +41,20 @@ public class Player extends Battler{
         hp = mp = atk = def = 0;
         Player newCharacter;
         if(level == 1){
-            hp = ThreadLocalRandom.current().nextInt(1000,2000);
-            mp = ThreadLocalRandom.current().nextInt(1,101);
-            atk = ThreadLocalRandom.current().nextInt(30,50);
-            def = ThreadLocalRandom.current().nextInt(50,60);
+            hp = Rates.rand(1000,2000);
+            mp = Rates.rand(1,101);
+            atk = Rates.rand(30,50);
+            def = Rates.rand(50,60);
         } else if(level == 2){
-            hp = ThreadLocalRandom.current().nextInt(1500,2500);
-            mp = ThreadLocalRandom.current().nextInt(51,151);
-            atk = ThreadLocalRandom.current().nextInt(45,65);
-            def = ThreadLocalRandom.current().nextInt(55,65);
+            hp = Rates.rand(1500,2500);
+            mp = Rates.rand(51,151);
+            atk = Rates.rand(45,65);
+            def = Rates.rand(55,65);
         } else if (level == 3){
-            hp = ThreadLocalRandom.current().nextInt(2000,3000);
-            mp = ThreadLocalRandom.current().nextInt(101,201);
-            atk = ThreadLocalRandom.current().nextInt(50,70);
-            def = ThreadLocalRandom.current().nextInt(60,70);
+            hp = Rates.rand(2000,3000);
+            mp = Rates.rand(101,201);
+            atk = Rates.rand(50,70);
+            def = Rates.rand(60,70);
         } else {
             System.out.println("Level must be between one and three");
             System.exit(-1);
@@ -81,7 +81,8 @@ public class Player extends Battler{
             if(!specials[i].isUsableMp(this)) usable = "[X]";
             else usable = "   ";
             System.out.format("%-20s",(i+1) + ": " + specials[i].getSkillName());
-            System.out.print(" [" + specials[i].getMpCost() + "]" + usable + " ");
+            System.out.format("%-5s"," [" + specials[i].getMpCost() + "]"); //set this to %-6s if skills use triple digit MP
+            System.out.print(usable + " ");
             if(specials[i].isUsableMp(this)) anyUse = true;
             if(i % 3 == 2 || i == len-1) System.out.println();
         }

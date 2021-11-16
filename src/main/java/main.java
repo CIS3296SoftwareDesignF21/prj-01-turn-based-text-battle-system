@@ -20,7 +20,7 @@ public class main {
 		battleLoop();
 	}
 
-	static private void setDifficulty(){
+	private static void setDifficulty(){
 		//System.out.println("How powerful is your character (1 - 3):");
 		userInt = 0;
 		while(userInt > 3 || userInt < 1) {
@@ -41,7 +41,8 @@ public class main {
 	static private void battleLoop(){
 		while(!fin){
 			while (player.getHP() > 0 && enemy.getHP() > 0) {
-				System.out.println("Enter 1 for attack. Enter 2 for Guard. Enter -1 to quit.");
+				//System.out.println("Enter 1 for attack. Enter 2 for Special. Enter 3 for Guard. Enter -1 to quit.");
+				System.out.println("1: Attack 2: Special 3: Guard -1: Quit");
 				userInt = stdin.nextInt();
 				switch(userInt){
 					case 1:
@@ -50,14 +51,14 @@ public class main {
 							enemy.useAction(player, "Attack");
 						}
 						break;
-					/*case 2:
+					case 2:
 						player.setCurrentAttack(player.attackMenu(player.getSpecialAttacksArray()));
 						player.useAction(enemy, "Attack");
 						if (enemy.getHP() > 0) {
 							enemy.useAction(player, "Attack");
 						}
-						break;*/
-					case 2:
+						break;
+					case 3:
 						player.useAction(enemy, "Guard");
 						if (enemy.getHP() > 0) {
 							enemy.useAction(player, "Attack");
@@ -82,6 +83,7 @@ public class main {
 	}
 
 	private static boolean checkIfFinished() {
+		Scanner sc = new Scanner(System.in);
 		if(player.getHP() <= 0){
 			System.out.println("You have been defeated D:");
 		} else if(enemy.getHP() <= 0) {
@@ -93,7 +95,7 @@ public class main {
 
 		while(true) {
 			System.out.println("Do you want to play again? Enter \"yes\" or \"no\".");
-			String response = stdin.nextLine();
+			String response = sc.nextLine();
 			if (response.equals("yes")) {
 				System.out.println("NEW ROUND!!!\n");
 				setDifficulty();
@@ -102,7 +104,7 @@ public class main {
 				fin = false;
 				break;
 			} else if (response.equals("no")) {
-				System.out.println("Thank you for playing.");
+				System.out.print("Thank you for playing.");
 				fin = true;
 				break;
 			}

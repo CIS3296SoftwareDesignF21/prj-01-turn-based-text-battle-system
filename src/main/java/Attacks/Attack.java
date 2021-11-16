@@ -4,8 +4,8 @@ import Battlers.*;
 public abstract class Attack {
 
     /** Attack Constants **/
-    private static final int PHYSICAL = 0; //subject to hit/evasion rates
-    private static final int GUARANTEED = 1; //guaranteed to hit, ignore hit/evasion rates
+    public static final int PHYSICAL = 0; //subject to hit/evasion rates
+    public static final int GUARANTEED = 1; //guaranteed to hit, ignore hit/evasion rates
 
     /** Attack Parameters **/
     private int mpCost; //cost of skill to use
