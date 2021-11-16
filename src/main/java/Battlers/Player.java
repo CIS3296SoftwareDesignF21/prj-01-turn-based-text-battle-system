@@ -1,6 +1,7 @@
 package Battlers;
 import Attacks.*;
 
+import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Player extends Battler{
@@ -60,5 +61,50 @@ public class Player extends Battler{
         }
         newCharacter = new Player(name,hp,mp,atk,def);
         return newCharacter;
+    }
+
+
+    public Attack attackMenu(Attack[] specials){
+        attackMenuPrint(specials);
+        return attackMenuSelect(specials);
+    }
+
+    public void attackMenuPrint(Attack[] specials){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Total MP: " + getMP());
+        int i, userInt = 0, len;
+        String usable;
+        len = specials.length;
+        boolean anyUse = false;
+        for(i = 0; i < len; i++){
+            //System.out.print((i+1) + ": " + specials[i].getSkillName());
+            if(!specials[i].isUsableMp(this)) usable = "[X]";
+            else usable = "   ";
+            System.out.format("%-20s",(i+1) + ": " + specials[i].getSkillName());
+            System.out.print(" [" + specials[i].getMpCost() + "]" + usable + " ");
+            if(specials[i].isUsableMp(this)) anyUse = true;
+            if(i % 3 == 2 || i == len-1) System.out.println();
+        }
+        if(!anyUse) System.out.println("-1: Cower");
+    }
+
+    public Attack attackMenuSelect(Attack[] specials){
+        Scanner sc = new Scanner(System.in);
+        int userInt = 0;
+        while(true){
+            System.out.println("Choose an action:");
+            userInt = sc.nextInt();
+            if(userInt == -1){
+                System.out.println(getName() + " out of options selects Attack!");
+                return new DefaultAttack();
+            }
+            else if(userInt < 1 || userInt > specials.length){ System.out.println("Invalid Skill!");}
+            else if(!specials[userInt-1].isUsableMp(this)){ //if not usable
+                System.out.println("Insufficient MP!");
+                userInt = 0;
+            }
+            else break;
+        }
+        return specials[userInt-1];
     }
 }
