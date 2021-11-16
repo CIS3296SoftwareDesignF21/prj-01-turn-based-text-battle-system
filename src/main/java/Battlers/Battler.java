@@ -40,7 +40,7 @@ public class Battler {
     }
 
     public Battler(String name, int HP, int MaxHP, int MP, int MaxMP, int Atk, int Def){
-        this(name, HP, MaxHP, MP, MaxMP, Atk, Def, 10, 100, 10);
+        this(name, HP, MaxHP, MP, MaxMP, Atk, Def, 10, 95, 10);
     }
 
     public Battler(String name, int HP, int MP, int Atk, int Def){

@@ -19,7 +19,7 @@ public abstract class Attack {
     private int variance; //random percent multiplied to attack, then added to attack (-var to +var)
 
     /** Default Attack Parameters **/
-    Attack(){
+    public Attack(){
         mpCost = 0;
         numOfHits = 1;
         skillName = "Undefined";
@@ -32,7 +32,6 @@ public abstract class Attack {
     }
 
 
-
     /** Abstract methods **/
     abstract public int calcDamage(Battler user, Battler target);
     abstract public void addEffects(Battler user, Battler target);
@@ -41,16 +40,14 @@ public abstract class Attack {
     /** Methods for attacks **/
 
     /* Damage Processing: Processes and Applies Critical Hits and Random Variance */
-    public int getDamage(Battler user, Battler target){
+    public int processDamage(Battler user, Battler target){
         int damage = calcDamage(user, target);
         damage = applyVariance(damage);
         if (crit(user)) { //if crit
-            System.out.println(getCritMessage(user,target));
             damage = applyCrit(damage); //multiply attack
+            System.out.println(getCritMessage(user,target));
         }
-
-        if(target.isGuarding())
-            damage /= 2;
+        if(target.isGuarding()) { damage /= 2;}
 
         //If you are targeting yourself, negative damage can heal
         //So we don't set a floor, but if you are attempting to hit an enemy,
@@ -58,12 +55,10 @@ public abstract class Attack {
         if(!target.equals(user) && damage < 0){
             damage = 0;
         }
-
-
         return damage;
     }
     /* Hit Processing: Processes Misses and Evasions */
-    public boolean doesHit(Battler user, Battler target){
+    public boolean processHit(Battler user, Battler target){
         if (missed(user)) { //if missed
             System.out.println(getMissMessage(user, target));
             return false;
@@ -76,19 +71,16 @@ public abstract class Attack {
 
     public void processAttack(Battler user, Battler target){
         int damage = 0;
-
         if(mpCost > user.getMP()){
             System.out.printf("%s does not have enough mana to perform %s, Attack failed!\n",user.getName(),skillName);
             return;
         } else {
             user.subtractMP(mpCost);
         }
-
-
         for(int i = 0; i < numOfHits; i++){
-            damage = getDamage(user,target);
-            if(doesHit(user,target)){
-                System.out.println(getMessage(user,target));
+            System.out.println(getMessage(user,target));
+            if(processHit(user,target)){
+                damage = processDamage(user,target);
                 addEffects(user,target);
                 target.subtractHP(damage);
                 if(damage >= 0)
@@ -98,10 +90,7 @@ public abstract class Attack {
                 System.out.printf("%s has %d health remaining\n\n",target.getName(),target.getHP());
             }
         }
-
     }
-
-
 
     /* Check if skill is usable with current MP */
     public boolean isUsableMp(Battler user) {
