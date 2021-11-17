@@ -4,8 +4,8 @@ import Battlers.*;
 public abstract class Attack {
 
     /** Attack Constants **/
-    private static final int PHYSICAL = 0; //subject to hit/evasion rates
-    private static final int GUARANTEED = 1; //guaranteed to hit, ignore hit/evasion rates
+    public static final int PHYSICAL = 0; //subject to hit/evasion rates
+    public static final int GUARANTEED = 1; //guaranteed to hit, ignore hit/evasion rates
 
     /** Attack Parameters **/
     private int mpCost; //cost of skill to use
@@ -77,8 +77,8 @@ public abstract class Attack {
         } else {
             user.subtractMP(mpCost);
         }
+        System.out.println(getMessage(user,target));
         for(int i = 0; i < numOfHits; i++){
-            System.out.println(getMessage(user,target));
             if(processHit(user,target)){
                 damage = processDamage(user,target);
                 addEffects(user,target);
@@ -147,6 +147,8 @@ public abstract class Attack {
     public String getSkillName() { return skillName;}
     public void setCritRate(int critRate) { this.critRate = critRate;}
     public int getCritRate() { return critRate;}
+    public void setCritMultiplier(int critMultiplier) { this.critMultiplier = critMultiplier;}
+    public int getCritMultiplier() { return critMultiplier;}
     public void setHitRate(int hitRate) { this.hitRate = hitRate;}
     public int getHitRate() { return hitRate;}
     public void setAttackType(int attackType) { this.attackType = attackType;}
