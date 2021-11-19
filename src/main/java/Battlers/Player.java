@@ -13,6 +13,7 @@ public class Player extends Battler{
         addSpecialAttack(new DesperateHit());
         addSpecialAttack(new Heal());
         addSpecialAttack(new InstantKill());
+        addSpecialAttack(new DefenseDown());
     }
 
     public Player(){
@@ -97,7 +98,7 @@ public class Player extends Battler{
             userInt = sc.nextInt();
             if(userInt == -1){
                 //System.out.println(getName() + " out of options selects Attack!");
-                return new DefaultAttack();
+                return getDefaultAttack();
             }
             else if(userInt < 1 || userInt > specials.length){ System.out.println("Invalid Skill!");}
             else if(!specials[userInt-1].isUsableMp(this)){ //if not usable

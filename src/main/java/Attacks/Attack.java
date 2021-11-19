@@ -1,11 +1,15 @@
 package Attacks;
 import Battlers.*;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public abstract class Attack {
 
     /** Attack Constants **/
     public static final int PHYSICAL = 0; //subject to hit/evasion rates
     public static final int GUARANTEED = 1; //guaranteed to hit, ignore hit/evasion rates
+    public static final int EFFECTS = 2; //status effects/buffs, doesn't print attack message, ignore player hit/evasion rates
 
     /** Attack Parameters **/
     private int mpCost; //cost of skill to use
@@ -34,7 +38,7 @@ public abstract class Attack {
 
     /** Abstract methods **/
     abstract public int calcDamage(Battler user, Battler target);
-    abstract public void addEffects(Battler user, Battler target);
+    abstract public boolean addEffects(Battler user, Battler target);
     abstract public String getMessage(Battler user, Battler target);
 
     /** Methods for attacks **/
@@ -49,6 +53,9 @@ public abstract class Attack {
         }
         if(target.isGuarding()) { damage /= 2;}
 
+        damage += (int)(damage * user.getBuffRate("atk"));
+        damage -= (int)(damage * target.getBuffRate("def"));
+
         //If you are targeting yourself, negative damage can heal
         //So we don't set a floor, but if you are attempting to hit an enemy,
         //the damage shouldn't fall below 0
@@ -57,6 +64,7 @@ public abstract class Attack {
         }
         return damage;
     }
+
     /* Hit Processing: Processes Misses and Evasions */
     public boolean processHit(Battler user, Battler target){
         if (missed(user)) { //if missed
@@ -81,17 +89,43 @@ public abstract class Attack {
         for(int i = 0; i < numOfHits; i++){
             if(processHit(user,target)){
                 damage = processDamage(user,target);
-                addEffects(user,target);
+                Map<String, Integer> oldUserBuffs = new HashMap<String,Integer>(user.getBuffMap());
+                Map<String, Integer> oldTargetBuffs = new HashMap<String,Integer>(target.getBuffMap());
+                if(addEffects(user, target)){ //if effects added
+                    if(!processAllBuffs(user, oldUserBuffs, target, oldTargetBuffs)){ //if no buffs applied
+                        if(damage == 0) System.out.println("Nothing happened!");
+                    }
+                }
                 target.subtractHP(damage);
-                if(damage >= 0)
-                    System.out.println(target.getName() + " took " + damage + " damage!");
-                else
-                    System.out.println(target.getName() + " recovered " + Math.abs(damage) + " HP");
+                if(getAttackType() != EFFECTS) {
+                    if (damage >= 0)
+                        System.out.println(target.getName() + " took " + damage + " damage!");
+                    else
+                        System.out.println(target.getName() + " recovered " + Math.abs(damage) + " HP");
+                }
             }
         }
         System.out.printf("%s has %d health remaining\n\n",target.getName(),target.getHP());
     }
-
+    public boolean processBuff(Battler battler, Map<String, Integer> oldBuffs,
+                               String buffType, String buffName){
+        int difference = battler.getBuff(buffType) - oldBuffs.get(buffType);
+        if(difference != 0){
+            System.out.println(getBuffMessage(battler.getName(), buffName, difference));
+            return true;
+        }
+        return false;
+    }
+    public boolean processBuffs(Battler battler, Map<String, Integer> oldBuffs){
+        boolean changes;
+        changes = processBuff(battler, oldBuffs, "atk", "Attack");
+        changes = changes || processBuff(battler, oldBuffs, "def", "Defense");
+        return changes;
+    }
+    public boolean processAllBuffs(Battler user, Map<String, Integer> oldUserBuffs,
+                                   Battler target, Map<String, Integer> oldTargetBuffs){
+        return processBuffs(user, oldUserBuffs) || processBuffs(target, oldTargetBuffs);
+    }
     /* Check if skill is usable with current MP */
     public boolean isUsableMp(Battler user) {
         return (user.getMP() >= mpCost);
@@ -114,6 +148,7 @@ public abstract class Attack {
     public boolean hit(Battler user){
         if(attackType == GUARANTEED) return true;
         int rate1 = user.getHitRate();
+        if(attackType == EFFECTS) rate1 = 100;
         int rate2 = getHitRate();
         return Rates.percentRateApplied(rate1) && Rates.percentRateApplied(rate2);
     }
@@ -123,7 +158,7 @@ public abstract class Attack {
     }
     /* Check if evaded */
     public boolean evaded(Battler target){
-        if(attackType == GUARANTEED) return false;
+        if(attackType == GUARANTEED || attackType == EFFECTS) return false;
         int rate = target.getEvaRate();
         return Rates.percentRateApplied(rate);
     }
@@ -136,6 +171,14 @@ public abstract class Attack {
     }
     public String getEvaMessage(Battler user, Battler target){
         return target.getName() + " evaded the attack!";
+    }
+    public String getBuffMessage(String name, String buffName, int difference){
+        String effect = "increased";
+        if(difference < 0){effect = "decreased";}
+        if(Math.abs(difference) > 1){
+            effect += " by " + Math.abs(difference) + " levels";
+        }
+        return name + "'s " + buffName.toLowerCase() + " " + effect + "!";
     }
 
     /** Getters and setters for variables **/

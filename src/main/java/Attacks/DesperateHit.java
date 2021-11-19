@@ -17,8 +17,8 @@ public class DesperateHit extends Attack {
     public int calcDamage(Battler user, Battler target){
         return Math.max(0, user.getAtk() * 2 - target.getDef());
     }
-    public void addEffects(Battler user, Battler target){
-        // does nothing
+    public boolean addEffects(Battler user, Battler target){
+        return false;
     }
     public String getMessage(Battler user, Battler target){
         return user.getName() + " hits " + target.getName() + " with a desperate attack!";
