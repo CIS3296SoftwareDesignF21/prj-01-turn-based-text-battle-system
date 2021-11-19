@@ -14,6 +14,7 @@ public class Player extends Battler{
         addSpecialAttack(new Heal());
         addSpecialAttack(new InstantKill());
         addSpecialAttack(new DefenseDown());
+        addSpecialAttack(new DebilitatingSlash());
     }
 
     public Player(){
@@ -81,8 +82,8 @@ public class Player extends Battler{
             //System.out.print((i+1) + ": " + specials[i].getSkillName());
             if(!specials[i].isUsableMp(this)) usable = "[X]";
             else usable = "   ";
-            System.out.format("%-20s",(i+1) + ": " + specials[i].getSkillName());
-            System.out.format("%-5s"," [" + specials[i].getMpCost() + "]"); //set this to %-6s if skills use triple digit MP
+            System.out.format("%-21s",(i+1) + ": " + specials[i].getSkillName());
+            System.out.format("%-4s","[" + specials[i].getMpCost() + "]"); //set this to %-6s if skills use triple digit MP
             System.out.print(usable + " ");
             if(specials[i].isUsableMp(this)) anyUse = true;
             if(i % 3 == 2 || i == len-1) System.out.println();

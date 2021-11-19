@@ -6,6 +6,7 @@ public class DefenseDown extends Attack {
     /** DefenseDown values **/
     public DefenseDown(){
         super();
+        setMpCost(10);
         setSkillName("Defense Down");
         setAttackType(EFFECTS);
         setCritAbility(false);

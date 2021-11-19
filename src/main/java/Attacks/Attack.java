@@ -51,7 +51,7 @@ public abstract class Attack {
             damage = applyCrit(damage); //multiply attack
             System.out.println(getCritMessage(user,target));
         }
-        if(target.isGuarding()) { damage /= 2;}
+        if(target.isGuarding()) { damage /= 2;} //halve damage if guarding
 
         damage += (int)(damage * user.getBuffRate("atk"));
         damage -= (int)(damage * target.getBuffRate("def"));
@@ -77,6 +77,7 @@ public abstract class Attack {
         return true;
     }
 
+    /* Attack Process: Processes Everything: Damage & Effects */
     public void processAttack(Battler user, Battler target){
         int damage = 0;
         if(mpCost > user.getMP()){
@@ -89,13 +90,6 @@ public abstract class Attack {
         for(int i = 0; i < numOfHits; i++){
             if(processHit(user,target)){
                 damage = processDamage(user,target);
-                Map<String, Integer> oldUserBuffs = new HashMap<String,Integer>(user.getBuffMap());
-                Map<String, Integer> oldTargetBuffs = new HashMap<String,Integer>(target.getBuffMap());
-                if(addEffects(user, target)){ //if effects added
-                    if(!processAllBuffs(user, oldUserBuffs, target, oldTargetBuffs)){ //if no buffs applied
-                        if(damage == 0) System.out.println("Nothing happened!");
-                    }
-                }
                 target.subtractHP(damage);
                 if(getAttackType() != EFFECTS) {
                     if (damage >= 0)
@@ -103,25 +97,35 @@ public abstract class Attack {
                     else
                         System.out.println(target.getName() + " recovered " + Math.abs(damage) + " HP");
                 }
+                Map<String, Integer> oldUserBuffs = new HashMap<String,Integer>(user.getBuffMap());
+                Map<String, Integer> oldTargetBuffs = new HashMap<String,Integer>(target.getBuffMap());
+                if(addEffects(user, target)){ //if effects added & add effects
+                    if(!processAllBuffs(user, oldUserBuffs, target, oldTargetBuffs)){ //if no buffs applied
+                        if(damage == 0) System.out.println("Nothing happened!"); //if no damage
+                    }
+                }
             }
         }
         System.out.printf("%s has %d health remaining\n\n",target.getName(),target.getHP());
     }
+    /* Process a specific buff for the select battler */
     public boolean processBuff(Battler battler, Map<String, Integer> oldBuffs,
                                String buffType, String buffName){
-        int difference = battler.getBuff(buffType) - oldBuffs.get(buffType);
-        if(difference != 0){
+        int difference = battler.getBuff(buffType) - oldBuffs.get(buffType); //buff now - buff before
+        if(difference != 0){ //if buff/debuff is actually applied
             System.out.println(getBuffMessage(battler.getName(), buffName, difference));
             return true;
         }
         return false;
     }
+    /* Process buffs/debuffs only for the select battler */
     public boolean processBuffs(Battler battler, Map<String, Integer> oldBuffs){
         boolean changes;
         changes = processBuff(battler, oldBuffs, "atk", "Attack");
         changes = changes || processBuff(battler, oldBuffs, "def", "Defense");
         return changes;
     }
+    /* Process every buff/debuff for the user AND target */
     public boolean processAllBuffs(Battler user, Map<String, Integer> oldUserBuffs,
                                    Battler target, Map<String, Integer> oldTargetBuffs){
         return processBuffs(user, oldUserBuffs) || processBuffs(target, oldTargetBuffs);
