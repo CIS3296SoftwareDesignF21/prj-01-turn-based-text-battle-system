@@ -64,14 +64,14 @@ public class Battler {
                 currentAttack.processAttack(this, target);
                 break;
             case "Guard":
-                System.out.println(name + " guards\n");
+                System.out.println(name + " guards\n"); Attack.sleep();
                 setGuard(true);
                 break;
             case "Cower": //nothing happens here
-                System.out.println(name + " cowers in fear!\n");
+                System.out.println(name + " cowers in fear!\n"); Attack.sleep();
                 break;
             default:
-                System.out.println("Invalid action selected");
+                System.out.println("Invalid action selected"); Attack.sleep();
                 break;
         }
 

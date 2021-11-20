@@ -39,10 +39,11 @@ public class main {
 	}
 
 	static private void battleLoop(){
+		boolean options = false;
 		while(!fin){
 			while (player.getHP() > 0 && enemy.getHP() > 0) {
 				//System.out.println("Enter 1 for attack. Enter 2 for Special. Enter 3 for Guard. Enter -1 to quit.");
-				System.out.println("1: Attack 2: Special 3: Guard -1: Quit");
+				System.out.println("1: Attack 2: Special 3: Guard -1: Quit 0: Options ");
 				userInt = stdin.nextInt();
 				switch(userInt){
 					case 1:
@@ -71,19 +72,26 @@ public class main {
 							enemy.useAction(player, "Attack");
 						}
 						break;
+					case 0:
+						options = true;
+						changeTextSpeed();
+						break;
 					case -1:
 						System.out.print(player.getName() + " fled the scene!\nThe battle is over!");
 						System.exit(1);
 						break;
 					default:
-						System.out.println(player.getName() + " fumbled and pressed an invalid number!");
+						System.out.println(player.getName() + " fumbled and pressed an invalid number!"); Attack.sleep();
 						if (enemy.getHP() > 0) {
 							enemy.useAction(player, "Attack");
 						}
 						break;
 				}
-				player.endTurn();
-				enemy.endTurn();
+				if(!options) {
+					player.endTurn();
+					enemy.endTurn();
+				}
+				else options = false;
 			}
 			fin = checkIfFinished();
 		}
@@ -99,6 +107,7 @@ public class main {
 		else{
 			System.out.println("Something ended... I guess???");
 		}
+		Attack.sleep();
 
 		while(true) {
 			System.out.println("Do you want to play again? Enter \"yes\" or \"no\".");
@@ -117,5 +126,14 @@ public class main {
 			}
 		}
 		return fin;
+	}
+
+	public static void changeTextSpeed(){
+		userInt = 0;
+		while(userInt > 4 || userInt < 1) {
+			System.out.println("Enter Text Speed (1-4):");
+			userInt = stdin.nextInt();
+		}
+		Attack.changeSleepTime(userInt);
 	}
 }

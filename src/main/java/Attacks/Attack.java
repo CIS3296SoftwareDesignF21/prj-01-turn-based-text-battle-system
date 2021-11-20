@@ -7,6 +7,7 @@ import java.util.Map;
 public abstract class Attack {
 
     /** Attack Constants **/
+    private static int sleepTime = 500; //amount to wait between messages
     public static final int PHYSICAL = 0; //subject to hit/evasion rates
     public static final int GUARANTEED = 1; //guaranteed to hit, ignore hit/evasion rates
     public static final int EFFECTS = 2; //status effects/buffs, doesn't print attack message, ignore player hit/evasion rates
@@ -49,7 +50,7 @@ public abstract class Attack {
         damage = applyVariance(damage);
         if (crit(user)) { //if crit
             damage = applyCrit(damage); //multiply attack
-            System.out.println(getCritMessage(user,target));
+            System.out.println(getCritMessage(user,target)); sleep();
         }
         if(target.isGuarding()) { damage /= 2;} //halve damage if guarding
 
@@ -70,10 +71,10 @@ public abstract class Attack {
     /* Hit Processing: Processes Misses and Evasions */
     public boolean processHit(Battler user, Battler target){
         if (missed(user)) { //if missed
-            System.out.println(getMissMessage(user, target));
+            System.out.println(getMissMessage(user, target)); sleep();
             return false;
         } else if (evaded(target)) { //if attack evaded
-            System.out.println(getEvaMessage(user, target));
+            System.out.println(getEvaMessage(user, target)); sleep();
             return false;
         }
         return true;
@@ -83,12 +84,12 @@ public abstract class Attack {
     public void processAttack(Battler user, Battler target){
         int damage = 0;
         if(mpCost > user.getMP()){
-            System.out.printf("Not enough MP! %s failed!\n",skillName);
+            System.out.printf("Not enough MP! %s failed!\n",skillName); sleep();
             return;
         } else {
             user.subtractMP(mpCost);
         }
-        System.out.println(getMessage(user,target));
+        System.out.println(getMessage(user,target)); sleep();
         for(int i = 0; i < numOfHits; i++){
             if(processHit(user,target)){
                 damage = processDamage(user,target);
@@ -99,6 +100,7 @@ public abstract class Attack {
                     else
                         System.out.println(target.getName() + " recovered " + Math.abs(damage) + " HP");
                 }
+                sleep();
                 Map<String, Integer> oldUserBuffs = new HashMap<String,Integer>(user.getBuffMap());
                 Map<String, Integer> oldTargetBuffs = new HashMap<String,Integer>(target.getBuffMap());
                 if(addEffects(user, target)){ //if effects added & add effects
@@ -108,14 +110,16 @@ public abstract class Attack {
                 }
             }
         }
-        System.out.printf("%s has %d health remaining\n\n",target.getName(),target.getHP());
+        //System.out.printf("%s has %d health remaining\n\n",target.getName(),target.getHP());
+        sleep();
+        System.out.println();
     }
     /* Process a specific buff for the select battler */
     public boolean processBuff(Battler battler, Map<String, Integer> oldBuffs,
                                String buffType, String buffName){
         int difference = battler.getBuff(buffType) - oldBuffs.get(buffType); //buff now - buff before
         if(difference != 0){ //if buff/debuff is actually applied
-            System.out.println(getBuffMessage(battler.getName(), buffName, difference));
+            System.out.println(getBuffMessage(battler.getName(), buffName, difference)); sleep();
             return true;
         }
         return false;
@@ -167,6 +171,22 @@ public abstract class Attack {
         if(attackType == GUARANTEED || attackType == EFFECTS) return false;
         int rate = target.getEvaRate();
         return Rates.percentRateApplied(rate);
+    }
+    /* Wait Between Messages */
+    public static void sleep(){
+        try {Thread.sleep(sleepTime);
+        } catch (Exception e) {System.out.println(e);}
+    }
+    public static void changeSleepTime2(int sleepTime2){
+        sleepTime = sleepTime2;
+    }
+    public static void changeSleepTime(int sleepTime2){ //options: 1000,500,250
+        switch(sleepTime2){
+            case 1: changeSleepTime2(1000); break;
+            case 2: changeSleepTime2(500); break;
+            case 3: changeSleepTime2(250); break;
+            case 4: changeSleepTime2(0); break;
+        }
     }
     /* Get Messages for cases of a Critical Hit, Miss, or Evaded Hit */
     public String getCritMessage(Battler user, Battler target){
