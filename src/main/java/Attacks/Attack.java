@@ -7,10 +7,12 @@ import java.util.Map;
 public abstract class Attack {
 
     /** Attack Constants **/
-    private static int sleepTime = 500; //amount to wait between messages
     public static final int PHYSICAL = 0; //subject to hit/evasion rates
     public static final int GUARANTEED = 1; //guaranteed to hit, ignore hit/evasion rates
     public static final int EFFECTS = 2; //status effects/buffs, doesn't print attack message, ignore player hit/evasion rates
+
+    /** Attack Settings **/
+    private static int sleepTime = 500; //amount to wait between messages
 
     /** Attack Parameters **/
     private int mpCost; //cost of skill to use
