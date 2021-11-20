@@ -101,8 +101,8 @@ public abstract class Attack {
                         System.out.println(target.getName() + " took " + damage + " damage!");
                     else
                         System.out.println(target.getName() + " recovered " + Math.abs(damage) + " HP");
+                    sleep();
                 }
-                sleep();
                 Map<String, Integer> oldUserBuffs = new HashMap<String,Integer>(user.getBuffMap());
                 Map<String, Integer> oldTargetBuffs = new HashMap<String,Integer>(target.getBuffMap());
                 if(addEffects(user, target)){ //if effects added & add effects
