@@ -164,12 +164,18 @@ public class Battler {
 
     public void setCurrentAttack(Attack currentAttack) {this.currentAttack = currentAttack;}
 
+    public void defaultCurrentAttack() {currentAttack = defaultAttack;}
+
+    public boolean usedDefaultAttack() {
+        if(currentAttack == defaultAttack) return true;
+        return false;
+    }
+
     public Set<Attack> getSpecialAttacks() {return specialAttacks;}
 
     public void addSpecialAttack(Attack specialAttack) {this.specialAttacks.add(specialAttack);}
 
     public void endTurn() {
-        setCurrentAttack(defaultAttack);
     	setGuard(false);
     }
 

@@ -46,6 +46,7 @@ public class main {
 				userInt = stdin.nextInt();
 				switch(userInt){
 					case 1:
+						player.defaultCurrentAttack();
 						player.useAction(enemy, "Attack");
 						if (enemy.getHP() > 0) {
 							enemy.useAction(player, "Attack");
@@ -53,7 +54,7 @@ public class main {
 						break;
 					case 2:
 						player.setCurrentAttack(player.attackMenu(player.getSpecialAttacksArray()));
-						if(player.getCurrentAttack().getSkillName().equals("Attack")){
+						if(player.usedDefaultAttack()){
 							player.useAction(enemy, "Cower");
 						}
 						else{
@@ -62,6 +63,7 @@ public class main {
 						if (enemy.getHP() > 0) {
 							enemy.useAction(player, "Attack");
 						}
+						player.defaultCurrentAttack();
 						break;
 					case 3:
 						player.useAction(enemy, "Guard");
