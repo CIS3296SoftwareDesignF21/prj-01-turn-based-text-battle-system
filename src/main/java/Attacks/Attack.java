@@ -182,13 +182,8 @@ public abstract class Attack {
     public static void changeSleepTime2(int sleepTime2){
         sleepTime = sleepTime2;
     }
-    public static void changeSleepTime(int sleepTime2){ //options: 1000,500,250
-        switch(sleepTime2){
-            case 1: changeSleepTime2(1000); break;
-            case 2: changeSleepTime2(500); break;
-            case 3: changeSleepTime2(250); break;
-            case 4: changeSleepTime2(0); break;
-        }
+    public static void changeSleepTime(int sleepTime2){ //options: 1000,750,500,250,0
+        changeSleepTime2(1000 - 250 * (sleepTime2-1));
     }
     /* Get Messages for cases of a Critical Hit, Miss, or Evaded Hit */
     public String getCritMessage(Battler user, Battler target){

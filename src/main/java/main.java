@@ -130,8 +130,8 @@ public class main {
 
 	public static void changeTextSpeed(){
 		userInt = 0;
-		while(userInt > 4 || userInt < 1) {
-			System.out.println("Enter Text Speed (1-4):");
+		while(userInt > 5 || userInt < 1) {
+			System.out.println("Enter Text Speed (1-5):");
 			userInt = stdin.nextInt();
 		}
 		Attack.changeSleepTime(userInt);
