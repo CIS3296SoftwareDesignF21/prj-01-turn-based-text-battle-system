@@ -43,6 +43,8 @@ public class main {
 		while(!fin){
 			while (player.getHP() > 0 && enemy.getHP() > 0) {
 				//System.out.println("Enter 1 for attack. Enter 2 for Special. Enter 3 for Guard. Enter -1 to quit.");
+				System.out.print("HP: " + player.getHP() + "/" + player.getMaxHP());
+				System.out.println(" MP: " + player.getMP() + "/" + player.getMaxMP());
 				System.out.println("1: Attack 2: Special 3: Guard -1: Quit 0: Options ");
 				userInt = stdin.nextInt();
 				switch(userInt){

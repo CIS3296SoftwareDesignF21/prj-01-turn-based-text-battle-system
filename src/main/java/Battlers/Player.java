@@ -73,7 +73,7 @@ public class Player extends Battler{
 
     public void attackMenuPrint(Attack[] specials){
         Scanner sc = new Scanner(System.in);
-        System.out.println("Total MP: " + getMP());
+        System.out.println("MP: " + getMP() + "/" + getMaxMP());
         int i, userInt = 0, len;
         String usable;
         len = specials.length;
