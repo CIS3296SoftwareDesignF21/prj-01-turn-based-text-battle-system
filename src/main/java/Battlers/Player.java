@@ -83,10 +83,10 @@ public class Player extends Battler{
             if(!specials[i].isUsableMp(this)) usable = "[X]";
             else usable = "   ";
             System.out.format("%-21s",(i+1) + ": " + specials[i].getSkillName());
-            System.out.format("%-4s","[" + specials[i].getMpCost() + "]"); //set this to %-6s if skills use triple digit MP
+            System.out.format("%-4s","[" + specials[i].getMpCost() + "]"); //set this to %-5s if skills use triple digit MP
             System.out.print(usable + " ");
             if(specials[i].isUsableMp(this)) anyUse = true;
-            if(i % 3 == 2 || i == len-1) System.out.println();
+            if(i % 3 == 2 || i == len-1) System.out.println(); //3 skills per row
         }
         if(!anyUse) System.out.println("-1: Cower");
     }

@@ -67,7 +67,7 @@ public class Battler {
                 System.out.println(name + " guards\n");
                 setGuard(true);
                 break;
-            case "Cower":
+            case "Cower": //nothing happens here
                 System.out.println(name + " cowers in fear!\n");
                 break;
             default:
@@ -90,7 +90,7 @@ public class Battler {
         buff(buffType, amount*-1);
     }
 
-    public double getBuffRate(String buffType){
+    public double getBuffRate(String buffType){ // buff amount * buffrate in percent form
         return getBuff(buffType) * ((double)buffRate / 100);
     }
 
