@@ -53,8 +53,10 @@ public abstract class Attack {
         }
         if(target.isGuarding()) { damage /= 2;} //halve damage if guarding
 
-        damage += (int)(damage * user.getBuffRate("atk"));
-        damage -= (int)(damage * target.getBuffRate("def"));
+        int damageBefore = damage;
+        damage += (int)(damageBefore * user.getBuffRate("atk"));
+        damage -= (int)(damageBefore * target.getBuffRate("def"));
+        if((damageBefore ^ damage) < 0) damage = 0; //if signs are different
 
         //If you are targeting yourself, negative damage can heal
         //So we don't set a floor, but if you are attempting to hit an enemy,
