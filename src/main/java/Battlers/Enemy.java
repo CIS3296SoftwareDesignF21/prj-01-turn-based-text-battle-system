@@ -7,25 +7,35 @@ public class Enemy extends Battler{
         addSpecialAttack(new Bash());
     }
 
+    public void addResistances(){
+        setResistance(FIRE, RESIST);
+        setResistance(ICE, WEAK);
+        setResistance(HOLY, WEAK);
+    }
+
     public Enemy(){
         super();
         addSpecials();
+        addResistances();
     }
 
     public Enemy(String name, int HP, int MaxHP, int MP, int MaxMP, int Atk, int Def,
                      int CritRate, int HitRate, int EvaRate) {
         super(name, HP, MaxHP, MP, MaxMP, Atk, Def, CritRate, HitRate, EvaRate);
         addSpecials();
+        addResistances();
     }
 
     public Enemy(String name, int HP, int MaxHP, int MP, int MaxMP, int Atk, int Def){
         super(name, HP, MaxHP, MP, MaxMP, Atk, Def);
         addSpecials();
+        addResistances();
     }
 
     public Enemy(String name, int HP, int MP, int Atk, int Def){
         super(name, HP, MP, Atk, Def);
         addSpecials();
+        addResistances();
     }
 
     public static Enemy randomEnemy(int level){

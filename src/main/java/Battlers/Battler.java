@@ -4,6 +4,20 @@ import Attacks.*;
 import java.util.*;
 
 public class Battler {
+    /* Battler Constants */
+    public static final int WEAK = 200;
+    public static final int STANDARD = 100;
+    public static final int RESIST = 50;
+    public static final int BLOCK = 0;
+    public static final int ABSORB = -100;
+    public static final String PHYSICAL = "Physical";
+    public static final String FIRE = "Fire";
+    public static final String ICE = "Ice";
+    public static final String WATER = "Water";
+    public static final String LIGHTNING = "Lightning";
+    public static final String HOLY = "Holy";
+    public static final String DARK = "Dark";
+    /* Battler Variables */
     private int HP;
     private int MaxHP;
     private int MP;
@@ -20,6 +34,7 @@ public class Battler {
     private Set<Attack> specialAttacks;
     private final int buffCap = 3, buffRate = 30; //buffcap is cap of buffs
     private Map<String, Integer> buffs; //Map of buffs, string: parameter name, integer: amount * rate
+    private Map<String, Integer> resists;
 
     public Battler(){
         this("",0,0,0,0,0,0,0,100,0);
@@ -42,6 +57,7 @@ public class Battler {
         currentAttack = defaultAttack;
         specialAttacks = new HashSet<Attack>();
         initBuffMap();
+        initResistsMap();
     }
 
     public Battler(String name, int HP, int MaxHP, int MP, int MaxMP, int Atk, int Def){
@@ -56,6 +72,14 @@ public class Battler {
         buffs = new HashMap<String, Integer>();
         buffs.put("atk", 0);
         buffs.put("def", 0);
+    }
+
+    public void initResistsMap(){
+        resists = new HashMap<String, Integer>();
+        resists.put(FIRE, STANDARD);
+        resists.put(ICE, STANDARD);
+        resists.put(PHYSICAL, STANDARD);
+        resists.put(HOLY, STANDARD);
     }
 
     public void useAction(Battler target,String action){
@@ -78,12 +102,8 @@ public class Battler {
     }
 
     public void buff(String buffType, int amount){
-        switch(buffType){
-            case "atk": case "def":
-                buffs.put(buffType, (Math.max(buffCap*-1, Math.min(buffCap, buffs.get(buffType)+amount))));
-                break; //min: -buffCap, max: buffCap, add amount to value in map
-            default:
-                System.out.println("INVALID BUFF TYPE!"); break;
+        if(buffs.replace(buffType, (Math.max(buffCap*-1, Math.min(buffCap, buffs.get(buffType)+amount)))) == null){
+            System.out.println("INVALID BUFF TYPE!");
         }
     }
     public void debuff(String buffType, int amount){
@@ -187,5 +207,13 @@ public class Battler {
 
     public Map<String, Integer> getBuffMap(){
         return buffs;
+    }
+
+    public Map<String, Integer> getResistsMap(){
+        return resists;
+    }
+
+    public void setResistance(String element, int affinity){
+        resists.replace(element, affinity);
     }
 }
