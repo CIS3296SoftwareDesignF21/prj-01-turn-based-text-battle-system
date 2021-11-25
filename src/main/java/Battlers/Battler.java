@@ -132,8 +132,7 @@ public class Battler {
     public void setHP(int HP) {this.HP = HP;}
 
     public void subtractHP(int HP) {
-        this.HP -= HP;
-        if(this.HP < 0) this.HP = 0;
+        this.HP = Math.min(MaxHP, Math.max(0, this.HP - HP));
     }
 
     public void recoverHP() {HP = MaxHP;}
@@ -147,8 +146,7 @@ public class Battler {
     public void setMP(int MP) {this.MP = MP;}
 
     public void subtractMP(int MP) {
-        this.MP -= MP;
-        if(this.MP < 0) this.MP = 0;
+        this.MP = Math.min(MaxMP, Math.max(0, this.MP - MP));
     }
 
     public void recoverMP() {MP = MaxMP;}

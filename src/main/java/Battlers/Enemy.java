@@ -11,6 +11,7 @@ public class Enemy extends Battler{
         setResistance(FIRE, RESIST);
         setResistance(ICE, WEAK);
         setResistance(HOLY, WEAK);
+        setResistance(DARK, ABSORB);
     }
 
     public Enemy(){

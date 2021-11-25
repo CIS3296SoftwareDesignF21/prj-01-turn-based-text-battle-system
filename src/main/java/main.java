@@ -25,7 +25,9 @@ public class main {
 		userInt = 0;
 		while(userInt > 3 || userInt < 1) {
 			System.out.println("Select your power level (1-3):");
-			userInt = stdin.nextInt();
+			try {
+				userInt = stdin.nextInt();
+			} catch (InputMismatchException e){stdin.next();}
 		}
 		player = Player.randomPlayer(userInt, charName);
 
@@ -33,7 +35,9 @@ public class main {
 		userInt = 0;
 		while(userInt > 3 || userInt < 1) {
 			System.out.println("Select your enemy's power level (1-3)");
-			userInt = stdin.nextInt();
+			try {
+				userInt = stdin.nextInt();
+			} catch (InputMismatchException e){stdin.next();}
 		}
 		enemy = Enemy.randomEnemy(userInt);
 	}
@@ -56,7 +60,9 @@ public class main {
 				if(special > 0) System.out.print(" " + special + ": Special");
 				if(magic > 0) System.out.print(" " + magic + ": Magic");
 				System.out.println(" " + guard + ": Guard -1: Quit 0: Options");
-				userInt = stdin.nextInt();
+				try {
+					userInt = stdin.nextInt();
+				} catch (InputMismatchException e){stdin.next(); userInt = 123;}
 				if(userInt == 1){
 					player.defaultCurrentAttack();
 					player.useAction(enemy, "Attack");
@@ -81,7 +87,7 @@ public class main {
 					System.out.print(player.getName() + " fled the scene!\nThe battle is over!");
 					System.exit(1);
 				} else{
-					System.out.println(player.getName() + " fumbled and pressed an invalid number!"); Attack.sleep();
+					System.out.println(player.getName() + " fumbled and pressed an invalid number!\n"); Attack.sleep();
 					if (enemy.getHP() > 0) {
 						enemy.useAction(player, "Attack");
 					}
@@ -145,7 +151,9 @@ public class main {
 		userInt = 0;
 		while(userInt > 5 || userInt < 1) {
 			System.out.println("Enter Text Speed (1-5):");
-			userInt = stdin.nextInt();
+			try{
+				userInt = stdin.nextInt();
+			} catch (InputMismatchException e){stdin.next();}
 		}
 		Attack.changeSleepTime(userInt);
 	}
