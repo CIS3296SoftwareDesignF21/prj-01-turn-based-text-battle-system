@@ -24,6 +24,8 @@ public class Battler {
     private int MaxMP;
     private int Atk;
     private int Def;
+    private int MAtk;
+    private int MDef;
     private int CritRate; //crit rate (0-100)
     private int HitRate; //hit rate (0-100)
     private int EvaRate; //evasion rate (0-100)
@@ -32,6 +34,7 @@ public class Battler {
     private Attack defaultAttack;
     private Attack currentAttack;
     private Set<Attack> specialAttacks;
+    private Set<Attack> magicAttacks;
     private final int buffCap = 3, buffRate = 30; //buffcap is cap of buffs
     private Map<String, Integer> buffs; //Map of buffs, string: parameter name, integer: amount * rate
     private Map<String, Integer> resists;
@@ -40,7 +43,7 @@ public class Battler {
         this("",0,0,0,0,0,0,0,100,0);
     }
 
-    public Battler(String name, int HP, int MaxHP, int MP, int MaxMP, int Atk, int Def,
+    public Battler(String name, int HP, int MaxHP, int MP, int MaxMP, int Atk, int Def, int MAtk, int MDef,
                    int CritRate, int HitRate, int EvaRate){
         this.name = name;
         this.HP = HP;
@@ -49,15 +52,23 @@ public class Battler {
         this.MaxMP = MaxMP;
         this.Atk = Atk;
         this.Def = Def;
+        this.MAtk = MAtk;
+        this.MDef = MDef;
         this.CritRate = CritRate;
         this.HitRate = HitRate;
         this.EvaRate = EvaRate;
         guard = false;
         defaultAttack = new BasicAttack();
         currentAttack = defaultAttack;
-        specialAttacks = new HashSet<Attack>();
+        specialAttacks = new HashSet<>();
+        magicAttacks = new HashSet<>();
         initBuffMap();
         initResistsMap();
+    }
+
+    public Battler(String name, int HP, int MaxHP, int MP, int MaxMP, int Atk, int Def,
+                   int CritRate, int HitRate, int EvaRate){
+        this(name, HP, MaxHP, MP, MaxMP, Atk, Def, Atk, Def, CritRate, HitRate, EvaRate);
     }
 
     public Battler(String name, int HP, int MaxHP, int MP, int MaxMP, int Atk, int Def){
@@ -69,13 +80,13 @@ public class Battler {
     }
 
     public void initBuffMap(){
-        buffs = new HashMap<String, Integer>();
+        buffs = new HashMap<>();
         buffs.put("atk", 0);
         buffs.put("def", 0);
     }
 
     public void initResistsMap(){
-        resists = new HashMap<String, Integer>();
+        resists = new HashMap<>();
         resists.put(FIRE, STANDARD);
         resists.put(ICE, STANDARD);
         resists.put(PHYSICAL, STANDARD);
@@ -156,6 +167,14 @@ public class Battler {
 
     public void setDef(int def) {Def = def;}
 
+    public int getMAtk() {return MAtk;}
+
+    public void setMAtk(int matk) {MAtk = matk;}
+
+    public int getMDef() {return MDef;}
+
+    public void setMDef(int mdef) {MDef = mdef;}
+
     public int getCritRate() {return CritRate;}
 
     public void setCritRate(int critRate) {CritRate = critRate;}
@@ -187,8 +206,7 @@ public class Battler {
     public void defaultCurrentAttack() {currentAttack = defaultAttack;}
 
     public boolean usedDefaultAttack() {
-        if(currentAttack == defaultAttack) return true;
-        return false;
+        return (currentAttack == defaultAttack);
     }
 
     public Set<Attack> getSpecialAttacks() {return specialAttacks;}
@@ -200,6 +218,18 @@ public class Battler {
     }
 
     public Attack[] getSpecialAttacksArray(){return specialAttacks.toArray(new Attack[0]);}
+
+    public boolean specialAttacksEmpty(){
+        return specialAttacks.isEmpty();
+    }
+
+    public void addMagicAttack(Attack magicAttack) {this.magicAttacks.add(magicAttack);}
+
+    public Attack[] getMagicAttacksArray(){return magicAttacks.toArray(new Attack[0]);}
+
+    public boolean magicAttacksEmpty(){
+        return magicAttacks.isEmpty();
+    }
 
     public int getBuff(String buffType){
         return buffs.get(buffType);
@@ -214,6 +244,8 @@ public class Battler {
     }
 
     public void setResistance(String element, int affinity){
-        resists.replace(element, affinity);
+        if(resists.replace(element, affinity) == null){
+            System.out.println("INVALID ELEMENT TYPE!!!");
+        }
     }
 }

@@ -53,8 +53,9 @@ public abstract class Attack {
     /* Damage Processing: Processes and Applies Critical Hits and Random Variance */
     public int processDamage(Battler user, Battler target){
         int damage = calcDamage(user, target);
-        damage = applyElements(damage, target);
-        String elementMessage = getElementMessage(target);
+        Map<String, Integer> resists = target.getResistsMap();
+        damage = applyElements(damage, resists);
+        String elementMessage = getElementMessage(target.getName(), resists);
         if(!elementMessage.isEmpty()){
             System.out.println(elementMessage); sleep();
         }
@@ -93,7 +94,7 @@ public abstract class Attack {
 
     /* Attack Process: Processes Everything: Damage & Effects */
     public void processAttack(Battler user, Battler target){
-        int damage = 0;
+        int damage;
         if(mpCost > user.getMP()){
             System.out.printf("Not enough MP! %s failed!\n",skillName); sleep();
             return;
@@ -112,8 +113,8 @@ public abstract class Attack {
                         System.out.println(target.getName() + " recovered " + Math.abs(damage) + " HP!");
                     sleep();
                 }
-                Map<String, Integer> oldUserBuffs = new HashMap<String,Integer>(user.getBuffMap());
-                Map<String, Integer> oldTargetBuffs = new HashMap<String,Integer>(target.getBuffMap());
+                Map<String, Integer> oldUserBuffs = new HashMap<>(user.getBuffMap());
+                Map<String, Integer> oldTargetBuffs = new HashMap<>(target.getBuffMap());
                 if(addEffects(user, target)){ //if effects added & add effects
                     if(!processAllBuffs(user, oldUserBuffs, target, oldTargetBuffs)){ //if no buffs applied
                         if(damage == 0) System.out.println("Nothing happened!"); //if no damage
@@ -147,17 +148,6 @@ public abstract class Attack {
                                    Battler target, Map<String, Integer> oldTargetBuffs){
         return processBuffs(user, oldUserBuffs) || processBuffs(target, oldTargetBuffs);
     }
-    public String getElementMessage(Battler target){
-        Map<String, Integer> resists = target.getResistsMap();
-        switch(resists.get(getElement())){
-            case WEAK: return target.getName() + " is weak to " + element.toLowerCase() + " attacks!";
-            //case STANDARD: return "";
-            case RESIST: return target.getName() + " resists " + element.toLowerCase() + " attacks!";
-            case BLOCK: return target.getName() + " blocks " + element.toLowerCase() + " attacks!";
-            case ABSORB: return target.getName() + " absorbs " + element.toLowerCase() + " attacks!";
-            default: return "";
-        }
-    }
     /* Check if skill is usable with current MP */
     public boolean isUsableMp(Battler user) {
         return (user.getMP() >= mpCost);
@@ -170,9 +160,9 @@ public abstract class Attack {
     public int applyCrit(int damage) {
         return damage * critMultiplier;
     }
-    public int applyElements(int damage, Battler target){
-        Map<String, Integer> resists = target.getResistsMap();
-        return (int)(damage * (resists.get(getElement()) / 100));
+    /* Method for applying elemental resistances after calling calcDamage() */
+    public int applyElements(int damage, Map<String, Integer> resists){
+        return (int)(damage * ((double)resists.get(getElement()) / 100));
     }
     /* Check if crit */
     public boolean crit(Battler user){
@@ -226,6 +216,16 @@ public abstract class Attack {
             effect += " by " + Math.abs(difference) + " levels";
         }
         return name + "'s " + buffName.toLowerCase() + " " + effect + "!";
+    }
+    public String getElementMessage(String name, Map<String, Integer> resists){
+        switch(resists.get(getElement())){
+            case WEAK: return name + " is weak to " + element.toLowerCase() + " attacks!";
+            //case STANDARD: return "";
+            case RESIST: return name + " resists " + element.toLowerCase() + " attacks!";
+            case BLOCK: return name + " blocks " + element.toLowerCase() + " attacks!";
+            case ABSORB: return name + " absorbs " + element.toLowerCase() + " attacks!";
+            default: return "";
+        }
     }
 
     /** Getters and setters for variables **/
