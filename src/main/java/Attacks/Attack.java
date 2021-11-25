@@ -140,7 +140,7 @@ public abstract class Attack {
     public boolean processBuffs(Battler battler, Map<String, Integer> oldBuffs){
         boolean changes;
         changes = processBuff(battler, oldBuffs, "atk", "Attack");
-        changes = changes || processBuff(battler, oldBuffs, "def", "Defense");
+        changes = processBuff(battler, oldBuffs, "def", "Defense") || changes;
         return changes;
     }
     /* Process every buff/debuff for the user AND target */

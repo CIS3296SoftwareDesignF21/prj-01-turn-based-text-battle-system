@@ -20,6 +20,7 @@ public class Player extends Battler{
         addMagicAttack(new Freeze());
         addMagicAttack(new Shock());
         addMagicAttack(new Holy());
+        addMagicAttack(new Plague());
     }
 
     public Player(){

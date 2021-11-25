@@ -90,6 +90,7 @@ public class Battler {
         resists.put(ICE, STANDARD);
         resists.put(PHYSICAL, STANDARD);
         resists.put(HOLY, STANDARD);
+        resists.put(DARK, STANDARD);
     }
 
     public void useAction(Battler target,String action){
