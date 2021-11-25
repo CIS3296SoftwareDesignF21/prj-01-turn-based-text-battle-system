@@ -2,16 +2,16 @@ package Attacks;
 
 import Battlers.Battler;
 
-import static Battlers.Battler.FIRE;
+import static Battlers.Battler.ICE;
 
-public class Fire extends Attack {
+public class Freeze extends Attack {
 
-    /** Fire values **/
-    public Fire(){
+    /** Freeze values **/
+    public Freeze(){
         super();
         setMpCost(15);
-        setSkillName("Fire");
-        setElement(FIRE);
+        setSkillName("Freeze");
+        setElement(ICE);
         setCritAbility(false);
     }
 
@@ -23,7 +23,7 @@ public class Fire extends Attack {
         return false;
     }
     public String getMessage(Battler user, Battler target){
-        return user.getName() + " casts Fire!";
+        return user.getName() + " casts Freeze!";
     }
 
 }

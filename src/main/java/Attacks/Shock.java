@@ -2,16 +2,16 @@ package Attacks;
 
 import Battlers.Battler;
 
-import static Battlers.Battler.FIRE;
+import static Battlers.Battler.LIGHTNING;
 
-public class Fire extends Attack {
+public class Shock extends Attack {
 
-    /** Fire values **/
-    public Fire(){
+    /** Shock values **/
+    public Shock(){
         super();
         setMpCost(15);
-        setSkillName("Fire");
-        setElement(FIRE);
+        setSkillName("Shock");
+        setElement(LIGHTNING);
         setCritAbility(false);
     }
 
@@ -23,7 +23,7 @@ public class Fire extends Attack {
         return false;
     }
     public String getMessage(Battler user, Battler target){
-        return user.getName() + " casts Fire!";
+        return user.getName() + " casts Shock!";
     }
 
 }

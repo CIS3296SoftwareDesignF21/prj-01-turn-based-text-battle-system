@@ -13,7 +13,6 @@ public class Battler {
     public static final String PHYSICAL = "Physical";
     public static final String FIRE = "Fire";
     public static final String ICE = "Ice";
-    public static final String WATER = "Water";
     public static final String LIGHTNING = "Lightning";
     public static final String HOLY = "Holy";
     public static final String DARK = "Dark";

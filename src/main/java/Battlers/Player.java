@@ -17,6 +17,9 @@ public class Player extends Battler{
         addSpecialAttack(new DebilitatingSlash());
         addSpecialAttack(new Peer());
         addMagicAttack(new Fire());
+        addMagicAttack(new Freeze());
+        addMagicAttack(new Shock());
+        addMagicAttack(new Holy());
     }
 
     public Player(){
