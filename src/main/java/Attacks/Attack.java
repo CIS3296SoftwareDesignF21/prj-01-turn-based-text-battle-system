@@ -1,5 +1,6 @@
 package Attacks;
 import Battlers.*;
+import RandomGeneration.Rates;
 
 import java.util.HashMap;
 import java.util.Map;

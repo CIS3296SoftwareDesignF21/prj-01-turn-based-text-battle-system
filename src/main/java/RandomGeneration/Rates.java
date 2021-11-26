@@ -1,4 +1,4 @@
-package Attacks;
+package RandomGeneration;
 
 public class Rates {
     /* Calculate a percentage chance into a boolean
