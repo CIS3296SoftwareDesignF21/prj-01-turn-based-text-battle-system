@@ -1,6 +1,7 @@
 package Battlers;
 import Attacks.*;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Player extends Battler{
@@ -102,7 +103,9 @@ public class Player extends Battler{
         int userInt;
         while(true){
             System.out.println("Choose an action:");
-            userInt = sc.nextInt();
+            try {
+                userInt = sc.nextInt();
+            } catch (InputMismatchException e){sc.next(); userInt = 0;}
             if(userInt == -1){
                 //System.out.println(getName() + " out of options selects Attack!");
                 return getDefaultAttack();
