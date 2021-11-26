@@ -15,8 +15,8 @@ public class Heal extends Attack {
     public int calcDamage(Battler user, Battler target){
         return Math.min(0, target.getMaxHP() / -3);
     }
-    public void addEffects(Battler user, Battler target){
-        // does nothing
+    public boolean addEffects(Battler user, Battler target){
+        return false;
     }
     public String getMessage(Battler user, Battler target){
         return target.getName() + " casts Heal!";

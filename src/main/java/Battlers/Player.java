@@ -13,6 +13,9 @@ public class Player extends Battler{
         addSpecialAttack(new DesperateHit());
         addSpecialAttack(new Heal());
         addSpecialAttack(new InstantKill());
+        addSpecialAttack(new DefenseDown());
+        addSpecialAttack(new DebilitatingSlash());
+        addSpecialAttack(new Peer());
     }
 
     public Player(){
@@ -71,7 +74,7 @@ public class Player extends Battler{
 
     public void attackMenuPrint(Attack[] specials){
         Scanner sc = new Scanner(System.in);
-        System.out.println("Total MP: " + getMP());
+        System.out.println("MP: " + getMP() + "/" + getMaxMP());
         int i, userInt = 0, len;
         String usable;
         len = specials.length;
@@ -80,11 +83,12 @@ public class Player extends Battler{
             //System.out.print((i+1) + ": " + specials[i].getSkillName());
             if(!specials[i].isUsableMp(this)) usable = "[X]";
             else usable = "   ";
-            System.out.format("%-20s",(i+1) + ": " + specials[i].getSkillName());
-            System.out.format("%-5s"," [" + specials[i].getMpCost() + "]"); //set this to %-6s if skills use triple digit MP
+            System.out.format("%-3s", (i+1) + ":");
+            System.out.format("%-18s",specials[i].getSkillName());
+            System.out.format("%-4s","[" + specials[i].getMpCost() + "]"); //set this to %-5s if skills use triple digit MP
             System.out.print(usable + " ");
             if(specials[i].isUsableMp(this)) anyUse = true;
-            if(i % 3 == 2 || i == len-1) System.out.println();
+            if(i % 3 == 2 || i == len-1) System.out.println(); //3 skills per row
         }
         if(!anyUse) System.out.println("-1: Cower");
     }
@@ -97,7 +101,7 @@ public class Player extends Battler{
             userInt = sc.nextInt();
             if(userInt == -1){
                 //System.out.println(getName() + " out of options selects Attack!");
-                return new DefaultAttack();
+                return getDefaultAttack();
             }
             else if(userInt < 1 || userInt > specials.length){ System.out.println("Invalid Skill!");}
             else if(!specials[userInt-1].isUsableMp(this)){ //if not usable

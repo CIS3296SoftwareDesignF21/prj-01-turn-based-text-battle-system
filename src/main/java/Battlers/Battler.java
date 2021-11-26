@@ -15,8 +15,11 @@ public class Battler {
     private int EvaRate; //evasion rate (0-100)
     private String name;
     private boolean guard;
+    private Attack defaultAttack;
     private Attack currentAttack;
     private Set<Attack> specialAttacks;
+    private final int buffCap = 3, buffRate = 30; //buffcap is cap of buffs
+    private Map<String, Integer> buffs; //Map of buffs, string: parameter name, integer: amount * rate
 
     public Battler(){
         this("",0,0,0,0,0,0,0,100,0);
@@ -35,8 +38,10 @@ public class Battler {
         this.HitRate = HitRate;
         this.EvaRate = EvaRate;
         guard = false;
-        currentAttack = new DefaultAttack();
+        defaultAttack = new BasicAttack();
+        currentAttack = defaultAttack;
         specialAttacks = new HashSet<Attack>();
+        initBuffMap();
     }
 
     public Battler(String name, int HP, int MaxHP, int MP, int MaxMP, int Atk, int Def){
@@ -47,18 +52,46 @@ public class Battler {
         this(name, HP, HP, MP, MP, Atk, Def);
     }
 
+    public void initBuffMap(){
+        buffs = new HashMap<String, Integer>();
+        buffs.put("atk", 0);
+        buffs.put("def", 0);
+    }
+
     public void useAction(Battler target,String action){
-        if(action.equals("Attack")){
-            currentAttack.processAttack(this,target);
-        } else if(action.equals("Guard")){
-        	System.out.println(name + " guards\n");
-            setGuard(true);
-        } else if(action.equals("Cower")){
-            System.out.println(name + " cowers in fear!\n");
-        } else{
-            System.out.println("Invalid action selected");
+        switch (action) {
+            case "Attack":
+                currentAttack.processAttack(this, target);
+                break;
+            case "Guard":
+                System.out.println(name + " guards\n"); Attack.sleep();
+                setGuard(true);
+                break;
+            case "Cower": //nothing happens here
+                System.out.println(name + " cowers in fear!\n"); Attack.sleep();
+                break;
+            default:
+                System.out.println("Invalid action selected"); Attack.sleep();
+                break;
         }
 
+    }
+
+    public void buff(String buffType, int amount){
+        switch(buffType){
+            case "atk": case "def":
+                buffs.put(buffType, (Math.max(buffCap*-1, Math.min(buffCap, buffs.get(buffType)+amount))));
+                break; //min: -buffCap, max: buffCap, add amount to value in map
+            default:
+                System.out.println("INVALID BUFF TYPE!"); break;
+        }
+    }
+    public void debuff(String buffType, int amount){
+        buff(buffType, amount*-1);
+    }
+
+    public double getBuffRate(String buffType){ // buff amount * buffrate in percent form
+        return getBuff(buffType) * ((double)buffRate / 100);
     }
 
 
@@ -121,34 +154,38 @@ public class Battler {
 
     public boolean isGuarding() {return guard;}
 
-    public void setGuard(boolean guard) {
-    	this.guard = guard;
-    	//Def = Def * 2; 
-    	}
+    public void setGuard(boolean guard) {this.guard = guard;}
 
-    public Attack getCurrentAttack() {
-        return currentAttack;
+    public Attack getDefaultAttack() {return defaultAttack;}
+
+    public void setDefaultAttack(Attack defaultAttack) {this.defaultAttack = defaultAttack;}
+
+    public Attack getCurrentAttack() {return currentAttack;}
+
+    public void setCurrentAttack(Attack currentAttack) {this.currentAttack = currentAttack;}
+
+    public void defaultCurrentAttack() {currentAttack = defaultAttack;}
+
+    public boolean usedDefaultAttack() {
+        if(currentAttack == defaultAttack) return true;
+        return false;
     }
 
-    public void setCurrentAttack(Attack currentAttack) {
-        this.currentAttack = currentAttack;
-    }
+    public Set<Attack> getSpecialAttacks() {return specialAttacks;}
 
-    public Set<Attack> getSpecialAttacks() {
-        return specialAttacks;
-    }
+    public void addSpecialAttack(Attack specialAttack) {this.specialAttacks.add(specialAttack);}
 
-    public void addSpecialAttack(Attack specialAttack) {
-        this.specialAttacks.add(specialAttack);
-    }
     public void endTurn() {
-        setCurrentAttack(new DefaultAttack());
-    	//Def = Def / 2;
-    	this.guard = false;
-    	
+    	setGuard(false);
     }
 
-    public Attack[] getSpecialAttacksArray(){
-        return specialAttacks.toArray(new Attack[1]);
+    public Attack[] getSpecialAttacksArray(){return specialAttacks.toArray(new Attack[0]);}
+
+    public int getBuff(String buffType){
+        return buffs.get(buffType);
+    }
+
+    public Map<String, Integer> getBuffMap(){
+        return buffs;
     }
 }
