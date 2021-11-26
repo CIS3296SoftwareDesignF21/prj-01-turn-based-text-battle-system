@@ -4,12 +4,14 @@ import Attacks.*;
 import java.util.*;
 
 public class Battler {
-    /* Battler Constants */
+    /** Battler Constants **/
+    /* Affinity Levels */
     public static final int WEAK = 200;
     public static final int STANDARD = 100;
     public static final int RESIST = 50;
     public static final int BLOCK = 0;
     public static final int ABSORB = -100;
+    /* Affinity/Element Types */
     public static final String PHYSICAL = "Physical";
     public static final String FIRE = "Fire";
     public static final String ICE = "Ice";
@@ -34,7 +36,7 @@ public class Battler {
     private Attack currentAttack;
     private Set<Attack> specialAttacks;
     private Set<Attack> magicAttacks;
-    private final int buffCap = 3, buffRate = 30; //buffcap is cap of buffs
+    private final int buffCap = 3, buffRate = 30; //buffcap is cap of buffs, rate is % applied to stat
     private Map<String, Integer> buffs; //Map of buffs, string: parameter name, integer: amount * rate
     private Map<String, Integer> resists;
 

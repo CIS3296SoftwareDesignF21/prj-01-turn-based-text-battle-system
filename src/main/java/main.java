@@ -44,11 +44,10 @@ public class main {
 
 	static private void battleLoop(){
 		boolean skipTurn = false;
-		int special, magic, guard;
+		//numbers for the actions. if the action isn't usable, it's not shown.
+		int special = -3, magic = -4, guard = -5;
 		if(!player.specialAttacksEmpty()) special = 2;
-		else special = -1924738236;
 		if(!player.magicAttacksEmpty()) magic = Math.max(2,special+1);
-		else magic = -987329814;
 		guard = Math.max(Math.max(2, special+1), magic+1);
 		while(!fin){
 			while (player.getHP() > 0 && enemy.getHP() > 0) {

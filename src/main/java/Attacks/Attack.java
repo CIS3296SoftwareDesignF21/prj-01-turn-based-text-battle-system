@@ -50,7 +50,7 @@ public abstract class Attack {
 
     /** Methods for attacks **/
 
-    /* Damage Processing: Processes and Applies Critical Hits and Random Variance */
+    /* Damage Processing: Processes and Applies Critical Hit, Random Variance, and applies Elements */
     public int processDamage(Battler user, Battler target){
         int damage = calcDamage(user, target);
         Map<String, Integer> resists = target.getResistsMap();
@@ -199,7 +199,7 @@ public abstract class Attack {
     public static void changeSleepTime(int sleepTime2){ //options: 1000,750,500,250,0
         changeSleepTime2(1000 - 250 * (sleepTime2-1));
     }
-    /* Get Messages for cases of a Critical Hit, Miss, or Evaded Hit */
+    /* Get Messages for cases of a Critical Hit, Miss, or Evaded Hit, along with Buffs/Debuffs and Elements */
     public String getCritMessage(Battler user, Battler target){
         return user.getName() + " dealt a critical blow!";
     }
