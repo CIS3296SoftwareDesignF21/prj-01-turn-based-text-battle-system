@@ -1,6 +1,7 @@
 package Attacks;
 import Battlers.*;
 
+import static Battlers.Battler.*;
 public class Heal extends Attack {
 
     /** Heal values **/
@@ -9,6 +10,7 @@ public class Heal extends Attack {
         setMpCost(10);
         setSkillName("Heal");
         setCritAbility(false);
+        setElement(HOLY);
     }
 
     /** Attack methods **/
@@ -19,7 +21,7 @@ public class Heal extends Attack {
         return false;
     }
     public String getMessage(Battler user, Battler target){
-        return target.getName() + " casts Heal!";
+        return user.getName() + " casts Heal!";
     }
 
 }
