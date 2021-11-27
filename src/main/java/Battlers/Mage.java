@@ -4,20 +4,10 @@ import Attacks.*;
 
 
 public class Mage extends Player{
-//    public int[] levelStats(int level){
-//        int hpModifier, mpModifier, atkModifier, defModifier;
-//        hpModifier = 40 * level;
-//        mpModifier = 45 * level;
-//        atkModifier = 10 * level;
-//        defModifier = 5 * level;
-//        int [] stats = {Rates.rand(400,500),Rates.rand(100,200), Rates.rand(30,40), Rates.rand(40,50)};
-//
-//    }
 
-//    public Mage(){
-//        super();
-//    }
-
+    public Mage(String name, int MaxHP, int MaxMP, int Atk, int Def, int MAtk, int MDef){
+        super(name, MaxHP, MaxMP, Atk, Def);
+    }
 
     public Mage(String name, int MaxHP, int MaxMP, int Atk, int Def){
         super(name, MaxHP, MaxMP, Atk, Def);

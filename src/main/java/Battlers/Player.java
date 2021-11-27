@@ -27,23 +27,19 @@ public class Player extends Battler{
 
     public Player(){
         super();
-        //addSpecials();
     }
 
-    public Player(String name, int HP, int MaxHP, int MP, int MaxMP, int Atk, int Def,
-                  int CritRate, int HitRate, int EvaRate){
-        super(name, HP, MaxHP, MP, MaxMP, Atk, Def, CritRate, HitRate, EvaRate);
-//        addSpecials();
+    public Player(String name, int HP, int MaxHP, int MP, int MaxMP, int Atk, int Def, int MAtk, int MDef, int CritRate, int HitRate, int EvaRate){
+        super(name, HP, MaxHP, MP, MaxMP, Atk, Def, MAtk, MDef, CritRate, HitRate, EvaRate);
     }
 
-    public Player(String name, int HP, int MaxHP, int MP, int MaxMP, int Atk, int Def){
-        super(name, HP, MaxHP, MP, MaxMP, Atk, Def);
-//        addSpecials();
+    public Player(String name, int MaxHP, int MaxMp, int Atk, int Def, int MAtk, int MDef){
+        super(name,MaxHP,MaxMp,Atk,Def,MAtk,MDef);
     }
+
 
     public Player(String name, int MaxHP, int MaxMP, int Atk, int Def){
         super(name, MaxHP, MaxMP, Atk, Def);
-//        addSpecials();
     }
 
     //Plan to make protected in the future

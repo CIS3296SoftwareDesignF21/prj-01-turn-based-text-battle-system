@@ -41,7 +41,7 @@ public class Battler {
     private Map<String, Integer> resists;
 
     public Battler(){
-        this("",0,0,0,0,0,0,0,100,0);
+        this("",0,0,0,0,0,0,0,0,10,100,10);
     }
 
     public Battler(String name, int HP, int MaxHP, int MP, int MaxMP, int Atk, int Def, int MAtk, int MDef,
@@ -67,17 +67,13 @@ public class Battler {
         initResistsMap();
     }
 
-    public Battler(String name, int HP, int MaxHP, int MP, int MaxMP, int Atk, int Def,
-                   int CritRate, int HitRate, int EvaRate){
-        this(name, HP, MaxHP, MP, MaxMP, Atk, Def, Atk, Def, CritRate, HitRate, EvaRate);
+    public Battler(String name, int MaxHP, int MaxMp, int Atk, int Def, int MAtk, int MDef){
+        this(name,MaxHP,MaxHP,MaxMp,MaxMp,Atk,Def,MAtk,MDef,10,100,10);
     }
 
-    public Battler(String name, int HP, int MaxHP, int MP, int MaxMP, int Atk, int Def){
-        this(name, HP, MaxHP, MP, MaxMP, Atk, Def, 10, 95, 10);
-    }
 
     public Battler(String name, int HP, int MP, int Atk, int Def){
-        this(name, HP, HP, MP, MP, Atk, Def);
+        this(name, HP, HP, MP, MP, Atk, Def, Atk, Def, 10, 100, 10);
     }
 
     public void initBuffMap(){
