@@ -1,6 +1,7 @@
 package Battlers;
 import Attacks.*;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Player extends Battler{
@@ -16,6 +17,11 @@ public class Player extends Battler{
         addSpecialAttack(new DefenseDown());
         addSpecialAttack(new DebilitatingSlash());
         addSpecialAttack(new Peer());
+        addMagicAttack(new Fire());
+        addMagicAttack(new Freeze());
+        addMagicAttack(new Shock());
+        addMagicAttack(new Holy());
+        addMagicAttack(new Plague());
     }
 
     public Player(){
@@ -73,9 +79,8 @@ public class Player extends Battler{
     }
 
     public void attackMenuPrint(Attack[] specials){
-        Scanner sc = new Scanner(System.in);
         System.out.println("MP: " + getMP() + "/" + getMaxMP());
-        int i, userInt = 0, len;
+        int i, len;
         String usable;
         len = specials.length;
         boolean anyUse = false;
@@ -95,10 +100,12 @@ public class Player extends Battler{
 
     public Attack attackMenuSelect(Attack[] specials){
         Scanner sc = new Scanner(System.in);
-        int userInt = 0;
+        int userInt;
         while(true){
             System.out.println("Choose an action:");
-            userInt = sc.nextInt();
+            try {
+                userInt = sc.nextInt();
+            } catch (InputMismatchException e){sc.next(); userInt = 0;}
             if(userInt == -1){
                 //System.out.println(getName() + " out of options selects Attack!");
                 return getDefaultAttack();
@@ -106,7 +113,6 @@ public class Player extends Battler{
             else if(userInt < 1 || userInt > specials.length){ System.out.println("Invalid Skill!");}
             else if(!specials[userInt-1].isUsableMp(this)){ //if not usable
                 System.out.println("Insufficient MP!");
-                userInt = 0;
             }
             else break;
         }

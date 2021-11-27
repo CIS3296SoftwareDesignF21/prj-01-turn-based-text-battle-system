@@ -4,10 +4,12 @@ import Battlers.*;
 import java.util.HashMap;
 import java.util.Map;
 
+import static Battlers.Battler.*;
+
 public abstract class Attack {
 
     /** Attack Constants **/
-    public static final int PHYSICAL = 0; //subject to hit/evasion rates
+    public static final int DEFAULT = 0; //subject to hit/evasion rates
     public static final int GUARANTEED = 1; //guaranteed to hit, ignore hit/evasion rates
     public static final int EFFECTS = 2; //status effects/buffs, doesn't print attack message, ignore player hit/evasion rates
 
@@ -24,6 +26,7 @@ public abstract class Attack {
     private int attackType; //type of skill
     private boolean critAbility; //if skill can crit
     private int variance; //random percent multiplied to attack, then added to attack (-var to +var)
+    private String element; //element type of the attack
 
     /** Default Attack Parameters **/
     public Attack(){
@@ -33,9 +36,10 @@ public abstract class Attack {
         critRate = 0;
         critMultiplier = 3;
         hitRate = 100;
-        attackType = PHYSICAL;
+        attackType = DEFAULT;
         critAbility = true;
         variance = 20;
+        element = PHYSICAL;
     }
 
 
@@ -46,9 +50,15 @@ public abstract class Attack {
 
     /** Methods for attacks **/
 
-    /* Damage Processing: Processes and Applies Critical Hits and Random Variance */
+    /* Damage Processing: Processes and Applies Critical Hit, Random Variance, and applies Elements */
     public int processDamage(Battler user, Battler target){
         int damage = calcDamage(user, target);
+        Map<String, Integer> resists = target.getResistsMap();
+        damage = applyElements(damage, resists);
+        String elementMessage = getElementMessage(target.getName(), resists);
+        if(!elementMessage.isEmpty()){
+            System.out.println(elementMessage); sleep();
+        }
         damage = applyVariance(damage);
         if (crit(user)) { //if crit
             damage = applyCrit(damage); //multiply attack
@@ -64,9 +74,9 @@ public abstract class Attack {
         //If you are targeting yourself, negative damage can heal
         //So we don't set a floor, but if you are attempting to hit an enemy,
         //the damage shouldn't fall below 0
-        if(!target.equals(user) && damage < 0){
+        /*if(!target.equals(user) && damage < 0){
             damage = 0;
-        }
+        }*/
         return damage;
     }
 
@@ -84,7 +94,7 @@ public abstract class Attack {
 
     /* Attack Process: Processes Everything: Damage & Effects */
     public void processAttack(Battler user, Battler target){
-        int damage = 0;
+        int damage;
         if(mpCost > user.getMP()){
             System.out.printf("Not enough MP! %s failed!\n",skillName); sleep();
             return;
@@ -100,11 +110,11 @@ public abstract class Attack {
                     if (damage >= 0)
                         System.out.println(target.getName() + " took " + damage + " damage!");
                     else
-                        System.out.println(target.getName() + " recovered " + Math.abs(damage) + " HP");
+                        System.out.println(target.getName() + " recovered " + Math.abs(damage) + " HP!");
                     sleep();
                 }
-                Map<String, Integer> oldUserBuffs = new HashMap<String,Integer>(user.getBuffMap());
-                Map<String, Integer> oldTargetBuffs = new HashMap<String,Integer>(target.getBuffMap());
+                Map<String, Integer> oldUserBuffs = new HashMap<>(user.getBuffMap());
+                Map<String, Integer> oldTargetBuffs = new HashMap<>(target.getBuffMap());
                 if(addEffects(user, target)){ //if effects added & add effects
                     if(!processAllBuffs(user, oldUserBuffs, target, oldTargetBuffs)){ //if no buffs applied
                         if(damage == 0) System.out.println("Nothing happened!"); //if no damage
@@ -130,7 +140,7 @@ public abstract class Attack {
     public boolean processBuffs(Battler battler, Map<String, Integer> oldBuffs){
         boolean changes;
         changes = processBuff(battler, oldBuffs, "atk", "Attack");
-        changes = changes || processBuff(battler, oldBuffs, "def", "Defense");
+        changes = processBuff(battler, oldBuffs, "def", "Defense") || changes;
         return changes;
     }
     /* Process every buff/debuff for the user AND target */
@@ -149,6 +159,10 @@ public abstract class Attack {
     /* Method for applying crits after calling calcDamage() */
     public int applyCrit(int damage) {
         return damage * critMultiplier;
+    }
+    /* Method for applying elemental resistances after calling calcDamage() */
+    public int applyElements(int damage, Map<String, Integer> resists){
+        return (int)(damage * ((double)resists.get(getElement()) / 100));
     }
     /* Check if crit */
     public boolean crit(Battler user){
@@ -185,7 +199,7 @@ public abstract class Attack {
     public static void changeSleepTime(int sleepTime2){ //options: 1000,750,500,250,0
         changeSleepTime2(1000 - 250 * (sleepTime2-1));
     }
-    /* Get Messages for cases of a Critical Hit, Miss, or Evaded Hit */
+    /* Get Messages for cases of a Critical Hit, Miss, or Evaded Hit, along with Buffs/Debuffs and Elements */
     public String getCritMessage(Battler user, Battler target){
         return user.getName() + " dealt a critical blow!";
     }
@@ -202,6 +216,16 @@ public abstract class Attack {
             effect += " by " + Math.abs(difference) + " levels";
         }
         return name + "'s " + buffName.toLowerCase() + " " + effect + "!";
+    }
+    public String getElementMessage(String name, Map<String, Integer> resists){
+        switch(resists.get(getElement())){
+            case WEAK: return name + " is weak to " + element.toLowerCase() + " attacks!";
+            //case STANDARD: return "";
+            case RESIST: return name + " resists " + element.toLowerCase() + " attacks!";
+            case BLOCK: return name + " blocks " + element.toLowerCase() + " attacks!";
+            case ABSORB: return name + " absorbs " + element.toLowerCase() + " attacks!";
+            default: return "";
+        }
     }
 
     /** Getters and setters for variables **/
@@ -223,5 +247,7 @@ public abstract class Attack {
     public boolean canCrit() { return critAbility;}
     public void setVariance(int variance) { this.variance = variance;}
     public int getVariance() { return variance;}
+    public void setElement(String element) { this.element = element;}
+    public String getElement() { return element;}
 
 }//end attack class
