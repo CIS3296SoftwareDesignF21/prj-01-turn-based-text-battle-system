@@ -78,7 +78,7 @@ public class RandomEnemy {
                 enemies.add(randomGoblinLord(level,enemyName));
             }
         }
-
+        System.out.printf("Your enemies include %d normal goblins and %d mighty Goblin Lords!\n",numGoblins,numLords);
         return enemies;
     }
 }

@@ -79,7 +79,7 @@ public class RandomPlayer {
                  allies.add(randomMage(level,allyName));
              }
         }
-
+        System.out.printf("Your party includes %d friendly mages and %d friendly fighters\n",numMages,numFighters);
         return allies;
     }
 
