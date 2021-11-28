@@ -116,13 +116,15 @@ public class main {
 					removeDeadNpc();
 					for(Player ally: allies) {
 						removeDeadNpc();
-						ally.randomAttackPattern(enemies);
+						if(enemies.size() != 0)
+							ally.randomAttackPattern(enemies);
 						ally.endTurn();
 					}
 					removeDeadNpc();
 					for(Enemy enemy: enemies) {
 						removeDeadNpc();
-						enemy.randomAttackPattern(allies);
+						if(allies.size() != 0)
+							enemy.randomAttackPattern(allies);
 						enemy.endTurn();
 					}
 				}
