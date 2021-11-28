@@ -119,6 +119,7 @@ public class main {
 						ally.randomAttackPattern(enemies);
 						ally.endTurn();
 					}
+					removeDeadNpc();
 					for(Enemy enemy: enemies) {
 						removeDeadNpc();
 						enemy.randomAttackPattern(allies);
@@ -184,6 +185,8 @@ public class main {
 		for(int i = 0; i < enemies.size(); i++){
 			if(enemies.get(i).getHP() > 0)
 				currentEnemies.add(enemies.get(i));
+			else
+				System.out.println(enemies.get(i).getName() + " has been slain!");
 		}
 		enemies.retainAll(currentEnemies);
 
@@ -191,6 +194,8 @@ public class main {
 		for(int i = 0; i < allies.size(); i++){
 			if(allies.get(i).getHP() > 0)
 				currentAllies.add(allies.get(i));
+			else
+				System.out.println("You have lost " + allies.get(i).getName() + " D:");
 		}
 		allies.retainAll(currentAllies);
 	}
