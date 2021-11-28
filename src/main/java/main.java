@@ -1,5 +1,7 @@
 import Attacks.*;
 import Battlers.*;
+import RandomGeneration.RandomEnemy;
+import RandomGeneration.RandomPlayer;
 
 import java.util.*;
 
@@ -10,9 +12,11 @@ public class main {
 	static String charName;
 	static boolean fin = false;
 	static Player player = null;
-	static Enemy enemy = null;
+	static ArrayList<Player> allies = null;
+	static ArrayList<Enemy> enemies = null;
 
 	public static void main(String[] args) {
+		System.out.println("Hello and welcome to the battle simulator!");
 		System.out.println("Enter your name:");
 		charName = stdin.nextLine();
 
@@ -21,25 +25,50 @@ public class main {
 	}
 
 	private static void setDifficulty(){
-		//System.out.println("How powerful is your character (1 - 3):");
-		userInt = 0;
-		while(userInt > 3 || userInt < 1) {
+		int classChoice = 0;
+		while(classChoice > 2 || classChoice < 1) {
+			System.out.println("Would you like to play as a Mage or a Fighter?\n" +
+					"1) Fighter \n" +
+					"2) Mage \n");
+			try {
+				classChoice = stdin.nextInt();
+			} catch (InputMismatchException e){stdin.next();}
+		}
+
+		int level = 0;
+		while(level > 3 || level < 1) {
 			System.out.println("Select your power level (1-3):");
 			try {
-				userInt = stdin.nextInt();
+				level = stdin.nextInt();
 			} catch (InputMismatchException e){stdin.next();}
 		}
-		player = Player.randomPlayer(userInt, charName);
 
-		//System.out.println("How strong of an enemy can you manage (1 - 3):");
-		userInt = 0;
-		while(userInt > 3 || userInt < 1) {
-			System.out.println("Select your enemy's power level (1-3)");
-			try {
-				userInt = stdin.nextInt();
-			} catch (InputMismatchException e){stdin.next();}
+		if(classChoice == 1){
+			player = RandomPlayer.randomFighter(level,charName);
+		} else {
+			player = RandomPlayer.randomMage(level,charName);
 		}
-		enemy = Enemy.randomEnemy(userInt);
+
+		System.out.println("How many allies would you like to have?");
+		try {
+			userInt = stdin.nextInt();
+		} catch (InputMismatchException e){stdin.next();}
+		allies = RandomPlayer.generateAllies(userInt,level);
+
+		int enemiesCount = 0;
+		System.out.println("How many enemies can you handle?");
+		try {
+			enemiesCount = stdin.nextInt();
+		} catch (InputMismatchException e){stdin.next();}
+
+		int enemyLevel = 0;
+		System.out.println("How strong should your enemies be (1-3)?");
+		try {
+			enemyLevel = stdin.nextInt();
+		} catch (InputMismatchException e){stdin.next();}
+
+		enemies = RandomEnemy.generateEnemies(enemiesCount,enemyLevel);
+
 	}
 
 	static private void battleLoop(){
@@ -50,11 +79,9 @@ public class main {
 		if(!player.magicAttacksEmpty()) magic = Math.max(2,special+1);
 		guard = Math.max(Math.max(2, special+1), magic+1);
 		while(!fin){
-			while (player.getHP() > 0 && enemy.getHP() > 0) {
-				//System.out.println("Enter 1 for attack. Enter 2 for Special. Enter 3 for Guard. Enter -1 to quit.");
+			while (player.getHP() > 0 && enemies.size() != 0) {
 				System.out.print("HP: " + player.getHP() + "/" + player.getMaxHP());
 				System.out.println(" MP: " + player.getMP() + "/" + player.getMaxMP());
-				//System.out.println("1: Attack 2: Special 3: Magic 4: Guard -1: Quit 0: Options ");
 				System.out.print("1: Attack");
 				if(special > 0) System.out.print(" " + special + ": Special");
 				if(magic > 0) System.out.print(" " + magic + ": Magic");
@@ -64,10 +91,7 @@ public class main {
 				} catch (InputMismatchException e){stdin.next(); userInt = 123;}
 				if(userInt == 1){
 					player.defaultCurrentAttack();
-					player.useAction(enemy, "Attack");
-					if (enemy.getHP() > 0) {
-						enemy.useAction(player, "Attack");
-					}
+					player.useAction(player.chooseTarget(enemies), "Attack");
 				} else if(userInt == special && special > 0){
 					if(player.specialAttacksEmpty()) skipTurn = true;
 					else handleMenu(player.getSpecialAttacksArray());
@@ -75,10 +99,7 @@ public class main {
 					if(player.magicAttacksEmpty()) skipTurn = true;
 					else handleMenu(player.getMagicAttacksArray());
 				} else if(userInt == guard){
-					player.useAction(enemy, "Guard");
-					if (enemy.getHP() > 0) {
-						enemy.useAction(player, "Attack");
-					}
+					player.useAction(player, "Guard");
 				} else if(userInt == 0){
 					skipTurn = true;
 					changeTextSpeed();
@@ -87,13 +108,25 @@ public class main {
 					System.exit(1);
 				} else{
 					System.out.println(player.getName() + " fumbled and pressed an invalid number!\n"); Attack.sleep();
-					if (enemy.getHP() > 0) {
-						enemy.useAction(player, "Attack");
-					}
 				}
+
+
 				if(!skipTurn) {
 					player.endTurn();
-					enemy.endTurn();
+					removeDeadNpc();
+					for(Player ally: allies) {
+						removeDeadNpc();
+						if(enemies.size() != 0)
+							ally.randomAttackPattern(enemies);
+						ally.endTurn();
+					}
+					removeDeadNpc();
+					for(Enemy enemy: enemies) {
+						removeDeadNpc();
+						if(allies.size() != 0)
+							enemy.randomAttackPattern(allies);
+						enemy.endTurn();
+					}
 				}
 				else skipTurn = false;
 			}
@@ -104,26 +137,20 @@ public class main {
 	private static void handleMenu(Attack[] attacks){
 		player.setCurrentAttack(player.attackMenu(attacks));
 		if(player.usedDefaultAttack()){
-			player.useAction(enemy, "Cower");
+			player.useAction(player.chooseTarget(enemies), "Cower");
 		}
 		else{
-			player.useAction(enemy, "Attack");
-		}
-		if (enemy.getHP() > 0) {
-			enemy.useAction(player, "Attack");
+			player.useAction(player.chooseTarget(enemies), "Attack");
 		}
 		player.defaultCurrentAttack();
 	}
 
 	private static boolean checkIfFinished() {
 		Scanner sc = new Scanner(System.in);
-		if(player.getHP() <= 0){
+		if(player.getHP() <= 0) {
 			System.out.println("You have been defeated D:");
-		} else if(enemy.getHP() <= 0) {
-			System.out.println("You have vanquished your foe :D\nCongratulations!");
-		}
-		else{
-			System.out.println("Something ended... I guess???");
+		}else{
+			System.out.println("You have vanquished your foe(s) :D\nCongratulations!");
 		}
 		Attack.sleep();
 
@@ -133,8 +160,6 @@ public class main {
 			if (response.equals("yes")) {
 				System.out.println("NEW ROUND!!!\n");
 				setDifficulty();
-				player.recoverAll();
-				enemy.recoverAll();
 				fin = false;
 				break;
 			} else if (response.equals("no")) {
@@ -156,4 +181,28 @@ public class main {
 		}
 		Attack.changeSleepTime(userInt);
 	}
+
+	public static void removeDeadNpc(){
+		ArrayList<Enemy> currentEnemies = new ArrayList<>();
+		for(int i = 0; i < enemies.size(); i++){
+			if(enemies.get(i).getHP() > 0)
+				currentEnemies.add(enemies.get(i));
+			else
+				System.out.println(enemies.get(i).getName() + " has been slain!");
+		}
+		enemies.retainAll(currentEnemies);
+
+		ArrayList<Player> currentAllies = new ArrayList<>();
+		for(int i = 0; i < allies.size(); i++){
+			if(allies.get(i).getHP() > 0)
+				currentAllies.add(allies.get(i));
+			else
+				System.out.println("You have lost " + allies.get(i).getName() + " D:");
+		}
+		allies.retainAll(currentAllies);
+	}
+
+
+
+
 }

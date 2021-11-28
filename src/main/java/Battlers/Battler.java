@@ -1,5 +1,6 @@
 package Battlers;
 import Attacks.*;
+import RandomGeneration.Rates;
 
 import java.util.*;
 
@@ -41,7 +42,7 @@ public class Battler {
     private Map<String, Integer> resists;
 
     public Battler(){
-        this("",0,0,0,0,0,0,0,100,0);
+        this("",0,0,0,0,0,0,0,0,10,100,10);
     }
 
     public Battler(String name, int HP, int MaxHP, int MP, int MaxMP, int Atk, int Def, int MAtk, int MDef,
@@ -67,17 +68,13 @@ public class Battler {
         initResistsMap();
     }
 
-    public Battler(String name, int HP, int MaxHP, int MP, int MaxMP, int Atk, int Def,
-                   int CritRate, int HitRate, int EvaRate){
-        this(name, HP, MaxHP, MP, MaxMP, Atk, Def, Atk, Def, CritRate, HitRate, EvaRate);
+    public Battler(String name, int MaxHP, int MaxMp, int Atk, int Def, int MAtk, int MDef){
+        this(name,MaxHP,MaxHP,MaxMp,MaxMp,Atk,Def,MAtk,MDef,10,100,10);
     }
 
-    public Battler(String name, int HP, int MaxHP, int MP, int MaxMP, int Atk, int Def){
-        this(name, HP, MaxHP, MP, MaxMP, Atk, Def, 10, 95, 10);
-    }
 
     public Battler(String name, int HP, int MP, int Atk, int Def){
-        this(name, HP, HP, MP, MP, Atk, Def);
+        this(name, HP, HP, MP, MP, Atk, Def, Atk, Def, 10, 100, 10);
     }
 
     public void initBuffMap(){
@@ -113,6 +110,76 @@ public class Battler {
         }
 
     }
+
+
+
+    public Battler chooseTarget(ArrayList<Enemy> targets){
+        Battler target = null;
+        Scanner stdin = new Scanner(System.in);
+        if(currentAttack.getSkillName().equals("Heal")) {
+            target = this;
+        }else {
+            System.out.println("Which enemy would you like to target?");
+            int i = 0;
+            int targetInput = 0;
+            while (targetInput > targets.size() || targetInput <= 0){
+                for (Enemy battler : targets) {
+                    System.out.printf("%d) %s \n", ++i, battler.getName());
+                }
+                try {
+                    targetInput = stdin.nextInt();
+                } catch (InputMismatchException e) {
+                    stdin.next();
+                }
+            }
+            target = targets.get(targetInput - 1);
+        }
+
+        return target;
+    }
+
+
+
+
+    public void randomAttackPattern(ArrayList<? extends Battler> targets){
+        int numTargets = targets.size();
+        Battler target = targets.get(Rates.rand(0,numTargets - 1));
+
+
+        //Need to think about how to set attack probabilities based on currently available attacks
+        //Perhaps need to create an Arraylist with currently usable attacks to pull from, and worry about their percentages later
+
+        ArrayList<Attack> usableAttacks = new ArrayList<>();
+
+        for(Attack attack: this.getSpecialAttacks()){
+            if(attack.getMpCost() <= this.getMP()){
+                usableAttacks.add(attack);
+            }
+        }
+
+        for(Attack attack: this.getMagicAttacks()){
+            if(attack.getMpCost() <= this.getMP()){
+//                if(!attack.getSkillName().equals("Heal"))
+                    usableAttacks.add(attack);
+            }
+        }
+
+        int numUsableAttacks = usableAttacks.size();
+
+        if(numUsableAttacks == 0) {
+            this.getDefaultAttack().processAttack(this, target);
+        }else {
+            Attack currentAttack = usableAttacks.get(Rates.rand(0, numUsableAttacks - 1));
+            if(currentAttack.getSkillName().equals("Heal"))
+                currentAttack.processAttack(this,this);
+            else
+                currentAttack.processAttack(this,target);
+        }
+    }
+
+
+
+
 
     public void buff(String buffType, int amount){
         if(buffs.replace(buffType, (Math.max(buffCap*-1, Math.min(buffCap, buffs.get(buffType)+amount)))) == null){
@@ -224,6 +291,8 @@ public class Battler {
     }
 
     public void addMagicAttack(Attack magicAttack) {this.magicAttacks.add(magicAttack);}
+
+    public Set<Attack> getMagicAttacks() {return magicAttacks;}
 
     public Attack[] getMagicAttacksArray(){return magicAttacks.toArray(new Attack[0]);}
 
