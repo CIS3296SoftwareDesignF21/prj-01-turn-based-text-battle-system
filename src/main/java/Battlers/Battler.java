@@ -1,5 +1,6 @@
 package Battlers;
 import Attacks.*;
+import RandomGeneration.Rates;
 
 import java.util.*;
 
@@ -109,6 +110,42 @@ public class Battler {
         }
 
     }
+
+    public void randomAttackPattern(ArrayList<Battler> targets){
+        int numTargets = targets.size();
+        Battler target = targets.get(Rates.rand(0,numTargets - 1));
+
+
+        //Need to think about how to set attack probabilities based on currently available attacks
+        //Perhaps need to create an Arraylist with currently usable attacks to pull from, and worry about their percentages later
+
+        ArrayList<Attack> usableAttacks = new ArrayList<>();
+
+        for(Attack attack: this.getSpecialAttacks()){
+            if(attack.getMpCost() <= this.getMP()){
+                usableAttacks.add(attack);
+            }
+        }
+
+        for(Attack attack: this.getMagicAttacks()){
+            if(attack.getMpCost() <= this.getMP()){
+                usableAttacks.add(attack);
+            }
+        }
+
+        int numUsableAttacks = usableAttacks.size();
+
+        if(numUsableAttacks == 0) {
+            this.getDefaultAttack().processAttack(this, target);
+        }else {
+            Attack currentAttack = usableAttacks.get(Rates.rand(0, numUsableAttacks - 1));
+            currentAttack.processAttack(this,target);
+        }
+    }
+
+
+
+
 
     public void buff(String buffType, int amount){
         if(buffs.replace(buffType, (Math.max(buffCap*-1, Math.min(buffCap, buffs.get(buffType)+amount)))) == null){
@@ -220,6 +257,8 @@ public class Battler {
     }
 
     public void addMagicAttack(Attack magicAttack) {this.magicAttacks.add(magicAttack);}
+
+    public Set<Attack> getMagicAttacks() {return magicAttacks;}
 
     public Attack[] getMagicAttacksArray(){return magicAttacks.toArray(new Attack[0]);}
 
