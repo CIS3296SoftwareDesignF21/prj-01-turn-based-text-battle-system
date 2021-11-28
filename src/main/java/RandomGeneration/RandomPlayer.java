@@ -16,7 +16,7 @@ public class RandomPlayer {
         Matk = 70 * level * Rates.rand(0,30);
         Mdef = 80* level * Rates.rand(0,30);
         Mage mage = new Mage(name,hp,mp,atk,def,Matk,Mdef);
-        mage.addSpecialAttack(new Peer());
+        mage.addMagicAttack(new Peer());
         switch(level){
             case 1:
                 break;

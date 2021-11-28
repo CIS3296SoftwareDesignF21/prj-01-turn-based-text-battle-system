@@ -53,7 +53,7 @@ public class RandomEnemy {
             case 3:
                 goblinLord.addSpecialAttack(new VariantStrike());
                 goblinLord.addSpecialAttack(new Pierce());
-                goblinLord.addSpecialAttack(new Heal());
+                goblinLord.addMagicAttack(new Heal());
                 break;
             default:
                 System.out.println("Level must be between one and three");

@@ -111,6 +111,10 @@ public class Battler {
 
     }
 
+
+    //Need to have a seperate class for buffs, otherwise this doesn't work.
+    //Perhaps storing things like Heal or others like it in it's own array would work, since then
+    //we could have the positive effects target a passed array of allies instead of enemies
     public void randomAttackPattern(ArrayList<Battler> targets){
         int numTargets = targets.size();
         Battler target = targets.get(Rates.rand(0,numTargets - 1));
@@ -129,7 +133,8 @@ public class Battler {
 
         for(Attack attack: this.getMagicAttacks()){
             if(attack.getMpCost() <= this.getMP()){
-                usableAttacks.add(attack);
+//                if(!attack.getSkillName().equals("Heal"))
+                    usableAttacks.add(attack);
             }
         }
 
@@ -139,7 +144,10 @@ public class Battler {
             this.getDefaultAttack().processAttack(this, target);
         }else {
             Attack currentAttack = usableAttacks.get(Rates.rand(0, numUsableAttacks - 1));
-            currentAttack.processAttack(this,target);
+            if(currentAttack.getSkillName().equals("Heal"))
+                currentAttack.processAttack(this,this);
+            else
+                currentAttack.processAttack(this,target);
         }
     }
 
