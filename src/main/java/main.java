@@ -12,8 +12,6 @@ public class main {
 	static String charName;
 	static boolean fin = false;
 	static Player player = null;
-	static Enemy enemy = null;
-
 	static ArrayList<Player> allies = null;
 	static ArrayList<Enemy> enemies = null;
 
@@ -64,7 +62,7 @@ public class main {
 		} catch (InputMismatchException e){stdin.next();}
 
 		int enemyLevel = 0;
-		System.out.println("How strong should your enemies be?");
+		System.out.println("How strong should your enemies be (1-3)?");
 		try {
 			enemyLevel = stdin.nextInt();
 		} catch (InputMismatchException e){stdin.next();}
@@ -82,7 +80,6 @@ public class main {
 		guard = Math.max(Math.max(2, special+1), magic+1);
 		while(!fin){
 			while (player.getHP() > 0 && enemies.size() != 0) {
-				removeDeadNpc();
 				System.out.print("HP: " + player.getHP() + "/" + player.getMaxHP());
 				System.out.println(" MP: " + player.getMP() + "/" + player.getMaxMP());
 				System.out.print("1: Attack");
@@ -94,7 +91,7 @@ public class main {
 				} catch (InputMismatchException e){stdin.next(); userInt = 123;}
 				if(userInt == 1){
 					player.defaultCurrentAttack();
-					player.useAction(enemy, "Attack");
+					player.useAction(player.chooseTarget(enemies), "Attack");
 				} else if(userInt == special && special > 0){
 					if(player.specialAttacksEmpty()) skipTurn = true;
 					else handleMenu(player.getSpecialAttacksArray());
@@ -115,9 +112,18 @@ public class main {
 
 
 				if(!skipTurn) {
-
 					player.endTurn();
-					enemy.endTurn();
+					removeDeadNpc();
+					for(Player ally: allies) {
+						removeDeadNpc();
+						ally.randomAttackPattern(enemies);
+						ally.endTurn();
+					}
+					for(Enemy enemy: enemies) {
+						removeDeadNpc();
+						enemy.randomAttackPattern(allies);
+						enemy.endTurn();
+					}
 				}
 				else skipTurn = false;
 			}
@@ -128,10 +134,10 @@ public class main {
 	private static void handleMenu(Attack[] attacks){
 		player.setCurrentAttack(player.attackMenu(attacks));
 		if(player.usedDefaultAttack()){
-			player.useAction(enemy, "Cower");
+			player.useAction(player.chooseTarget(enemies), "Cower");
 		}
 		else{
-			player.useAction(enemy, "Attack");
+			player.useAction(player.chooseTarget(enemies), "Attack");
 		}
 		player.defaultCurrentAttack();
 	}

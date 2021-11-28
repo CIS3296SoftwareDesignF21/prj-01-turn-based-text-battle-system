@@ -112,10 +112,36 @@ public class Battler {
     }
 
 
-    //Need to have a seperate class for buffs, otherwise this doesn't work.
-    //Perhaps storing things like Heal or others like it in it's own array would work, since then
-    //we could have the positive effects target a passed array of allies instead of enemies
-    public void randomAttackPattern(ArrayList<Battler> targets){
+
+    public Battler chooseTarget(ArrayList<Enemy> targets){
+        Battler target = null;
+        Scanner stdin = new Scanner(System.in);
+        if(currentAttack.getSkillName().equals("Heal")) {
+            target = this;
+        }else {
+            System.out.println("Which enemy would you like to target?");
+            int i = 0;
+            int targetInput = 0;
+            while (targetInput > targets.size() || targetInput <= 0){
+                for (Enemy battler : targets) {
+                    System.out.printf("%d) %s \n", ++i, battler.getName());
+                }
+                try {
+                    targetInput = stdin.nextInt();
+                } catch (InputMismatchException e) {
+                    stdin.next();
+                }
+            }
+            target = targets.get(targetInput - 1);
+        }
+
+        return target;
+    }
+
+
+
+
+    public void randomAttackPattern(ArrayList<? extends Battler> targets){
         int numTargets = targets.size();
         Battler target = targets.get(Rates.rand(0,numTargets - 1));
 
