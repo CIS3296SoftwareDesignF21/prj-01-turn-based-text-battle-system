@@ -7,7 +7,7 @@ import java.util.*;
 
 public class main {
 	static Scanner stdin = new Scanner(System.in);
-	static String userInput; // Hold user's String inputs
+	//static String userInput; // Hold user's String inputs
 	static int userInt; // Hold user's integers
 	static String charName;
 	static boolean fin = false;
@@ -48,9 +48,17 @@ public class main {
 			player = RandomPlayer.randomMage(level,charName);
 		}
 
+		int enemyLevel = 0;
+		while(enemyLevel > 3 || enemyLevel < 1) {
+			System.out.println("Select your enemies' power level (1-3):");
+			try {
+				enemyLevel = stdin.nextInt();
+			} catch (InputMismatchException e) {stdin.next();}
+		}
+
 		userInt = -1;
 		while(userInt < 0) {
-			System.out.println("How many allies would you like to have?");
+			System.out.println("How many allies do you want?");
 			try {
 				userInt = stdin.nextInt();
 			} catch (InputMismatchException e) {stdin.next();}
@@ -65,18 +73,7 @@ public class main {
 			} catch (InputMismatchException e) {stdin.next();}
 		}
 
-		int enemyLevel = 0;
-		while(enemyLevel > 3 || enemyLevel < 1) {
-			System.out.println("How strong will your enemies be (1-3)?");
-			try {
-				enemyLevel = stdin.nextInt();
-			} catch (InputMismatchException e) {
-				stdin.next();
-			}
-		}
-
 		enemies = RandomEnemy.generateEnemies(enemyCount,enemyLevel);
-
 	}
 
 	static private void battleLoop(){
@@ -122,24 +119,24 @@ public class main {
 				if(!skipTurn) {
 					int pos;
 					player.endTurn();
-					for(Player ally: allies) {
+					for(Player ally: allies) { //allies attack
 						if(player.getHP() <= 0) break;
 						if(enemies.size() != 0) {
 							pos = Battler.randomEnemyPosition(enemies);
 							ally.randomAttackPattern(enemies.get(pos));
-							if(enemies.get(pos).getHP() <= 0)
+							if(enemies.get(pos).getHP() <= 0) //if dead
 								enemies.remove(pos);
 						}
 						ally.endTurn();
 					}
-					for(Enemy enemy: enemies) {
+					for(Enemy enemy: enemies) { //enemies attack
 						if(player.getHP() <= 0) break;
 						pos = Battler.randomPlayerPosition(allies);
 						if(pos == -1) {
 							enemy.randomAttackPattern(player);
 						}else {
 							enemy.randomAttackPattern(allies.get(pos));
-							if (allies.get(pos).getHP() <= 0)
+							if (allies.get(pos).getHP() <= 0) //if dead
 								allies.remove(pos);
 						}
 						enemy.endTurn();
