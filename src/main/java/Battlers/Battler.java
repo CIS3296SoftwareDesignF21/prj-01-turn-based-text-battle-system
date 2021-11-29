@@ -119,13 +119,18 @@ public class Battler {
         if(currentAttack.getSkillName().equals("Heal")) {
             target = this;
         }else {
-            System.out.println("Which enemy would you like to target?");
             int i = 0;
             int targetInput = 0;
+            int len = targets.size();
+            for (Enemy battler : targets) {
+                //System.out.printf("%d) %s \n", ++i, battler.getName());
+                System.out.format("%-3s", (i+1) + ":");
+                System.out.format("%-18s",battler.getName());
+                if(i % 3 == 2 || i == len-1) System.out.println(); //3 enemies per row
+                i++;
+            }
             while (targetInput > targets.size() || targetInput <= 0){
-                for (Enemy battler : targets) {
-                    System.out.printf("%d) %s \n", ++i, battler.getName());
-                }
+                System.out.println("Which enemy would you like to target?");
                 try {
                     targetInput = stdin.nextInt();
                 } catch (InputMismatchException e) {
@@ -138,18 +143,17 @@ public class Battler {
         return target;
     }
 
-
-
-
-    public void randomAttackPattern(ArrayList<? extends Battler> targets){
+    public static int randomTargetPosition(ArrayList<? extends Battler> targets){
         int numTargets = targets.size();
-        Battler target = targets.get(Rates.rand(0,numTargets - 1));
+        return Rates.rand(0,numTargets - 1);
+    }
 
-
+    public void randomAttackPattern(Battler target){
         //Need to think about how to set attack probabilities based on currently available attacks
         //Perhaps need to create an Arraylist with currently usable attacks to pull from, and worry about their percentages later
 
         ArrayList<Attack> usableAttacks = new ArrayList<>();
+        usableAttacks.add(getDefaultAttack());
 
         for(Attack attack: this.getSpecialAttacks()){
             if(attack.getMpCost() <= this.getMP()){
@@ -159,26 +163,19 @@ public class Battler {
 
         for(Attack attack: this.getMagicAttacks()){
             if(attack.getMpCost() <= this.getMP()){
-//                if(!attack.getSkillName().equals("Heal"))
-                    usableAttacks.add(attack);
+//              if(!attack.getSkillName().equals("Heal"))
+                usableAttacks.add(attack);
             }
         }
 
         int numUsableAttacks = usableAttacks.size();
 
-        if(numUsableAttacks == 0) {
-            this.getDefaultAttack().processAttack(this, target);
-        }else {
-            Attack currentAttack = usableAttacks.get(Rates.rand(0, numUsableAttacks - 1));
-            if(currentAttack.getSkillName().equals("Heal"))
-                currentAttack.processAttack(this,this);
-            else
-                currentAttack.processAttack(this,target);
-        }
+        Attack currentAttack = usableAttacks.get(Rates.rand(0, numUsableAttacks - 1));
+        if(currentAttack.getSkillName().equals("Heal"))
+            currentAttack.processAttack(this,this);
+        else
+            currentAttack.processAttack(this,target);
     }
-
-
-
 
 
     public void buff(String buffType, int amount){

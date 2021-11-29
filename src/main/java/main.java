@@ -27,9 +27,8 @@ public class main {
 	private static void setDifficulty(){
 		int classChoice = 0;
 		while(classChoice > 2 || classChoice < 1) {
-			System.out.println("Would you like to play as a Mage or a Fighter?\n" +
-					"1) Fighter \n" +
-					"2) Mage \n");
+			System.out.println("Would you like to play as a Fighter or a Mage?\n" +
+					"1: Fighter " + "2: Mage");
 			try {
 				classChoice = stdin.nextInt();
 			} catch (InputMismatchException e){stdin.next();}
@@ -49,25 +48,34 @@ public class main {
 			player = RandomPlayer.randomMage(level,charName);
 		}
 
-		System.out.println("How many allies would you like to have?");
-		try {
-			userInt = stdin.nextInt();
-		} catch (InputMismatchException e){stdin.next();}
+		userInt = 0;
+		while(userInt == 0) {
+			System.out.println("How many allies would you like to have?");
+			try {
+				userInt = stdin.nextInt();
+			} catch (InputMismatchException e) {stdin.next();}
+		}
 		allies = RandomPlayer.generateAllies(userInt,level);
 
-		int enemiesCount = 0;
-		System.out.println("How many enemies can you handle?");
-		try {
-			enemiesCount = stdin.nextInt();
-		} catch (InputMismatchException e){stdin.next();}
+		int enemyCount = 0;
+		while(enemyCount == 0){
+			System.out.println("How many enemies can you handle?");
+			try {
+				enemyCount = stdin.nextInt();
+			} catch (InputMismatchException e) {stdin.next();}
+		}
 
 		int enemyLevel = 0;
-		System.out.println("How strong should your enemies be (1-3)?");
-		try {
-			enemyLevel = stdin.nextInt();
-		} catch (InputMismatchException e){stdin.next();}
+		while(enemyLevel > 3 || enemyLevel < 1) {
+			System.out.println("How strong will your enemies be (1-3)?");
+			try {
+				enemyLevel = stdin.nextInt();
+			} catch (InputMismatchException e) {
+				stdin.next();
+			}
+		}
 
-		enemies = RandomEnemy.generateEnemies(enemiesCount,enemyLevel);
+		enemies = RandomEnemy.generateEnemies(enemyCount,enemyLevel);
 
 	}
 
@@ -86,45 +94,48 @@ public class main {
 				if(special > 0) System.out.print(" " + special + ": Special");
 				if(magic > 0) System.out.print(" " + magic + ": Magic");
 				System.out.println(" " + guard + ": Guard -1: Quit 0: Options");
-				try {
+				try { //not a number
 					userInt = stdin.nextInt();
 				} catch (InputMismatchException e){stdin.next(); userInt = 123;}
-				if(userInt == 1){
+				if(userInt == 1){ //attack
 					player.defaultCurrentAttack();
 					player.useAction(player.chooseTarget(enemies), "Attack");
-				} else if(userInt == special && special > 0){
+				} else if(userInt == special && special > 0){ //special
 					if(player.specialAttacksEmpty()) skipTurn = true;
 					else handleMenu(player.getSpecialAttacksArray());
-				} else if(userInt == magic && magic > 0){
+				} else if(userInt == magic && magic > 0){ //magic
 					if(player.magicAttacksEmpty()) skipTurn = true;
 					else handleMenu(player.getMagicAttacksArray());
-				} else if(userInt == guard){
+				} else if(userInt == guard){ //guard
 					player.useAction(player, "Guard");
-				} else if(userInt == 0){
+				} else if(userInt == 0){ //options
 					skipTurn = true;
 					changeTextSpeed();
-				} else if(userInt == -1){
+				} else if(userInt == -1){ //quit
 					System.out.print(player.getName() + " fled the scene!\nThe battle is over!");
 					System.exit(1);
-				} else{
+				} else{ //invalid input
 					System.out.println(player.getName() + " fumbled and pressed an invalid number!\n"); Attack.sleep();
 				}
 
-
 				if(!skipTurn) {
+					int pos;
 					player.endTurn();
-					removeDeadNpc();
 					for(Player ally: allies) {
-						removeDeadNpc();
-						if(enemies.size() != 0)
-							ally.randomAttackPattern(enemies);
+						if(enemies.size() != 0) {
+							pos = Battler.randomTargetPosition(enemies);
+							ally.randomAttackPattern(enemies.get(pos));
+							if(enemies.get(pos).getHP() <= 0)
+								enemies.remove(pos);
+						}
 						ally.endTurn();
 					}
-					removeDeadNpc();
 					for(Enemy enemy: enemies) {
-						removeDeadNpc();
-						if(allies.size() != 0)
-							enemy.randomAttackPattern(allies);
+						allies.add(player);
+						pos = Battler.randomTargetPosition(allies);
+						enemy.randomAttackPattern(allies.get(pos));
+						if(allies.get(pos).getHP() <= 0)
+							allies.remove(pos);
 						enemy.endTurn();
 					}
 				}
@@ -180,26 +191,6 @@ public class main {
 			} catch (InputMismatchException e){stdin.next();}
 		}
 		Attack.changeSleepTime(userInt);
-	}
-
-	public static void removeDeadNpc(){
-		ArrayList<Enemy> currentEnemies = new ArrayList<>();
-		for(int i = 0; i < enemies.size(); i++){
-			if(enemies.get(i).getHP() > 0)
-				currentEnemies.add(enemies.get(i));
-			else
-				System.out.println(enemies.get(i).getName() + " has been slain!");
-		}
-		enemies.retainAll(currentEnemies);
-
-		ArrayList<Player> currentAllies = new ArrayList<>();
-		for(int i = 0; i < allies.size(); i++){
-			if(allies.get(i).getHP() > 0)
-				currentAllies.add(allies.get(i));
-			else
-				System.out.println("You have lost " + allies.get(i).getName() + " D:");
-		}
-		allies.retainAll(currentAllies);
 	}
 
 

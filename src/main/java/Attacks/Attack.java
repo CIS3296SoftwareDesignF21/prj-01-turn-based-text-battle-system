@@ -124,6 +124,9 @@ public abstract class Attack {
             }
         }
         //System.out.printf("%s has %d health remaining\n\n",target.getName(),target.getHP());
+        if(target.getHP() <= 0){
+            System.out.println(target.getName() + " has been slain!"); sleep();
+        }
         sleep();
         System.out.println();
     }

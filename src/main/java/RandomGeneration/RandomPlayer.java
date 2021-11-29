@@ -9,12 +9,12 @@ public class RandomPlayer {
 
     public static Mage randomMage(int level, String name){
         int hp, mp, atk, def, Matk, Mdef;
-        hp = 400 * level * Rates.rand(0,30);
-        mp = 80 * level * Rates.rand(0,30);
-        atk = 50 * level * Rates.rand(0,30);
-        def = 40 * level * Rates.rand(0,30);
-        Matk = 70 * level * Rates.rand(0,30);
-        Mdef = 80* level * Rates.rand(0,30);
+        hp = 400 * level * Rates.rand(1,30);
+        mp = 80 * level * Rates.rand(1,30);
+        atk = 50 * level * Rates.rand(1,30);
+        def = 40 * level * Rates.rand(1,30);
+        Matk = 70 * level * Rates.rand(1,30);
+        Mdef = 80 * level * Rates.rand(1,30);
         Mage mage = new Mage(name,hp,mp,atk,def,Matk,Mdef);
         mage.addMagicAttack(new Peer());
         switch(level){
@@ -36,12 +36,12 @@ public class RandomPlayer {
 
     public static Fighter randomFighter(int level, String name){
         int hp, mp, atk, def, Matk, Mdef;
-        hp = 700 * level * Rates.rand(0,30);
-        mp = 40 * level * Rates.rand(0,30);
-        atk = 70 * level * Rates.rand(0,30);
-        def = 80 * level * Rates.rand(0,30);
-        Matk = 40 * level * Rates.rand(0,30);
-        Mdef = 40* level * Rates.rand(0,30);
+        hp = 700 * level * Rates.rand(1,30);
+        mp = 40 * level * Rates.rand(1,30);
+        atk = 70 * level * Rates.rand(1,30);
+        def = 80 * level * Rates.rand(1,30);
+        Matk = 40 * level * Rates.rand(1,30);
+        Mdef = 40* level * Rates.rand(1,30);
         Fighter fighter = new Fighter(name,hp,mp,atk,def,Matk,Mdef);
         fighter.addSpecialAttack(new VariantStrike());
         fighter.addSpecialAttack(new DesperateHit());
@@ -67,11 +67,10 @@ public class RandomPlayer {
 
     public static ArrayList<Player> generateAllies(int allyCount, int level){
         ArrayList<Player> allies = new ArrayList<>();
-        int numMages= 0; int numFighters = 0;
+        int numMages = 0; int numFighters = 0;
         String allyName;
         for(int i = 0; i < allyCount; i++){
-             int ally = Rates.rand(1,2);
-             if(ally == 1){
+             if(Rates.percentRateApplied(50)){ //50% chance
                  allyName = String.format("Allied Fighter #%d",++numFighters);
                  allies.add(randomFighter(level, allyName));
              } else {
@@ -82,9 +81,4 @@ public class RandomPlayer {
         System.out.printf("Your party includes %d friendly mages and %d friendly fighters\n",numMages,numFighters);
         return allies;
     }
-
-
-
-
-
 }

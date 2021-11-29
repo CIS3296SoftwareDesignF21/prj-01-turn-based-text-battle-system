@@ -7,12 +7,12 @@ import java.util.ArrayList;
 public class RandomEnemy {
     public static Goblin randomGoblin(int level, String name){
         int hp, mp, atk, def, Matk, Mdef;
-        hp = 400 * level * Rates.rand(0,30);
-        mp = 80 * level * Rates.rand(0,30);
-        atk = 50 * level * Rates.rand(0,30);
-        def = 40 * level * Rates.rand(0,30);
-        Matk = 70 * level * Rates.rand(0,30);
-        Mdef = 80* level * Rates.rand(0,30);
+        hp = 400 * level * Rates.rand(1,30); //having these set as 0 can make them immediately die
+        mp = 80 * level * Rates.rand(1,30);
+        atk = 50 * level * Rates.rand(1,30);
+        def = 40 * level * Rates.rand(1,30);
+        Matk = 70 * level * Rates.rand(1,30);
+        Mdef = 80 * level * Rates.rand(1,30);
         Goblin goblin = new Goblin(name,hp,mp,atk,def,Matk,Mdef);
         goblin.addSpecialAttack(new DesperateHit());
         switch(level){
@@ -34,12 +34,12 @@ public class RandomEnemy {
 
     public static GoblinLord randomGoblinLord(int level, String name){
         int hp, mp, atk, def, Matk, Mdef;
-        hp = 700 * level * Rates.rand(0,30);
-        mp = 40 * level * Rates.rand(0,30);
-        atk = 70 * level * Rates.rand(0,30);
-        def = 80 * level * Rates.rand(0,30);
-        Matk = 40 * level * Rates.rand(0,30);
-        Mdef = 40* level * Rates.rand(0,30);
+        hp = 700 * level * Rates.rand(1,30);
+        mp = 40 * level * Rates.rand(1,30);
+        atk = 70 * level * Rates.rand(1,30);
+        def = 80 * level * Rates.rand(1,30);
+        Matk = 40 * level * Rates.rand(1,30);
+        Mdef = 40* level * Rates.rand(1,30);
         GoblinLord goblinLord = new GoblinLord(name,hp,mp,atk,def,Matk,Mdef);
         goblinLord.addSpecialAttack(new DesperateHit());
         goblinLord.addSpecialAttack(new Bash());
@@ -62,20 +62,17 @@ public class RandomEnemy {
         return goblinLord;
     }
 
-
-    //Make goblin lord's 20% chance to appear
     public static ArrayList<Enemy> generateEnemies(int enemyCount, int level){
         ArrayList<Enemy> enemies = new ArrayList<>();
-        int numGoblins= 0; int numLords = 0;
+        int numGoblins = 0; int numLords = 0;
         String enemyName;
         for(int i = 0; i < enemyCount; i++){
-            int enemy = Rates.rand(1,5);
-            if(enemy < 5){
-                enemyName = String.format("Enemy Goblin #%d",++numGoblins);
-                enemies.add(randomGoblin(level, enemyName));
-            } else {
-                enemyName = String.format("Enemy Goblin Lord #%d",++numLords);
+            if(Rates.percentRateApplied(20)){ //Make goblin lord's 20% chance to appear
+                enemyName = String.format("Goblin Lord #%d",++numLords);
                 enemies.add(randomGoblinLord(level,enemyName));
+            } else {
+                enemyName = String.format("Goblin #%d",++numGoblins);
+                enemies.add(randomGoblin(level, enemyName));
             }
         }
         System.out.printf("Your enemies include %d normal goblins and %d mighty Goblin Lords!\n",numGoblins,numLords);
