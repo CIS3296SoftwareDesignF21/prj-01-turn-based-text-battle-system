@@ -48,8 +48,8 @@ public class main {
 			player = RandomPlayer.randomMage(level,charName);
 		}
 
-		userInt = 0;
-		while(userInt == 0) {
+		userInt = -1;
+		while(userInt < 0) {
 			System.out.println("How many allies would you like to have?");
 			try {
 				userInt = stdin.nextInt();
@@ -57,8 +57,8 @@ public class main {
 		}
 		allies = RandomPlayer.generateAllies(userInt,level);
 
-		int enemyCount = 0;
-		while(enemyCount == 0){
+		int enemyCount = -1;
+		while(enemyCount < 0){
 			System.out.println("How many enemies can you handle?");
 			try {
 				enemyCount = stdin.nextInt();
@@ -123,7 +123,7 @@ public class main {
 					player.endTurn();
 					for(Player ally: allies) {
 						if(enemies.size() != 0) {
-							pos = Battler.randomTargetPosition(enemies);
+							pos = Battler.randomEnemyPosition(enemies);
 							ally.randomAttackPattern(enemies.get(pos));
 							if(enemies.get(pos).getHP() <= 0)
 								enemies.remove(pos);
@@ -131,17 +131,22 @@ public class main {
 						ally.endTurn();
 					}
 					for(Enemy enemy: enemies) {
-						allies.add(player);
-						pos = Battler.randomTargetPosition(allies);
-						enemy.randomAttackPattern(allies.get(pos));
-						if(allies.get(pos).getHP() <= 0)
-							allies.remove(pos);
+						if(player.getHP() <= 0)
+							break;
+						pos = Battler.randomPlayerPosition(allies);
+						if(pos == -1) {
+							enemy.randomAttackPattern(player);
+						}else {
+							enemy.randomAttackPattern(allies.get(pos));
+							if (allies.get(pos).getHP() <= 0)
+								allies.remove(pos);
+						}
 						enemy.endTurn();
 					}
 				}
 				else skipTurn = false;
 			}
-			fin = checkIfFinished();
+			fin = Finish();
 		}
 	}
 
@@ -156,7 +161,7 @@ public class main {
 		player.defaultCurrentAttack();
 	}
 
-	private static boolean checkIfFinished() {
+	private static boolean Finish() {
 		Scanner sc = new Scanner(System.in);
 		if(player.getHP() <= 0) {
 			System.out.println("You have been defeated D:");

@@ -143,7 +143,14 @@ public class Battler {
         return target;
     }
 
-    public static int randomTargetPosition(ArrayList<? extends Battler> targets){
+    public static int randomPlayerPosition(ArrayList<? extends Battler> targets){
+        int numTargets = targets.size();
+        if(numTargets == 0)
+            return -1;
+        return Rates.rand(-1,numTargets - 1);
+    }
+
+    public static int randomEnemyPosition(ArrayList<? extends Battler> targets){
         int numTargets = targets.size();
         return Rates.rand(0,numTargets - 1);
     }
