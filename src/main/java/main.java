@@ -167,6 +167,8 @@ public class main {
 			System.out.println("You have been defeated D:");
 		}else{
 			System.out.println("You have vanquished your foe(s) :D\nCongratulations!");
+			System.out.println("You have acquired " + 5 + " Xp.");
+			player.gainXP(5);
 		}
 		Attack.sleep();
 
