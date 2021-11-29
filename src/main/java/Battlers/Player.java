@@ -218,15 +218,15 @@ public class Player extends Battler{
     }
 
     private void checkCurrentXP() {
-        int xpRequired = 0;//to level up
+     //   int xpRequired = 0;//to level up
         do {
-            xpRequired = xpPerLevel.get(currentLevel);
-            if (xpRequired  != 0) {
-                if (experience >= xpRequired) {
+            reqXP = xpPerLevel.get(currentLevel);
+            if (reqXP  != 0) {
+                if (experience >= reqXP) {
                     levelUp();
                 }
             }
-        } while (experience < xpRequired || xpRequired == 0);
+        } while (experience < reqXP || reqXP == 0);
 
     }
 }
