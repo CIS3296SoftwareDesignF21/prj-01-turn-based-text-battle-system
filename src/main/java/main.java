@@ -74,6 +74,7 @@ public class main {
 		}
 
 		enemies = RandomEnemy.generateEnemies(enemyCount,enemyLevel);
+		System.out.println();
 	}
 
 	static private void battleLoop(){
@@ -156,7 +157,7 @@ public class main {
 			player.useAction(null, "Attack");
 		}else{ //target is enemy
 			player.useAction(enemies.get(targetPos), "Attack");
-			if(enemies.get(targetPos).getHP() <= 0)
+			if(enemies.get(targetPos).getHP() <= 0) //if dead
 				enemies.remove(targetPos);
 		}
 	}

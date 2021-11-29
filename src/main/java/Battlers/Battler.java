@@ -126,7 +126,7 @@ public class Battler {
                 if(i % 3 == 2 || i == len-1) System.out.println(); //3 enemies per row
                 i++;
             }
-            while (targetInput > targets.size() || targetInput < 1){
+            while (targetInput > len || targetInput < 1){
                 System.out.println("Choose a target:");
                 try {
                     targetInput = stdin.nextInt();
