@@ -80,6 +80,8 @@ public class main {
 	}
 
 	static private void battleLoop(){
+		Attack[] specialAttacks = player.getSpecialAttacksArray();
+		Attack[] magicAttacks = player.getMagicAttacksArray();
 		boolean skipTurn = false;
 		//numbers for the actions. if the action isn't usable, it's not shown.
 		int special = -3, magic = -4, guard = -5;
@@ -99,13 +101,12 @@ public class main {
 				} catch (InputMismatchException e){stdin.next(); userInt = 123;}
 				if(userInt == 1){ //attack
 					player.defaultCurrentAttack();
-					player.useAction(player.chooseTarget(enemies), "Attack");
+					useAttackExtended();
+					//player.useAction(player.chooseTarget(enemies), "Attack");
 				} else if(userInt == special && special > 0){ //special
-					if(player.specialAttacksEmpty()) skipTurn = true;
-					else handleMenu(player.getSpecialAttacksArray());
+					handleMenu(specialAttacks);
 				} else if(userInt == magic && magic > 0){ //magic
-					if(player.magicAttacksEmpty()) skipTurn = true;
-					else handleMenu(player.getMagicAttacksArray());
+					handleMenu(magicAttacks);
 				} else if(userInt == guard){ //guard
 					player.useAction(player, "Guard");
 				} else if(userInt == 0){ //options
@@ -122,6 +123,7 @@ public class main {
 					int pos;
 					player.endTurn();
 					for(Player ally: allies) {
+						if(player.getHP() <= 0) break;
 						if(enemies.size() != 0) {
 							pos = Battler.randomEnemyPosition(enemies);
 							ally.randomAttackPattern(enemies.get(pos));
@@ -131,8 +133,7 @@ public class main {
 						ally.endTurn();
 					}
 					for(Enemy enemy: enemies) {
-						if(player.getHP() <= 0)
-							break;
+						if(player.getHP() <= 0) break;
 						pos = Battler.randomPlayerPosition(allies);
 						if(pos == -1) {
 							enemy.randomAttackPattern(player);
@@ -146,22 +147,34 @@ public class main {
 				}
 				else skipTurn = false;
 			}
-			fin = Finish();
+			fin = finishBattle();
+		}
+	}
+
+	private static void useAttackExtended(){
+		int targetPos = player.chooseTargetPosition(enemies);
+		if(targetPos == -1){ //target is user
+			player.useAction(player, "Attack");
+		}else if(targetPos < -1){ //target is ???
+			player.useAction(null, "Attack");
+		}else{ //target is enemy
+			player.useAction(enemies.get(targetPos), "Attack");
+			if(enemies.get(targetPos).getHP() <= 0)
+				enemies.remove(targetPos);
 		}
 	}
 
 	private static void handleMenu(Attack[] attacks){
 		player.setCurrentAttack(player.attackMenu(attacks));
 		if(player.usedDefaultAttack()){
-			player.useAction(player.chooseTarget(enemies), "Cower");
-		}
-		else{
-			player.useAction(player.chooseTarget(enemies), "Attack");
+			player.useAction(player, "Cower");
+		}else{
+			useAttackExtended();
 		}
 		player.defaultCurrentAttack();
 	}
 
-	private static boolean Finish() {
+	private static boolean finishBattle() {
 		Scanner sc = new Scanner(System.in);
 		if(player.getHP() <= 0) {
 			System.out.println("You have been defeated D:");
