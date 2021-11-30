@@ -14,6 +14,7 @@ public class main {
 	static Player player = null;
 	static ArrayList<Player> allies = null;
 	static ArrayList<Enemy> enemies = null;
+	static int le = 1;
 
 	public static void main(String[] args) {
 		System.out.println("Hello and welcome to the battle simulator!");
@@ -178,7 +179,6 @@ public class main {
 		player.defaultCurrentAttack();
 	}
 
-	static int le = 1;
 	private static boolean finishBattle() {
 		Scanner sc = new Scanner(System.in);
 		if(player.getHP() <= 0) {

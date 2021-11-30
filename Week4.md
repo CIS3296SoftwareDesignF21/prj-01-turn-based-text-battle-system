@@ -10,10 +10,12 @@
 
 - Chase
 - Robert
-    - Special attack selection in UI
-    - Print speed options
+    - Special/Magic attack selection in UI
+    - Text speed options
     - Buffs/Debuffs
     - Elemental Attacks/Elemental Resistances
     - Magic Skills
     - Multiple new usable skills
     - Bugfixing, Project Organization
+    - User Targeting
+    - Updated Class Diagram
