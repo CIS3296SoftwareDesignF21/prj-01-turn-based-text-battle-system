@@ -31,6 +31,7 @@ public class Battler {
     private int CritRate; //crit rate (0-100)
     private int HitRate; //hit rate (0-100)
     private int EvaRate; //evasion rate (0-100)
+    private int Agility;
     private String name;
     private boolean guard;
     private Attack defaultAttack;
@@ -59,6 +60,7 @@ public class Battler {
         this.CritRate = CritRate;
         this.HitRate = HitRate;
         this.EvaRate = EvaRate;
+        this.Agility = Agility; 
         guard = false;
         defaultAttack = new BasicAttack();
         currentAttack = defaultAttack;
