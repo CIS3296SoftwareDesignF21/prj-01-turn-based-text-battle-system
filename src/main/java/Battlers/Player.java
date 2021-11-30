@@ -30,9 +30,9 @@ public class Player extends Battler{
         addMagicAttack(new Plague());
     }
 
-//    public Player(){
-//        super();
-//    }
+    public Player(){
+        super();
+    }
 
     public Player(String name, int HP, int MaxHP, int MP, int MaxMP, int Atk, int Def, int MAtk, int MDef, int CritRate, int HitRate, int EvaRate){
         super(name, HP, MaxHP, MP, MaxMP, Atk, Def, MAtk, MDef, CritRate, HitRate, EvaRate);
@@ -148,7 +148,6 @@ public class Player extends Battler{
         return specials[userInt-1];
     }
 
-    //NEW CODE STARTS HERE
     Map<Integer, Integer> xpPerLevel = new LinkedHashMap<>();
     private int currentLevel = 1;
     private int experience = 1;
@@ -198,7 +197,6 @@ public class Player extends Battler{
                     levelUp();
                 }
             }
-            System.out.println("You have successfully completed all levels!\n");
             break;
         }
 
