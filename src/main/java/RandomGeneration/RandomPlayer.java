@@ -22,6 +22,9 @@ public class RandomPlayer {
                 break;
             case 2:
                 mage.addMagicAttack(new DefenseDown());
+                mage.addMagicAttack(new DefenseUp());
+                mage.addMagicAttack(new AttackDown());
+                mage.addMagicAttack(new AttackUp());
                 mage.addSpecialAttack(new DesperateHit());
                 mage.addMagicAttack(new Holy());
                 mage.addMagicAttack(new Fire());
@@ -29,6 +32,10 @@ public class RandomPlayer {
                 break;
             case 3:
                 mage.addMagicAttack(new DefenseDown());
+                mage.addMagicAttack(new DefenseUp());
+                mage.addMagicAttack(new AttackDown());
+                mage.addMagicAttack(new AttackUp());
+                mage.addMagicAttack(new Buff());
                 mage.addSpecialAttack(new DesperateHit());
                 mage.addMagicAttack(new Holy());
                 mage.addMagicAttack(new Fire());

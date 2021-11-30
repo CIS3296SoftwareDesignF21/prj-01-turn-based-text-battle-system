@@ -49,10 +49,12 @@ public class RandomEnemy {
             case 2:
                 goblinLord.addSpecialAttack(new VariantStrike());
                 goblinLord.addSpecialAttack(new Pierce());
+                goblinLord.addMagicAttack(new Buff());
                 break;
             case 3:
                 goblinLord.addSpecialAttack(new VariantStrike());
                 goblinLord.addSpecialAttack(new Pierce());
+                goblinLord.addMagicAttack(new Buff());
                 goblinLord.addMagicAttack(new Heal());
                 goblinLord.addMagicAttack(new Plague());
                 break;
