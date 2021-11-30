@@ -45,3 +45,5 @@ From here, to build the jar, you go to the build tab, select build artifacts, th
 [Week 2 Markdown](Week2.md)
 
 [Week 3 Markdown](Week3.md)
+
+[Week 4 Markdown](Week4.md)
