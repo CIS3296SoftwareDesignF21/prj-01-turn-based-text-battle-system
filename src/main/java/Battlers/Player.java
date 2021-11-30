@@ -2,8 +2,13 @@ package Battlers;
 import Attacks.*;
 import RandomGeneration.Rates;
 
-import java.util.InputMismatchException;
-import java.util.Scanner;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.*;
+import java.util.stream.Stream;
+
+import static java.nio.file.Files.lines;
 
 public class Player extends Battler{
 
@@ -144,5 +149,59 @@ public class Player extends Battler{
             else break;
         }
         return specials[userInt-1];
+    }
+
+    Map<Integer, Integer> xpPerLevel = new LinkedHashMap<>();
+    private int currentLevel = 1;
+    private int experience = 1;
+    private Integer reqXP = null;
+
+    public int getExperience() {
+        return experience;
+    }
+
+    public void setExperience(int experience) {
+        this.experience = experience;
+    }
+
+    public void setLevel(int level) {
+        this.currentLevel = level;
+    }
+
+    public int getLevel() {
+        return currentLevel;
+    }
+
+    public void gainXP(int amount) {
+        checkCurrentXP();//check xp and level up
+    }
+
+    public Map<Integer, Integer> loadXpPerLevel() {
+
+        try (Stream<String> lines = lines(Paths.get("xpPerLevel.txt"))) {
+            lines.forEach(line -> xpPerLevel.put(currentLevel++, Integer.valueOf(line)));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return xpPerLevel;
+    }
+
+    public void levelUp() {
+        System.out.println("   LEVELING UP  \n");
+        System.out.println("NEW LEVEL ACQUIRED\n");
+        System.out.println("You are on level " + (++currentLevel) + " Experience gained is " + reqXP.toString() + "!");
+    }
+
+    public void checkCurrentXP() {
+        reqXP = xpPerLevel.get(currentLevel);
+        while(experience < reqXP ){
+            if (null !=reqXP ) {
+                if (experience <= reqXP) {
+                    levelUp();
+                }
+            }
+            break;
+        }
+
     }
 }

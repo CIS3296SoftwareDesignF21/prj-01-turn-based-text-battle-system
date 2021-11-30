@@ -178,12 +178,17 @@ public class main {
 		player.defaultCurrentAttack();
 	}
 
+	static int le = 1;
 	private static boolean finishBattle() {
 		Scanner sc = new Scanner(System.in);
 		if(player.getHP() <= 0) {
 			System.out.println("You have been defeated D:");
 		}else{
 			System.out.println("You have vanquished your foe(s) :D\nCongratulations!");
+			player.loadXpPerLevel();
+			player.setLevel(le);
+			le++;
+			player.gainXP(le);
 		}
 		Attack.sleep();
 
@@ -214,8 +219,6 @@ public class main {
 		}
 		Attack.changeSleepTime(userInt);
 	}
-
-
 
 
 }

@@ -14,7 +14,9 @@ public class Bash extends Attack {
     public int calcDamage(Battler user, Battler target){
         return Math.max(0, user.getAtk() * 4 - target.getDef() * 2);
     }
-    public boolean addEffects(Battler user, Battler target) {return false;}
+    public boolean addEffects(Battler user, Battler target) {
+        return false;
+    }
     public String getMessage(Battler user, Battler target){
         return user.getName() + " bashes into " + target.getName() + "!";
     }
