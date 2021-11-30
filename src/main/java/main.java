@@ -18,15 +18,15 @@ public class main {
 	public static void main(String[] args) {
 		System.out.println("Hello and welcome to the battle simulator!");
 		System.out.println("Enter your name:");
-		charName = stdin.nextLine();
+		charName = stdin.nextLine(); //take user input
 
-		setDifficulty();
-		battleLoop();
+		setDifficulty(); //uses user input to allow player to choose difficulty level of themself, their allies, and their enemies 
+		battleLoop(); //main battle loop 
 	}
 
 	private static void setDifficulty(){
 		int classChoice = 0;
-		while(classChoice > 2 || classChoice < 1) {
+		while(classChoice > 2 || classChoice < 1) { 
 			System.out.println("Would you like to play as a Fighter or a Mage?\n" +
 					"1: Fighter " + "2: Mage");
 			try {
@@ -42,14 +42,14 @@ public class main {
 			} catch (InputMismatchException e){stdin.next();}
 		}
 
-		if(classChoice == 1){
-			player = RandomPlayer.randomFighter(level,charName);
+		if(classChoice == 1){ //instantiate a RandomPlayer object with user input 
+			player = RandomPlayer.randomFighter(level,charName); 
 		} else {
 			player = RandomPlayer.randomMage(level,charName);
 		}
 
 		int enemyLevel = 0;
-		while(enemyLevel > 3 || enemyLevel < 1) {
+		while(enemyLevel > 3 || enemyLevel < 1) { //instantiate an RandomEnemy object with user input 
 			System.out.println("Select your enemies' power level (1-3):");
 			try {
 				enemyLevel = stdin.nextInt();
@@ -57,13 +57,13 @@ public class main {
 		}
 
 		userInt = -1;
-		while(userInt < 0) {
+		while(userInt < 0) { 
 			System.out.println("How many allies do you want?");
 			try {
 				userInt = stdin.nextInt();
 			} catch (InputMismatchException e) {stdin.next();}
 		}
-		allies = RandomPlayer.generateAllies(userInt,level);
+		allies = RandomPlayer.generateAllies(userInt,level); //generate allies according to user input
 
 		int enemyCount = -1;
 		while(enemyCount < 0){
@@ -73,7 +73,7 @@ public class main {
 			} catch (InputMismatchException e) {stdin.next();}
 		}
 
-		enemies = RandomEnemy.generateEnemies(enemyCount,enemyLevel);
+		enemies = RandomEnemy.generateEnemies(enemyCount,enemyLevel); //generate enemies according to user input 
 		System.out.println();
 	}
 
@@ -87,7 +87,7 @@ public class main {
 		if(!player.magicAttacksEmpty()) magic = Math.max(2,special+1);
 		guard = Math.max(Math.max(2, special+1), magic+1);
 		while(!fin){
-			while (player.getHP() > 0 && enemies.size() != 0) {
+			while (player.getHP() > 0 && enemies.size() != 0) { //while player and all enemies have hp
 				System.out.print("HP: " + player.getHP() + "/" + player.getMaxHP());
 				System.out.println(" MP: " + player.getMP() + "/" + player.getMaxMP());
 				System.out.print("1: Attack");
