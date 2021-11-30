@@ -14,6 +14,7 @@ public class main {
 	static Player player = null;
 	static ArrayList<Player> allies = null;
 	static ArrayList<Enemy> enemies = null;
+	static List<Battler> battlers = new ArrayList<Battler>(); 
 	static int le = 1;
 
 	public static void main(String[] args) {
@@ -117,6 +118,14 @@ public class main {
 				} else{ //invalid input
 					System.out.println(player.getName() + " fumbled and pressed an invalid number!\n"); Attack.sleep();
 				}
+				battlers.addAll(allies);
+				battlers.addAll(enemies);
+				battlers.add(player);
+				
+				Collections.sort(battlers);
+					 
+				
+				
 
 				if(!skipTurn) {
 					int pos;
@@ -126,6 +135,8 @@ public class main {
 					//Damage multiple enemies in the same turn, theoretically killing multiple of them
 
 					//enemies.removeIf(enemy -> enemy.getHP() <= 0);
+					
+					
 					for(Player ally: allies) { //allies attack
 						if(player.getHP() <= 0) break;
 						if(enemies.size() != 0) {
@@ -224,4 +235,5 @@ public class main {
 		}
 		Attack.changeSleepTime(userInt);
 	}
+	
 }

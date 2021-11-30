@@ -4,7 +4,7 @@ import RandomGeneration.Rates;
 
 import java.util.*;
 
-public class Battler {
+public class Battler implements Comparable <Battler>{
     /** Battler Constants **/
     /* Affinity Levels */
     public static final int WEAK = 200;
@@ -43,11 +43,11 @@ public class Battler {
     private Map<String, Integer> resists;
 
     public Battler(){
-        this("",0,0,0,0,0,0,0,0,10,100,10);
+        this("",0,0,0,0,0,0,0,0,10,100,10, 10);
     }
 
     public Battler(String name, int HP, int MaxHP, int MP, int MaxMP, int Atk, int Def, int MAtk, int MDef,
-                   int CritRate, int HitRate, int EvaRate){
+                   int CritRate, int HitRate, int EvaRate, int Agility){
         this.name = name;
         this.HP = HP;
         this.MaxHP = MaxHP;
@@ -71,12 +71,12 @@ public class Battler {
     }
 
     public Battler(String name, int MaxHP, int MaxMp, int Atk, int Def, int MAtk, int MDef){
-        this(name,MaxHP,MaxHP,MaxMp,MaxMp,Atk,Def,MAtk,MDef,10,100,10);
+        this(name,MaxHP,MaxHP,MaxMp,MaxMp,Atk,Def,MAtk,MDef,10,100,10, 10);
     }
 
 
     public Battler(String name, int HP, int MP, int Atk, int Def){
-        this(name, HP, HP, MP, MP, Atk, Def, Atk, Def, 10, 100, 10);
+        this(name, HP, HP, MP, MP, Atk, Def, Atk, Def, 10, 100, 10, 10);
     }
 
     public void initBuffMap(){
@@ -319,4 +319,14 @@ public class Battler {
             System.out.println("INVALID ELEMENT TYPE!!!");
         }
     }
+    public int getAgility() {
+    	return this.Agility; 
+    }
+
+	@Override
+	public int compareTo(Battler o) {
+		// TODO Auto-generated method stub
+		int compare = Integer.compare(Agility, o.Agility);
+		return compare;
+	}
 }
