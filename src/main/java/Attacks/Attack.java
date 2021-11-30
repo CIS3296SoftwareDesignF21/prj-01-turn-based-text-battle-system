@@ -28,7 +28,7 @@ public abstract class Attack {
     private boolean critAbility; //if skill can crit
     private int variance; //random percent multiplied to attack, then added to attack (-var to +var)
     private String element; //element type of the attack
-    private boolean targetUser;
+    private boolean targetUser; //if skill targets user
 
     /** Default Attack Parameters **/
     public Attack(){
