@@ -35,8 +35,8 @@ public class Battler {
     private boolean guard;
     private Attack defaultAttack;
     private Attack currentAttack;
-    private Set<Attack> specialAttacks;
-    private Set<Attack> magicAttacks;
+    private ArrayList<Attack> specialAttacks;
+    private ArrayList<Attack> magicAttacks;
     private final int buffCap = 3, buffRate = 30; //buffcap is cap of buffs, rate is % applied to stat
     private Map<String, Integer> buffs; //Map of buffs, string: parameter name, integer: amount * rate
     private Map<String, Integer> resists;
@@ -62,8 +62,8 @@ public class Battler {
         guard = false;
         defaultAttack = new BasicAttack();
         currentAttack = defaultAttack;
-        specialAttacks = new HashSet<>();
-        magicAttacks = new HashSet<>();
+        specialAttacks = new ArrayList<>();
+        magicAttacks = new ArrayList<>();
         initBuffMap();
         initResistsMap();
     }
@@ -87,6 +87,7 @@ public class Battler {
         resists = new HashMap<>();
         resists.put(FIRE, STANDARD);
         resists.put(ICE, STANDARD);
+        resists.put(LIGHTNING, STANDARD);
         resists.put(PHYSICAL, STANDARD);
         resists.put(HOLY, STANDARD);
         resists.put(DARK, STANDARD);
@@ -108,19 +109,16 @@ public class Battler {
                 System.out.println("Invalid action selected"); Attack.sleep();
                 break;
         }
-
     }
 
-
-
-    public Battler chooseTarget(ArrayList<Enemy> targets){
-        Battler target = null;
+    public int chooseTargetPosition(ArrayList<Enemy> targets){
+        //Battler target = null;
+        int targetInput = -2;
         Scanner stdin = new Scanner(System.in);
-        if(currentAttack.getSkillName().equals("Heal")) {
-            target = this;
+        if(currentAttack.targetsUser()) {
+            targetInput = -1; //target = this;
         }else {
             int i = 0;
-            int targetInput = 0;
             int len = targets.size();
             for (Enemy battler : targets) {
                 //System.out.printf("%d) %s \n", ++i, battler.getName());
@@ -129,18 +127,16 @@ public class Battler {
                 if(i % 3 == 2 || i == len-1) System.out.println(); //3 enemies per row
                 i++;
             }
-            while (targetInput > targets.size() || targetInput <= 0){
-                System.out.println("Which enemy would you like to target?");
+            while (targetInput > len || targetInput < 1){
+                System.out.println("Choose a target:");
                 try {
                     targetInput = stdin.nextInt();
-                } catch (InputMismatchException e) {
-                    stdin.next();
-                }
+                } catch (InputMismatchException e) {stdin.next();}
             }
-            target = targets.get(targetInput - 1);
+            targetInput--;
+            //target = targets.get(targetInput - 1);
         }
-
-        return target;
+        return targetInput;
     }
 
     public static int randomPlayerPosition(ArrayList<? extends Battler> targets){
@@ -178,7 +174,7 @@ public class Battler {
         int numUsableAttacks = usableAttacks.size();
 
         Attack currentAttack = usableAttacks.get(Rates.rand(0, numUsableAttacks - 1));
-        if(currentAttack.getSkillName().equals("Heal"))
+        if(currentAttack.targetsUser())
             currentAttack.processAttack(this,this);
         else
             currentAttack.processAttack(this,target);
@@ -280,7 +276,7 @@ public class Battler {
         return (currentAttack == defaultAttack);
     }
 
-    public Set<Attack> getSpecialAttacks() {return specialAttacks;}
+    public ArrayList<Attack> getSpecialAttacks() {return specialAttacks;}
 
     public void addSpecialAttack(Attack specialAttack) {this.specialAttacks.add(specialAttack);}
 
@@ -296,7 +292,7 @@ public class Battler {
 
     public void addMagicAttack(Attack magicAttack) {this.magicAttacks.add(magicAttack);}
 
-    public Set<Attack> getMagicAttacks() {return magicAttacks;}
+    public ArrayList<Attack> getMagicAttacks() {return magicAttacks;}
 
     public Attack[] getMagicAttacksArray(){return magicAttacks.toArray(new Attack[0]);}
 

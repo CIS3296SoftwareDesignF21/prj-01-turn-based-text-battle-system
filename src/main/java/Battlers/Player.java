@@ -28,6 +28,7 @@ public class Player extends Battler{
         addMagicAttack(new Shock());
         addMagicAttack(new Holy());
         addMagicAttack(new Plague());
+        addMagicAttack(new AttackUp());
     }
 
     public Player(){
@@ -36,10 +37,12 @@ public class Player extends Battler{
 
     public Player(String name, int HP, int MaxHP, int MP, int MaxMP, int Atk, int Def, int MAtk, int MDef, int CritRate, int HitRate, int EvaRate){
         super(name, HP, MaxHP, MP, MaxMP, Atk, Def, MAtk, MDef, CritRate, HitRate, EvaRate);
+        //addSpecials();
     }
 
     public Player(String name, int MaxHP, int MaxMp, int Atk, int Def, int MAtk, int MDef){
         super(name,MaxHP,MaxMp,Atk,Def,MAtk,MDef);
+        //addSpecials();
     }
 
 
