@@ -87,6 +87,7 @@ public class Battler {
         resists = new HashMap<>();
         resists.put(FIRE, STANDARD);
         resists.put(ICE, STANDARD);
+        resists.put(LIGHTNING, STANDARD);
         resists.put(PHYSICAL, STANDARD);
         resists.put(HOLY, STANDARD);
         resists.put(DARK, STANDARD);
@@ -114,7 +115,7 @@ public class Battler {
         //Battler target = null;
         int targetInput = -2;
         Scanner stdin = new Scanner(System.in);
-        if(currentAttack.getSkillName().equals("Heal")) {
+        if(currentAttack.targetsUser()) {
             targetInput = -1; //target = this;
         }else {
             int i = 0;
@@ -173,7 +174,7 @@ public class Battler {
         int numUsableAttacks = usableAttacks.size();
 
         Attack currentAttack = usableAttacks.get(Rates.rand(0, numUsableAttacks - 1));
-        if(currentAttack.getSkillName().equals("Heal"))
+        if(currentAttack.targetsUser())
             currentAttack.processAttack(this,this);
         else
             currentAttack.processAttack(this,target);

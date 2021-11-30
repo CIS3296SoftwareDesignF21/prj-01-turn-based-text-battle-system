@@ -12,6 +12,7 @@ public class Heal extends Attack {
         setCritAbility(false);
         setElement(HOLY);
         setAttackType(GUARANTEED);
+        setTargetUser(true);
     }
 
     /** Attack methods **/
