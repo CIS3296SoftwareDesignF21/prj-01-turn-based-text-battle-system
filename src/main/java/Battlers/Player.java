@@ -149,14 +149,10 @@ public class Player extends Battler{
     }
 
     //NEW CODE STARTS HERE
-    private Map<stat, Integer> stats = new HashMap<stat, Integer>();
     Map<Integer, Integer> xpPerLevel = new LinkedHashMap<>();
-    private int[] levelArray ;
     private int currentLevel = 1;
     private int experience = 1;
-    private Integer reqXP = 1;
-    int level = 1;
-    // int[] reqXPArray= {0, 10, 20, 35, 45};
+    private Integer reqXP = null;
 
     public int getExperience() {
         return experience;
@@ -164,10 +160,6 @@ public class Player extends Battler{
 
     public void setExperience(int experience) {
         this.experience = experience;
-    }
-
-    public void addExperience(int value) {
-        setExperience(getExperience() + value);
     }
 
     public void setLevel(int level) {
@@ -179,17 +171,11 @@ public class Player extends Battler{
     }
 
     public void gainXP(int amount) {
-        experience += amount;
-        checkCurrentXP();//check xp and level uo
-    }
-
-    public void nextLevel() {
-        setLevel(getLevel() + 1);
+        checkCurrentXP();//check xp and level up
     }
 
     public Map<Integer, Integer> loadXpPerLevel() {
 
-        //final int[] level = {1};
         try (Stream<String> lines = lines(Paths.get("xpPerLevel.txt"))) {
             lines.forEach(line -> xpPerLevel.put(currentLevel++, Integer.valueOf(line)));
         } catch (IOException e) {
@@ -201,55 +187,20 @@ public class Player extends Battler{
     public void levelUp() {
         System.out.println("   LEVELING UP  \n");
         System.out.println("NEW LEVEL ACQUIRED\n");
-        System.out.println("You are on level " + (++currentLevel) + "! ");
+        System.out.println("You are on level " + (++currentLevel) + " Experience gained is " + reqXP.toString() + "!");
     }
 
-    private void checkCurrentXP() {
-//        do {
-//            reqXP = xpPerLevel.get(currentLevel);
-//            if (reqXP != null) {
-//              //  if (experience >= reqXP) {
-//                    levelUp();
-//              //  }
-//            }
-//        } while (experience < 25);
-
-         {
-         do{
-             reqXP = xpPerLevel.get(currentLevel);
-             levelUp();
-             break;
-         }while  (experience > 0);
+    public void checkCurrentXP() {
+        reqXP = xpPerLevel.get(currentLevel);
+        while(experience < reqXP ){
+            if (null !=reqXP ) {
+                if (experience <= reqXP) {
+                    levelUp();
+                }
+            }
+            System.out.println("You have successfully completed all levels!\n");
+            break;
         }
 
-
-
     }
-
-////////////////////////////////////
-//    private int experience;
-//    private int playerLvl;
-//
-//    // Constructor
-//    public Player() {
-//        //super();
-//        this.experience = 0;
-//        this.playerLvl = 1;
-//    }
-//
-//
-//    public void setLevel(int lvl) {
-//        playerLvl += lvl;
-//    }
-//    public void setExperience(int exp) {
-//        this.experience += exp;
-//    }
-//    public int getExperience() {
-//        return experience;
-//    }
-//
-//    public int getLevel() {
-//        return playerLvl;
-//    }
-
 }

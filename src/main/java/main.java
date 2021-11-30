@@ -169,10 +169,9 @@ public class main {
 		}else{
 			System.out.println("You have vanquished your foe(s) :D\nCongratulations!");
 			player.loadXpPerLevel();
-		//	player.setLevel(le);
+			player.setLevel(le);
+			le++;
 			player.gainXP(le);
-			/////////
-			//player;
 		}
 		Attack.sleep();
 
