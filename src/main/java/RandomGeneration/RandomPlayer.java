@@ -5,8 +5,7 @@ import Battlers.*;
 import java.util.ArrayList;
 
 public class RandomPlayer {
-
-
+    /* Randomly Generate stats and add skills based on level */
     public static Mage randomMage(int level, String name){
         int hp, mp, atk, def, Matk, Mdef;
         hp = 400 * level * Rates.rand(25,30);
@@ -50,7 +49,7 @@ public class RandomPlayer {
         }
         return mage;
     }
-
+    /* Randomly Generate stats and add skills based on level */
     public static Fighter randomFighter(int level, String name){
         int hp, mp, atk, def, Matk, Mdef;
         hp = 700 * level * Rates.rand(25,30);
@@ -82,7 +81,7 @@ public class RandomPlayer {
         }
         return fighter;
     }
-
+    /* Randomly Generate every ally, with a set chance of being fighter or mage */
     public static ArrayList<Player> generateAllies(int allyCount, int level){
         ArrayList<Player> allies = new ArrayList<>();
         int numMages = 0; int numFighters = 0;

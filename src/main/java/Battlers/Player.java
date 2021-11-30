@@ -109,7 +109,7 @@ public class Player extends Battler{
         attackMenuPrint(specials);
         return attackMenuSelect(specials);
     }
-
+    /* Print the attack options within the array to someone readable*/
     public void attackMenuPrint(Attack[] specials){
         System.out.println("MP: " + getMP() + "/" + getMaxMP());
         int i, len;
@@ -127,9 +127,9 @@ public class Player extends Battler{
             if(specials[i].isUsableMp(this)) anyUse = true;
             if(i % 3 == 2 || i == len-1) System.out.println(); //3 skills per row
         }
-        if(!anyUse) System.out.println("-1: Cower");
+        if(!anyUse) System.out.println("-1: Cower"); //if no options, basically just do nothing
     }
-
+    /* let the user select an attack within the array */
     public Attack attackMenuSelect(Attack[] specials){
         Scanner sc = new Scanner(System.in);
         int userInt;
@@ -138,7 +138,7 @@ public class Player extends Battler{
             try {
                 userInt = sc.nextInt();
             } catch (InputMismatchException e){sc.next(); userInt = 0;}
-            if(userInt == -1){
+            if(userInt == -1){ //cower selected
                 //System.out.println(getName() + " out of options selects Attack!");
                 return getDefaultAttack();
             }
