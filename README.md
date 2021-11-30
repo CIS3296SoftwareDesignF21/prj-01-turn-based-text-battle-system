@@ -1,45 +1,20 @@
 # Project 
 
-For this project, a text-based game will be created. There won't be any visuals outside of text on a command line, unless somehow time is permitted, but very likely not. What this game will be is a simple program demonstrating a battle between an enemy and player. The user will be controlling the player's actions. These actions will be a list of commands that can be used to alter the battle. After selecting a command, it will commence and afterwards the enemy will perform an action. Then repeat. Details such as character statistics, multiple playable characters, and multiple various enemies may be included if time is permitted. The current status of the battle will be shown in the text, along with player options. This will be completed completely by scratch.
+For this project, a text-based game will be created. There won't be any visuals outside of text on a command line, unless 
+somehow time is permitted, but very likely not. What this game will be is a simple program demonstrating a battle between 
+an enemy and player. The user will be controlling the player's actions. These actions will be a list of commands that can 
+be used to alter the battle. After selecting a command, it will commence and afterwards the enemy will perform an action. 
+Then repeat. Details such as character statistics, multiple playable characters, and multiple various enemies may be included if time is permitted.
+The current status of the battle will be shown in the text, along with player options. This will be completed completely by scratch.
 
-# Project Structure
-
-![UML Class Diagram](RPG.jpg)
-
-# Persona 1: The intro programmer
-Steven, age 19, is a college student at Temple.  He is taking some introductory computer science courses, and has developed
-an interest in learning about the basics of user input.  He isn't very interested in reading through the multitude of manuals
-and documentation pages around this subject, and is drawn much more to practical examples of the subjects he studies in 
-practice, rather than in theory.  He does not have much experience in programming yet, but understands the basics of how to read,
-compile, and run java programs.  
-
-Steven plays lots of single player games in his spare time, and because of his tight work schedule as a student, he wants to be able to enjoy his free time, so the game aspect
-of learning is a natural draw.  He would download the executable version of the game first, to see how the game runs, then
-fork the project into his own github in order to examine how it implements the options presented to him as a player.
-
-# Persona 2: The Avid Gamer
-Tyler, age 24, is a professional gamer. He keeps a log of all games he plays. He aims to play and rate every single game in the world. Tyler never graduated college and spends a lot of time at home on his computer. He is a twitch streamer who likes to educate his audience on the vast world of gaming, as well as the many options available to the public. He is interested in games that are not commonly played and not available for popular gaming consoles. The majority of Tyler's twitch audience are between the ages of 16 and 30 years old. He finds that his audience's love for gaming typically overlaps with an interest in coding. 
-
-Tyler is not a proficient coder but his extensive experience in gaming makes him a natural problem solver. He is particularly interested in Text-Based Battle Game because it combines coding and gaming in a way his audience can more easily understand.
-
-# Persona 3: Experienced With Old PC Games
-Howard is a 53-year-old man who has had an interest in computers since he was a child, growing up mostly with computer games
-with no notable graphics or visual information aside from text. He's still quite familiar with technology and has a basic
-understanding of programming, but did not seek a degree in it. In his free time, he enjoys sometimes looking at and playing
-games or projects that remind him of the simplicity of the games he would play when he was young. Similarly, he will
-occasionally replay the games he would play as a kid. He's antiquated with running and playing games on the command line
-and has experience with similar types of games.
-
-# Persona 4: Consulting associate interested in technology
-Lucy is a 39 year old pharmaceutical consultant based in Delaware. She has three children and finds it hard to juggle daily tasks. She knows how to use computers and technology in general at the basic level that her job requires. During her spare time she enjoys going to the movies, golfing, and spending time with her family. Although Lucy is not too proficient in technology, her job requires her to travel a lot and she often finds herself bored on these trips while waiting long hours at the aiport and on long flights. She also has a lot of spare time between meetings.
-
-Having a gaming technology at her fingertips whose basic functionality does not require extensive knowledge of usage and does not need internet connectivity will be a useful addition to Lucy's routine. The ease of use will also allow her to introduce it to her children and can be used as a form of relationship building.
 
 # How to Run
 To run this program, navigate to the latest release on our github page.  Once there, you can download the jarfile attached,
 and place it in the same folder as battleBatch.bat, in out/artifacts/prj_01_turn_based_text_battle_system_jar.  Once there, 
 for some you may be able to click the jarfile and launch it.  If not, click on the batchfile and it will run the following command: \
-java -jar prj-01-turn-based-text-battle-system.jar, the command line function to run the jarfile.
+java -jar prj-01-turn-based-text-battle-system.jar, the command line function to run the jarfile.  If you are still running 
+into issues with running this way, make sure that the version of java that is used to compile the jar file is the same as the
+version on your computer.  If it isn't, it's best to remake the jarfile manually as detailed in the section below.
 
 # How to Install/Build
 
@@ -50,7 +25,7 @@ git clone https://github.com/CIS3296SoftwareDesignF21/prj-01-turn-based-text-bat
 
 To build the files from here, we use IntelliJ, which provides another method to directly get from version control when opening
 a project, and also can build from inside the IDE.  To build the jarFile manually instead of downloading from the version, under 
-the file tab you go to project structure.  Then, go to the Artifcats section, and add a new jar file, choosing "From modules with dependencies".
+the file tab you go to project structure.  Then, go to the Artifacts section, and add a new jar file, choosing "From modules with dependencies".
 From here, choose the main class to be our main.java file under src/main/java, and chose your manifest directory to be where our
 manifest is, under src/main/resources. 
 
@@ -61,55 +36,6 @@ From here, to build the jar, you go to the build tab, select build artifacts, th
 
 [comment]: <> (version of the project soon.  At that stage, you will simply need to download and run it by clicking on it in your file explorer.)
 
-# Vision statement
-
-For anyone who is interested in Role Playing Games, has access to a personal computer and may have little to no previous knowledge of gaming systems who needs a simple and efficient text based game that is both interactive and exciting. The Text Battle System is a gaming application that is easy to manipulate and use as a form of entertainment or a way to de-stress. Unlike other services and providers that offer command line gaming, our product is more user friendy, is open-source, and can be further modified to satisfy the needs of the user if any.
-
-
-# Uml Sequence Diagram 1
-
-[Sequence Diagram 1](UML%20Sequence%20Diagram%201.png)
-
-- battleBatch.bat used to compile and run program 
-- main receives user input for name and instantiates a Player object based off user input 
-- user allowed to choose strength of Player, main calls setDifficulty 
-- Player overrides the Battler class
-- addSpecialAttacks adds new Special Attack object to set in Battler 
--	main receives user input and instantiates an Enemy object based off user input 
-- user allowed to choose strength of Enemy, main calls setDifficulty 
-- Enemy overrides Battler class
-- addSpecialAttacks adds new Special Attack object to a set in Battler
--	main battle loop begins, more user input taken
-- user can decide to attack or guard
-- processAttack is called which calculates damage between user and target and supplies print messages describing so
-- if player decides to guard, guard in Battler class is set to true and any damage done to the player is halved 
-- endTurn called at end of loop to reset guard in Battler to false
-- when either the hp of Player or Enemy reaches 0, loop returns to beginning and user asked if they’d like to play another game
-- user would like to play again so loop restarts
-
-
-
-
-# Uml Sequence Diagram 2
-
-[Sequence Diagram 2](UML%20sequence%20diagram%202.png)
-
-- battleBatch.bat used to compile and run program 
-- main receives user input for name and instantiates a Player object based off user input 
-- user allowed to choose strength of Player, main calls setDifficulty 
-- Player overrides the Battler class
-- addSpecialAttacks adds new Special Attack object to set in Battler 
--	main receives user input and instantiates an Enemy object based off user input 
-- user allowed to choose strength of Enemy, main calls setDifficulty 
-- Enemy overrides Battler class
-- addSpecialAttacks adds new Special Attack object to a set in Battler
--	main battle loop begins, more user input taken
-- user can decide to attack or guard
-- processAttack is called which calculates damage between user and target and supplies print messages describing so
-- if player decides to guard, guard in Battler class is set to true and any damage done to the player is halved 
-- endTurn called at end of loop to reset guard in Battler to false
-- when either the hp of Player or Enemy reaches 0, loop returns to beginning and user asked if they’d like to play another game
-- user would not like to play again so game over
 
 
 # Weekly Markdown Pages

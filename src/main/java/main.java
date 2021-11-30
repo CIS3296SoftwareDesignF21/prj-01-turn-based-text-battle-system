@@ -120,6 +120,12 @@ public class main {
 				if(!skipTurn) {
 					int pos;
 					player.endTurn();
+					//Since we removed the removeDeadNpcs function so we didn't have to loop through
+					//The enemies, we don't need this anymore
+					//However, this could also be more concise for if we implement attacks that could
+					//Damage multiple enemies in the same turn, theoretically killing multiple of them
+
+					//enemies.removeIf(enemy -> enemy.getHP() <= 0);
 					for(Player ally: allies) { //allies attack
 						if(player.getHP() <= 0) break;
 						if(enemies.size() != 0) {
