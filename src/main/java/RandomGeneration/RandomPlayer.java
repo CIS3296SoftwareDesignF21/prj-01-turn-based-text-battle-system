@@ -73,6 +73,7 @@ public class RandomPlayer {
                 fighter.addSpecialAttack(new DualSlash());
                 fighter.addSpecialAttack(new Bash());
                 fighter.addSpecialAttack(new DebilitatingSlash());
+                fighter.addSpecialAttack(new ShieldCrash());
                 fighter.addSpecialAttack(new Pierce());
                 break;
             default:

@@ -14,7 +14,7 @@ public class DebilitatingSlash extends Attack {
     }
 
     /** Attack methods **/
-    public int calcDamage(Battler user, Battler target){return Math.max(0, user.getAtk() * 4 - target.getDef());}
+    public int calcDamage(Battler user, Battler target){return Math.max(0, user.getAtk() * 4 - target.getDef() * 2);}
     public boolean addEffects(Battler user, Battler target){
         target.debuff("atk", 1);
         return true;
