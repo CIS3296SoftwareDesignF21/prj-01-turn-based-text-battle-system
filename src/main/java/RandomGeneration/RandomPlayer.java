@@ -8,14 +8,15 @@ public class RandomPlayer {
 
 
     public static Mage randomMage(int level, String name){
-        int hp, mp, atk, def, Matk, Mdef;
+        int hp, mp, atk, def, Matk, Mdef, Agility;
         hp = 400 * level * Rates.rand(25,30);
         mp = 80 * level * Rates.rand(25,30);
         atk = 50 * level * Rates.rand(25,30);
         def = 40 * level * Rates.rand(25,30);
         Matk = 70 * level * Rates.rand(25,30);
         Mdef = 80 * level * Rates.rand(25,30);
-        Mage mage = new Mage(name,hp,mp,atk,def,Matk,Mdef);
+        Agility = 10 * level * Rates.rand(25,30);
+        Mage mage = new Mage(name,hp,mp,atk,def,Matk,Mdef, Agility);
         mage.addMagicAttack(new Peer());
         switch(level){
             case 1:
@@ -52,14 +53,15 @@ public class RandomPlayer {
     }
 
     public static Fighter randomFighter(int level, String name){
-        int hp, mp, atk, def, Matk, Mdef;
+        int hp, mp, atk, def, Matk, Mdef, Agility;
         hp = 700 * level * Rates.rand(25,30);
         mp = 40 * level * Rates.rand(25,30);
         atk = 70 * level * Rates.rand(25,30);
         def = 80 * level * Rates.rand(25,30);
         Matk = 40 * level * Rates.rand(25,30);
         Mdef = 40* level * Rates.rand(25,30);
-        Fighter fighter = new Fighter(name,hp,mp,atk,def,Matk,Mdef);
+        Agility = 20 * level * Rates.rand(25,30);
+        Fighter fighter = new Fighter(name,hp,mp,atk,def,Matk,Mdef, Agility);
         fighter.addSpecialAttack(new VariantStrike());
         fighter.addSpecialAttack(new DesperateHit());
         switch(level){

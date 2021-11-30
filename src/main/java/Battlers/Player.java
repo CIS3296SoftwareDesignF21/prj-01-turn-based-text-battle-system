@@ -40,18 +40,18 @@ public class Player extends Battler{
         //addSpecials();
     }
 
-    public Player(String name, int MaxHP, int MaxMp, int Atk, int Def, int MAtk, int MDef){
-        super(name,MaxHP,MaxMp,Atk,Def,MAtk,MDef);
+    public Player(String name, int MaxHP, int MaxMp, int Atk, int Def, int MAtk, int MDef, int Agility){
+        super(name,MaxHP,MaxMp,Atk,Def,MAtk,MDef, Agility);
         //addSpecials();
     }
 
 
-    public Player(String name, int MaxHP, int MaxMP, int Atk, int Def){
-        super(name, MaxHP, MaxMP, Atk, Def);
+    public Player(String name, int MaxHP, int MaxMP, int Atk, int Def, int Agility){
+        super(name, MaxHP, MaxMP, Atk, Def, Agility);
     }
 
     //Plan to make protected in the future
-    public static Player randomPlayer(int level, String name){
+    /*public static Player randomPlayer(int level, String name){
         int hp, mp, atk, def;
         hp = mp = atk = def = 0;
         Player newCharacter;
@@ -76,7 +76,7 @@ public class Player extends Battler{
         }
         newCharacter = new Player(name,hp,mp,atk,def);
         return newCharacter;
-    }
+    }*/
 
     public static int[] returnRandomStats(int level){
         int hp, mp, atk, def;

@@ -6,14 +6,16 @@ import java.util.ArrayList;
 
 public class RandomEnemy {
     public static Goblin randomGoblin(int level, String name){
-        int hp, mp, atk, def, Matk, Mdef;
+        int hp, mp, atk, def, Matk, Mdef, Agility;
         hp = 400 * level * Rates.rand(25,30); //having these set as 0 can make them immediately die
         mp = 80 * level * Rates.rand(25,30);
         atk = 50 * level * Rates.rand(25,30);
         def = 40 * level * Rates.rand(25,30);
         Matk = 70 * level * Rates.rand(25,30);
         Mdef = 80 * level * Rates.rand(25,30);
-        Goblin goblin = new Goblin(name,hp,mp,atk,def,Matk,Mdef);
+        Agility = 20 * level * Rates.rand(25,30);
+        
+        Goblin goblin = new Goblin(name,hp,mp,atk,def,Matk,Mdef,Agility);
         goblin.addSpecialAttack(new DesperateHit());
         switch(level){
             case 1:
@@ -33,14 +35,15 @@ public class RandomEnemy {
     }
 
     public static GoblinLord randomGoblinLord(int level, String name){
-        int hp, mp, atk, def, Matk, Mdef;
+        int hp, mp, atk, def, Matk, Mdef, Agility;
         hp = 1000 * level * Rates.rand(25,30);
         mp = 70 * level * Rates.rand(25,30);
         atk = 90 * level * Rates.rand(25,30);
         def = 90 * level * Rates.rand(25,30);
         Matk = 80 * level * Rates.rand(25,30);
         Mdef = 60* level * Rates.rand(25,30);
-        GoblinLord goblinLord = new GoblinLord(name,hp,mp,atk,def,Matk,Mdef);
+        Agility = 30 * level * Rates.rand(25,30);
+        GoblinLord goblinLord = new GoblinLord(name,hp,mp,atk,def,Matk,Mdef,Agility);
         goblinLord.addSpecialAttack(new DesperateHit());
         goblinLord.addSpecialAttack(new Bash());
         switch(level){

@@ -4,8 +4,8 @@ import RandomGeneration.Rates;
 
 public class Enemy extends Battler{
 
-    public Enemy (String name, int MaxHP, int MaxMP, int Atk, int Def, int MAtk, int MDef){
-        super(name,MaxHP,MaxMP,Atk,Def,MAtk,MDef);
+    public Enemy (String name, int MaxHP, int MaxMP, int Atk, int Def, int MAtk, int MDef, int Agility){
+        super(name,MaxHP,MaxMP,Atk,Def,MAtk,MDef, Agility);
     }
 
     public Enemy(){super();}
@@ -15,11 +15,11 @@ public class Enemy extends Battler{
     }
 
 
-    public Enemy(String name, int HP, int MP, int Atk, int Def){
-        super(name, HP, MP, Atk, Def);
+    public Enemy(String name, int HP, int MP, int Atk, int Def, int Agility){
+        super(name, HP, MP, Atk, Def, Agility);
     }
 
-    public static Enemy randomEnemy(int level){
+   /* public static Enemy randomEnemy(int level){
         int hp, mp, atk, def;
         hp = mp = atk = def = 0;
         Enemy newEnemy;
@@ -45,7 +45,7 @@ public class Enemy extends Battler{
         String enemyName = String.format("Level %d enemy",level);
         newEnemy = new Enemy(enemyName,hp,mp,atk,def);
         return newEnemy;
-    }
+    }*/
 
 
 

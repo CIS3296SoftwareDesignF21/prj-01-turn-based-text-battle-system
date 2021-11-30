@@ -60,7 +60,7 @@ public class Battler implements Comparable <Battler>{
         this.CritRate = CritRate;
         this.HitRate = HitRate;
         this.EvaRate = EvaRate;
-        this.Agility = Agility; 
+        this.Agility = Agility;
         guard = false;
         defaultAttack = new BasicAttack();
         currentAttack = defaultAttack;
@@ -70,13 +70,13 @@ public class Battler implements Comparable <Battler>{
         initResistsMap();
     }
 
-    public Battler(String name, int MaxHP, int MaxMp, int Atk, int Def, int MAtk, int MDef){
-        this(name,MaxHP,MaxHP,MaxMp,MaxMp,Atk,Def,MAtk,MDef,10,100,10, 10);
+    public Battler(String name, int MaxHP, int MaxMp, int Atk, int Def, int MAtk, int MDef, int Agility){
+        this(name,MaxHP,MaxHP,MaxMp,MaxMp,Atk,Def,MAtk,MDef,10,100,10, Agility);
     }
 
 
-    public Battler(String name, int HP, int MP, int Atk, int Def){
-        this(name, HP, HP, MP, MP, Atk, Def, Atk, Def, 10, 100, 10, 10);
+    public Battler(String name, int HP, int MP, int Atk, int Def, int Agility){
+        this(name, HP, HP, MP, MP, Atk, Def, Atk, Def, 10, 100, 10, Agility);
     }
 
     public void initBuffMap(){

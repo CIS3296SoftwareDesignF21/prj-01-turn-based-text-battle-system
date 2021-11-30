@@ -12,13 +12,13 @@ public class GoblinLord extends Enemy{
         setResistance(PHYSICAL, RESIST);
     }
 
-    public GoblinLord(String name, int MaxHP, int MaxMP, int Atk, int Def){
-        super(name, MaxHP, MaxMP, Atk, Def);
+    public GoblinLord(String name, int MaxHP, int MaxMP, int Atk, int Def, int Agility){
+        super(name, MaxHP, MaxMP, Atk, Def, Agility);
         addResistances();
     }
 
-    public GoblinLord(String name,int hp,int mp,int atk,int def,int Matk,int Mdef){
-        super(name,hp,mp,atk,def,Matk,Mdef);
+    public GoblinLord(String name,int hp,int mp,int atk,int def,int Matk,int Mdef, int Agility){
+        super(name,hp,mp,atk,def,Matk,Mdef, Agility);
         addResistances();
     }
 
