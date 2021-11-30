@@ -120,7 +120,6 @@ public class main {
 
 				if(!skipTurn) {
 					int pos;
-					player.endTurn();
 					//Since we removed the removeDeadNpcs function so we didn't have to loop through
 					//The enemies, we don't need this anymore
 					//However, this could also be more concise for if we implement attacks that could
@@ -135,7 +134,6 @@ public class main {
 							if(enemies.get(pos).getHP() <= 0) //if dead
 								enemies.remove(pos);
 						}
-						ally.endTurn();
 					}
 					for(Enemy enemy: enemies) { //enemies attack
 						if(player.getHP() <= 0) break;
@@ -147,8 +145,15 @@ public class main {
 							if (allies.get(pos).getHP() <= 0) //if dead
 								allies.remove(pos);
 						}
+					}
+					//end turn
+					for(Player ally: allies){
+						ally.endTurn();
+					}
+					for(Enemy enemy: enemies){
 						enemy.endTurn();
 					}
+					player.endTurn();
 				}
 				else skipTurn = false;
 			}
@@ -219,6 +224,4 @@ public class main {
 		}
 		Attack.changeSleepTime(userInt);
 	}
-
-
 }

@@ -116,7 +116,7 @@ public class Player extends Battler{
         String usable;
         len = specials.length;
         boolean anyUse = false;
-        for(i = 0; i < len; i++){
+        for(i = 0; i < len; i++){ //print everything in specials array
             //System.out.print((i+1) + ": " + specials[i].getSkillName());
             if(!specials[i].isUsableMp(this)) usable = "[X]";
             else usable = "   ";
