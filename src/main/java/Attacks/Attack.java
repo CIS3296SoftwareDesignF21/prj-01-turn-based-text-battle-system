@@ -12,7 +12,7 @@ public abstract class Attack {
     /** Attack Constants **/
     public static final int DEFAULT = 0; //subject to hit/evasion rates
     public static final int GUARANTEED = 1; //guaranteed to hit, ignore hit/evasion rates
-    public static final int EFFECTS = 2; //status effects/buffs, doesn't print attack message, ignore player hit/evasion rates
+    public static final int EFFECTS = 2; //status effects/buffs,doesn't print attack/affinity message,ignore player hit/evasion rates
 
     /** Attack Settings **/
     private static int sleepTime = 500; //amount to wait between messages
@@ -28,6 +28,7 @@ public abstract class Attack {
     private boolean critAbility; //if skill can crit
     private int variance; //random percent multiplied to attack, then added to attack (-var to +var)
     private String element; //element type of the attack
+    private boolean targetUser;
 
     /** Default Attack Parameters **/
     public Attack(){
@@ -41,6 +42,7 @@ public abstract class Attack {
         critAbility = true;
         variance = 20;
         element = PHYSICAL;
+        targetUser = false;
     }
 
 
@@ -222,6 +224,7 @@ public abstract class Attack {
         return name + "'s " + buffName.toLowerCase() + " " + effect + "!";
     }
     public String getElementMessage(String name, Map<String, Integer> resists){
+        if(attackType == EFFECTS) return "";
         switch(resists.get(getElement())){
             case WEAK: return name + " is weak to " + element.toLowerCase() + " attacks!";
             //case STANDARD: return "";
@@ -253,5 +256,7 @@ public abstract class Attack {
     public int getVariance() { return variance;}
     public void setElement(String element) { this.element = element;}
     public String getElement() { return element;}
+    public void setTargetUser(boolean targetUser) { this.targetUser = targetUser;}
+    public boolean targetsUser() { return targetUser;}
 
 }//end attack class

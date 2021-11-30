@@ -4,23 +4,11 @@ import RandomGeneration.Rates;
 
 public class Enemy extends Battler{
 
-
-    public void addResistances(){
-        setResistance(FIRE, RESIST);
-        setResistance(ICE, STANDARD);
-        setResistance(HOLY, WEAK);
-        setResistance(DARK, ABSORB);
-        setResistance(PHYSICAL, STANDARD);
-
-    }
-
     public Enemy (String name, int MaxHP, int MaxMP, int Atk, int Def, int MAtk, int MDef){
         super(name,MaxHP,MaxMP,Atk,Def,MAtk,MDef);
     }
 
-    public Enemy(){
-        super();
-    }
+    public Enemy(){super();}
 
     public Enemy(String name, int HP, int MaxHP, int MP, int MaxMP, int Atk, int Def, int MAtk, int MDef, int CritRate, int HitRate, int EvaRate){
         super(name, HP, MaxHP, MP, MaxMP, Atk, Def, MAtk, MDef, CritRate, HitRate, EvaRate);
