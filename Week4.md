@@ -9,6 +9,7 @@
 - Faith
 
 - Chase
+    -  added comments
 - Robert
     - Special/Magic attack selection in UI
     - Text speed options
