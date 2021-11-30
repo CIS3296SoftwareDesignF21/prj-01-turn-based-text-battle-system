@@ -7,6 +7,8 @@
     - Update Sequence Diagram 1
     - Revised readMe for more simplicity
 - Faith
+    - Implemented level up and exp for battler
+    - Updated the Sequence diagram
 
 - Chase
     -  added comments
