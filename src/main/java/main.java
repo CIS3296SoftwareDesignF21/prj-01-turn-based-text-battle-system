@@ -161,15 +161,17 @@ public class main {
 		player.defaultCurrentAttack();
 	}
 
+	static int le = 1;
 	private static boolean Finish() {
 		Scanner sc = new Scanner(System.in);
 		if(player.getHP() <= 0) {
 			System.out.println("You have been defeated D:");
 		}else{
 			System.out.println("You have vanquished your foe(s) :D\nCongratulations!");
-			player.setLevel(1);
-			//player.levelUp();
-			System.out.println("You are on level " + player.getLevel());/////////
+			player.loadXpPerLevel();
+		//	player.setLevel(le);
+			player.gainXP(le);
+			/////////
 			//player;
 		}
 		Attack.sleep();
