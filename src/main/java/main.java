@@ -144,8 +144,10 @@ public class main {
 				battlers.addAll(enemies);
 				battlers.add(player);
 				Collections.sort(battlers);
-				Collections.sort(allies);
-				Collections.sort(enemies);
+				Collections.reverse(battlers);//sort Battler objects by agility 
+				//Collections.sort(allies);
+				//Collections.sort(enemies);
+				Collections.reverse(battlers); //reverse order so that highest agility goes first
 
 				if (!skipTurn) {
 					int pos;
