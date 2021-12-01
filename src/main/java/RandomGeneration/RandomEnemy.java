@@ -5,6 +5,7 @@ import Battlers.*;
 import java.util.ArrayList;
 
 public class RandomEnemy {
+    /* Randomly Generate stats and add skills based on level */
     public static Goblin randomGoblin(int level, String name){
         int hp, mp, atk, def, Matk, Mdef;
         hp = 400 * level * Rates.rand(25,30); //having these set as 0 can make them immediately die
@@ -31,7 +32,7 @@ public class RandomEnemy {
         }
         return goblin;
     }
-
+    /* Randomly Generate stats and add skills based on level */
     public static GoblinLord randomGoblinLord(int level, String name){
         int hp, mp, atk, def, Matk, Mdef;
         hp = 1000 * level * Rates.rand(25,30);
@@ -64,7 +65,7 @@ public class RandomEnemy {
         }
         return goblinLord;
     }
-
+    /* Randomly Generate every enemy, with a set chance of being goblin lord or goblin */
     public static ArrayList<Enemy> generateEnemies(int enemyCount, int level){
         ArrayList<Enemy> enemies = new ArrayList<>();
         int numGoblins = 0; int numLords = 0;

@@ -25,9 +25,10 @@ public class main {
 		battleLoop(); //main battle loop 
 	}
 
+	/* Set difficulty and other gameplay parameters */
 	private static void setDifficulty(){
 		int classChoice = 0;
-		while(classChoice > 2 || classChoice < 1) { 
+		while(classChoice > 2 || classChoice < 1) { //choose class
 			System.out.println("Would you like to play as a Fighter or a Mage?\n" +
 					"1: Fighter " + "2: Mage");
 			try {
@@ -36,7 +37,7 @@ public class main {
 		}
 
 		int level = 0;
-		while(level > 3 || level < 1) {
+		while(level > 3 || level < 1) { //choose level (adds certain skills, increases stats)
 			System.out.println("Select your power level (1-3):");
 			try {
 				level = stdin.nextInt();
@@ -50,6 +51,7 @@ public class main {
 		}
 
 		int enemyLevel = 0;
+		//choose enemy level (adds certain skills, increases stats)
 		while(enemyLevel > 3 || enemyLevel < 1) { //instantiate an RandomEnemy object with user input 
 			System.out.println("Select your enemies' power level (1-3):");
 			try {
@@ -58,7 +60,7 @@ public class main {
 		}
 
 		userInt = -1;
-		while(userInt < 0) { 
+		while(userInt < 0) { //choose amount of allies (nonplayable character that attack enemy)
 			System.out.println("How many allies do you want?");
 			try {
 				userInt = stdin.nextInt();
@@ -67,7 +69,7 @@ public class main {
 		allies = RandomPlayer.generateAllies(userInt,level); //generate allies according to user input
 
 		int enemyCount = -1;
-		while(enemyCount < 0){
+		while(enemyCount < 0){ //choose amount of enemies (nonplayable character that you & allies attack)
 			System.out.println("How many enemies can you handle?");
 			try {
 				enemyCount = stdin.nextInt();
@@ -78,6 +80,7 @@ public class main {
 		System.out.println();
 	}
 
+	/* Main battle program. battle commences here */
 	static private void battleLoop(){
 		Attack[] specialAttacks = player.getSpecialAttacksArray();
 		Attack[] magicAttacks = player.getMagicAttacksArray();
@@ -161,6 +164,7 @@ public class main {
 		}
 	}
 
+	/* Attack handling. deals with selecting target & removing enemy */
 	private static void useAttackExtended(){
 		int targetPos = player.chooseTargetPosition(enemies);
 		if(targetPos == -1){ //target is user
@@ -173,7 +177,7 @@ public class main {
 				enemies.remove(targetPos);
 		}
 	}
-
+	/* Menu handling. deals with selecting from a menu */
 	private static void handleMenu(Attack[] attacks){
 		player.setCurrentAttack(player.attackMenu(attacks));
 		if(player.usedDefaultAttack()){
@@ -183,13 +187,15 @@ public class main {
 		}
 		player.defaultCurrentAttack();
 	}
-
+	/* Handles the end of the program/battle */
 	private static boolean finishBattle() {
 		Scanner sc = new Scanner(System.in);
-		if(player.getHP() <= 0) {
+		//check battle result
+		if(player.getHP() <= 0) { //lost
 			System.out.println("You have been defeated D:");
-		}else{
+		}else{ //won
 			System.out.println("You have vanquished your foe(s) :D\nCongratulations!");
+			//level up
 			player.loadXpPerLevel();
 			player.setLevel(le);
 			le++;
@@ -197,11 +203,12 @@ public class main {
 		}
 		Attack.sleep();
 
-		while(true) {
+		while(true) { //ask to play again
 			System.out.println("Do you want to play again? Enter \"yes\" or \"no\".");
 			String response = sc.nextLine();
 			if (response.equals("yes")) {
 				System.out.println("NEW ROUND!!!\n");
+				//reset parameters
 				setDifficulty();
 				fin = false;
 				break;
@@ -213,7 +220,7 @@ public class main {
 		}
 		return fin;
 	}
-
+	/* Change speed of text. called within Options*/
 	public static void changeTextSpeed(){
 		userInt = 0;
 		while(userInt > 5 || userInt < 1) {
@@ -222,6 +229,6 @@ public class main {
 				userInt = stdin.nextInt();
 			} catch (InputMismatchException e){stdin.next();}
 		}
-		Attack.changeSleepTime(userInt);
+		Attack.changeSleepTime(userInt); //change text speed based on input
 	}
 }

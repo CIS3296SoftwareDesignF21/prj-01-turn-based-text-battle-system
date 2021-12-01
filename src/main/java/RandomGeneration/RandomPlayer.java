@@ -5,8 +5,7 @@ import Battlers.*;
 import java.util.ArrayList;
 
 public class RandomPlayer {
-
-
+    /* Randomly Generate stats and add skills based on level */
     public static Mage randomMage(int level, String name){
         int hp, mp, atk, def, Matk, Mdef;
         hp = 400 * level * Rates.rand(25,30);
@@ -50,7 +49,7 @@ public class RandomPlayer {
         }
         return mage;
     }
-
+    /* Randomly Generate stats and add skills based on level */
     public static Fighter randomFighter(int level, String name){
         int hp, mp, atk, def, Matk, Mdef;
         hp = 700 * level * Rates.rand(25,30);
@@ -75,6 +74,20 @@ public class RandomPlayer {
                 fighter.addSpecialAttack(new DebilitatingSlash());
                 fighter.addSpecialAttack(new ShieldCrash());
                 fighter.addSpecialAttack(new Pierce());
+                //debug
+                /*fighter.addSpecialAttack(new AttackDown());
+                fighter.addSpecialAttack(new AttackUp());
+                fighter.addSpecialAttack(new Buff());
+                fighter.addSpecialAttack(new DefenseDown());
+                fighter.addSpecialAttack(new DefenseUp());
+                fighter.addSpecialAttack(new Fire());
+                fighter.addSpecialAttack(new Freeze());
+                fighter.addSpecialAttack(new Heal());
+                fighter.addSpecialAttack(new Holy());
+                fighter.addSpecialAttack(new InstantKill());
+                fighter.addSpecialAttack(new Peer());
+                fighter.addSpecialAttack(new Plague());
+                fighter.addSpecialAttack(new Shock());*/
                 break;
             default:
                 System.out.println("Level must be between one and three");
@@ -82,7 +95,7 @@ public class RandomPlayer {
         }
         return fighter;
     }
-
+    /* Randomly Generate every ally, with a set chance of being fighter or mage */
     public static ArrayList<Player> generateAllies(int allyCount, int level){
         ArrayList<Player> allies = new ArrayList<>();
         int numMages = 0; int numFighters = 0;

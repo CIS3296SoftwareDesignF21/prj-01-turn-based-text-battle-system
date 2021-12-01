@@ -57,9 +57,9 @@ public abstract class Attack {
     public int processDamage(Battler user, Battler target){
         int damage = calcDamage(user, target);
         Map<String, Integer> resists = target.getResistsMap();
-        damage = applyElements(damage, resists);
+        damage = applyElements(damage, resists); //apply elemental resistances
         String elementMessage = getElementMessage(target.getName(), resists);
-        if(!elementMessage.isEmpty()){
+        if(!elementMessage.isEmpty()){ //dont print message if no message
             System.out.println(elementMessage); sleep();
         }
         damage = applyVariance(damage);
@@ -69,6 +69,7 @@ public abstract class Attack {
         }
         if(target.isGuarding()) { damage /= 2;} //halve damage if guarding
 
+        //apply buffs/debuffs rate
         int damageBefore = damage;
         damage += (int)(damageBefore * user.getBuffRate("atk"));
         damage -= (int)(damageBefore * target.getBuffRate("def"));
@@ -105,14 +106,14 @@ public abstract class Attack {
             user.subtractMP(mpCost);
         }
         System.out.println(getMessage(user,target)); sleep();
-        for(int i = 0; i < numOfHits; i++){
-            if(processHit(user,target)){
+        for(int i = 0; i < numOfHits; i++){ //loop amount of hits
+            if(processHit(user,target)){ //if attack hit
                 damage = processDamage(user,target);
                 target.subtractHP(damage);
-                if(getAttackType() != EFFECTS) {
-                    if (damage >= 0)
+                if(getAttackType() != EFFECTS) { //dont print message if its an effect
+                    if (damage >= 0) //if damage
                         System.out.println(target.getName() + " took " + damage + " damage!");
-                    else
+                    else //if heal
                         System.out.println(target.getName() + " recovered " + Math.abs(damage) + " HP!");
                     sleep();
                 }

@@ -8,7 +8,7 @@ public class AttackUp extends Attack {
     public AttackUp(){
         super();
         setMpCost(10);
-        setSkillName("Defense Up");
+        setSkillName("Attack Up");
         setAttackType(EFFECTS);
         setCritAbility(false);
         setTargetUser(true);

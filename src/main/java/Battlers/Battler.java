@@ -40,7 +40,7 @@ public class Battler {
     private ArrayList<Attack> magicAttacks;
     private final int buffCap = 3, buffRate = 30; //buffcap is cap of buffs, rate is % applied to stat
     private Map<String, Integer> buffs; //Map of buffs, string: parameter name, integer: amount * rate
-    private Map<String, Integer> resists;
+    private Map<String, Integer> resists; //Map of resistances, string: affinity name, integer: resistance percent
 
     public Battler(){
         this("",0,0,0,0,0,0,0,0,10,100,10);
@@ -95,12 +95,13 @@ public class Battler {
         resists.put(DARK, STANDARD);
     }
 
+    /* Use the action correlated within the string: attack, guard, or cower */
     public void useAction(Battler target,String action){
         switch (action) {
-            case "Attack":
+            case "Attack": //use attack
                 currentAttack.processAttack(this, target);
                 break;
-            case "Guard":
+            case "Guard": //set guard flag to true, halves damage
                 System.out.println(name + " guards\n"); Attack.sleep();
                 setGuard(true);
                 break;
@@ -113,6 +114,7 @@ public class Battler {
         }
     }
 
+    /* show a list of enemies and let the user choose the target of the attack */
     public int chooseTargetPosition(ArrayList<Enemy> targets){
         //Battler target = null;
         int targetInput = -2;
@@ -141,32 +143,35 @@ public class Battler {
         return targetInput;
     }
 
+    /* randomly choose a target for the enemy side */
     public static int randomPlayerPosition(ArrayList<? extends Battler> targets){
         int numTargets = targets.size();
         if(numTargets == 0)
             return -1;
-        return Rates.rand(-1,numTargets - 1);
+        return Rates.rand(-1,numTargets - 1); //-1: player, rest: allies
     }
 
+    /* randomly choose a target for the ally side */
     public static int randomEnemyPosition(ArrayList<? extends Battler> targets){
         int numTargets = targets.size();
         return Rates.rand(0,numTargets - 1);
     }
 
+    /* randomly choose an attack from the usable skills */
     public void randomAttackPattern(Battler target){
         //Need to think about how to set attack probabilities based on currently available attacks
         //Perhaps need to create an Arraylist with currently usable attacks to pull from, and worry about their percentages later
 
         ArrayList<Attack> usableAttacks = new ArrayList<>();
-        usableAttacks.add(getDefaultAttack());
+        usableAttacks.add(getDefaultAttack()); //add default attack
 
-        for(Attack attack: this.getSpecialAttacks()){
+        for(Attack attack: this.getSpecialAttacks()){ //add usable special attacks
             if(attack.getMpCost() <= this.getMP()){
                 usableAttacks.add(attack);
             }
         }
 
-        for(Attack attack: this.getMagicAttacks()){
+        for(Attack attack: this.getMagicAttacks()){ //add usable magic attacks
             if(attack.getMpCost() <= this.getMP()){
 //              if(!attack.getSkillName().equals("Heal"))
                 usableAttacks.add(attack);
@@ -175,23 +180,25 @@ public class Battler {
 
         int numUsableAttacks = usableAttacks.size();
 
-        Attack currentAttack = usableAttacks.get(Rates.rand(0, numUsableAttacks - 1));
-        if(currentAttack.targetsUser())
+        Attack currentAttack = usableAttacks.get(Rates.rand(0, numUsableAttacks - 1)); //randomly choose
+        //use attack
+        if(currentAttack.targetsUser()) //if targets user
             currentAttack.processAttack(this,this);
         else
             currentAttack.processAttack(this,target);
     }
 
-
+    /* add buff to buff map and add amount */
     public void buff(String buffType, int amount){
         if(buffs.replace(buffType, (Math.max(buffCap*-1, Math.min(buffCap, buffs.get(buffType)+amount)))) == null){
             System.out.println("INVALID BUFF TYPE!");
         }
     }
+    /* add buff to buff map and decrease amount */
     public void debuff(String buffType, int amount){
         buff(buffType, amount*-1);
     }
-
+    /* get the percent effect of the buff/debuff */
     public double getBuffRate(String buffType){ // buff amount * buffrate in percent form
         return getBuff(buffType) * ((double)buffRate / 100);
     }
