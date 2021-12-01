@@ -147,7 +147,7 @@ public class Battler {
     public static int randomPlayerPosition(ArrayList<? extends Battler> targets){
         int numTargets = targets.size();
         if(numTargets == 0)
-            return -2;
+            return -1;
         return Rates.rand(-1,numTargets - 1); //-1: player, rest: allies
     }
 
