@@ -2,7 +2,10 @@ package Battlers;
 import Attacks.*;
 import RandomGeneration.Rates;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
@@ -176,13 +179,22 @@ public class Player extends Battler{
         checkCurrentXP();//check xp and level up
     }
 
-    public Map<Integer, Integer> loadXpPerLevel() {
-
-        try (Stream<String> lines = lines(Paths.get("xpPerLevel.txt"))) {
-            lines.forEach(line -> xpPerLevel.put(currentLevel++, Integer.valueOf(line)));
-        } catch (IOException e) {
-            e.printStackTrace();
+    public Map<Integer, Integer> loadXpPerLevel() throws ClassNotFoundException, IOException {
+//        Class cls = Class.forName("Battlers.Player");
+//        ClassLoader classLoader = cls.getClassLoader();
+        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+        InputStream inputStream = classLoader.getResourceAsStream("xpPerLevel.txt");
+        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+//
+        String line;
+        while((line = reader.readLine()) != null){
+            xpPerLevel.put(currentLevel++,Integer.valueOf(line));
         }
+//        try (Stream<String> lines = lines(Paths.get("xpPerLevel.txt"))) {
+//            lines.forEach(line -> xpPerLevel.put(currentLevel++, Integer.valueOf(line)));
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
         return xpPerLevel;
     }
 

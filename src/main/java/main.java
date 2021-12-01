@@ -3,6 +3,7 @@ import Battlers.*;
 import RandomGeneration.RandomEnemy;
 import RandomGeneration.RandomPlayer;
 
+import java.io.IOException;
 import java.util.*;
 
 public class main {
@@ -16,7 +17,7 @@ public class main {
 	static ArrayList<Enemy> enemies = null;
 	static int le = 1;
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws ClassNotFoundException, IOException {
 		System.out.println("Hello and welcome to the battle simulator!");
 		System.out.println("Enter your name:");
 		charName = stdin.nextLine(); //take user input
@@ -81,7 +82,7 @@ public class main {
 	}
 
 	/* Main battle program. battle commences here */
-	static private void battleLoop(){
+	static private void battleLoop() throws ClassNotFoundException, IOException {
 		Attack[] specialAttacks = player.getSpecialAttacksArray();
 		Attack[] magicAttacks = player.getMagicAttacksArray();
 		boolean skipTurn = false;
@@ -188,7 +189,7 @@ public class main {
 		player.defaultCurrentAttack();
 	}
 	/* Handles the end of the program/battle */
-	private static boolean finishBattle() {
+	private static boolean finishBattle() throws ClassNotFoundException, IOException {
 		Scanner sc = new Scanner(System.in);
 		//check battle result
 		if(player.getHP() <= 0) { //lost
