@@ -51,8 +51,10 @@ public class main {
 
 		if (classChoice == 1) { // instantiate a RandomPlayer object with user input
 			player = RandomPlayer.randomFighter(level, charName);
+			battlers.add(player);
 		} else {
 			player = RandomPlayer.randomMage(level, charName);
+			battlers.add(player);
 		}
 
 		int enemyLevel = 0;
@@ -74,7 +76,8 @@ public class main {
 				stdin.next();
 			}
 		}
-		allies = RandomPlayer.generateAllies(userInt, level); // generate allies according to user input
+		allies = RandomPlayer.generateAllies(userInt, level);
+		battlers.addAll(allies);// generate allies according to user input
 
 		int enemyCount = -1;
 		while (enemyCount < 0) {
@@ -86,7 +89,8 @@ public class main {
 			}
 		}
 
-		enemies = RandomEnemy.generateEnemies(enemyCount, enemyLevel); // generate enemies according to user input
+		enemies = RandomEnemy.generateEnemies(enemyCount, enemyLevel);
+		battlers.addAll(enemies);// generate enemies according to user input
 		System.out.println();
 	}
 
@@ -126,7 +130,7 @@ public class main {
 				} else if (userInt == magic && magic > 0) { // magic
 					handleMenu(magicAttacks);
 				} else if (userInt == guard) { // guard
-					
+
 					player.useAction(player, "Guard");
 					userInt = -1;
 				} else if (userInt == 0) { // options
@@ -140,15 +144,12 @@ public class main {
 					Attack.sleep();
 				}
 
-				battlers.addAll(allies); // add all allies enemies to battler list
+				/*battlers.addAll(allies); // add all allies enemies to battler list
 				battlers.addAll(enemies);
-				battlers.add(player);
+				battlers.add(player);*/
 				Collections.sort(battlers);
-				Collections.reverse(battlers);//sort Battler objects by agility 
-				//Collections.sort(allies);
-				//Collections.sort(enemies);
-				Collections.reverse(battlers); //reverse order so that highest agility goes first
-
+				Collections.reverse(battlers);// sort Battler objects by agility
+				
 				if (!skipTurn) {
 					int pos;
 					// Since we removed the removeDeadNpcs function so we didn't have to loop
@@ -162,9 +163,11 @@ public class main {
 					// enemies.removeIf(enemy -> enemy.getHP() <= 0);
 
 					for (Battler battler : battlers) {
+						if (player.getHP() <= 0)
+							break;
 						if (battler instanceof Player) {
 							if (battler == player && userInt != -1) {
-								//int targetPos = player.chooseTargetPosition(enemies);
+								// int targetPos = player.chooseTargetPosition(enemies);
 								if (targetPos == -1) { // target is user
 									player.useAction(player, "Attack");
 								} else if (targetPos < -1) { // target is ???
@@ -176,17 +179,16 @@ public class main {
 								}
 
 							}
-							if (player.getHP() <= 0)
-								break;
-							if (enemies.size() != 0) {
+
+							else if (enemies.size() != 0) {
 								pos = Battler.randomEnemyPosition(enemies);
 								battler.randomAttackPattern(enemies.get(pos));
 								if (enemies.get(pos).getHP() <= 0) // if dead
 									enemies.remove(pos);
 							}
 
-						} else if (battler instanceof Enemy) {
-							if (player.getHP() <= 0)
+						} else if (battler instanceof Enemy && battler.getHP() != 0) {
+							if (player.getHP() <= 0 )
 								break;
 							pos = Battler.randomPlayerPosition(allies);
 							if (pos == -1) {
@@ -195,6 +197,7 @@ public class main {
 								battler.randomAttackPattern(allies.get(pos));
 								if (allies.get(pos).getHP() <= 0) // if dead
 									allies.remove(pos);
+									
 							}
 
 						}
@@ -219,6 +222,12 @@ public class main {
 					for (Enemy enemy : enemies) {
 						enemy.endTurn();
 					}
+					/*for (Battler battler : battlers) {
+						if (battler.getHP() == 0) {
+						battlers.remove(battler); 
+					}
+				}*/
+					
 					player.endTurn();
 				} else
 					skipTurn = false;
@@ -246,9 +255,10 @@ public class main {
 			player.useAction(player, "Cower");
 			userInt = -1;
 		} else {
-			targetPos = player.chooseTargetPosition(enemies);;
+			targetPos = player.chooseTargetPosition(enemies);
+			;
 		}
-		//player.defaultCurrentAttack();
+		// player.defaultCurrentAttack();
 	}
 
 	private static boolean finishBattle() {

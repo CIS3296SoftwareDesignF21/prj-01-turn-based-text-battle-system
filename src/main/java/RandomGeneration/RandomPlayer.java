@@ -15,7 +15,7 @@ public class RandomPlayer {
         def = 40 * level * Rates.rand(25,30);
         Matk = 70 * level * Rates.rand(25,30);
         Mdef = 80 * level * Rates.rand(25,30);
-        Agility = 10 * level * Rates.rand(25,30);
+        Agility = 20 * level * Rates.rand(25,30);
         Mage mage = new Mage(name,hp,mp,atk,def,Matk,Mdef, Agility);
         mage.addMagicAttack(new Peer());
         switch(level){
@@ -60,7 +60,7 @@ public class RandomPlayer {
         def = 80 * level * Rates.rand(25,30);
         Matk = 40 * level * Rates.rand(25,30);
         Mdef = 40* level * Rates.rand(25,30);
-        Agility = 20 * level * Rates.rand(25,30);
+        Agility = 30 * level * Rates.rand(25,30);
         Fighter fighter = new Fighter(name,hp,mp,atk,def,Matk,Mdef, Agility);
         fighter.addSpecialAttack(new VariantStrike());
         fighter.addSpecialAttack(new DesperateHit());
