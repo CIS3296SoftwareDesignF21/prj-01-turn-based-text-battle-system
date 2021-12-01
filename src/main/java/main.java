@@ -116,10 +116,7 @@ public class main {
 				System.out.println(" " + guard + ": Guard -1: Quit 0: Options");
 				try { // not a number
 					userInt = stdin.nextInt();
-				} catch (InputMismatchException e) {
-					stdin.next();
-					userInt = 123;
-				}
+				} catch (InputMismatchException e) {stdin.next(); userInt = 123;}
 				if (userInt == 1) { // attack
 					player.defaultCurrentAttack();
 					targetPos = player.chooseTargetPosition(enemies);
@@ -129,9 +126,8 @@ public class main {
 				} else if (userInt == magic && magic > 0) { // magic
 					handleMenu(magicAttacks);
 				} else if (userInt == guard) { // guard
-
 					player.useAction(player, "Guard");
-					userInt = -1;
+					userInt = -1; //DO NOT ATTACK
 				} else if (userInt == 0) { // options
 					skipTurn = true;
 					changeTextSpeed();
@@ -195,18 +191,6 @@ public class main {
 							}
 						}
 					}
-
-					/*
-					 * for(Player ally: allies) { //allies attack if(player.getHP() <= 0) break;
-					 * if(enemies.size() != 0) { pos = Battler.randomEnemyPosition(enemies);
-					 * ally.randomAttackPattern(enemies.get(pos)); if(enemies.get(pos).getHP() <= 0)
-					 * //if dead enemies.remove(pos); } } for(Enemy enemy: enemies) { //enemies
-					 * attack if(player.getHP() <= 0) break; pos =
-					 * Battler.randomPlayerPosition(allies); if(pos == -1) {
-					 * enemy.randomAttackPattern(player); }else {
-					 * enemy.randomAttackPattern(allies.get(pos)); if (allies.get(pos).getHP() <= 0)
-					 * //if dead allies.remove(pos); } }
-					 */
 					// end turn
 					for (Player ally : allies) {
 						ally.endTurn();
@@ -241,7 +225,7 @@ public class main {
 		player.setCurrentAttack(player.attackMenu(attacks));
 		if (player.usedDefaultAttack()) {
 			player.useAction(player, "Cower");
-			userInt = -1;
+			userInt = -1; //DO NOT ATTACK
 		} else {
 			targetPos = player.chooseTargetPosition(enemies);
 			;
