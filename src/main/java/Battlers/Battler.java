@@ -326,7 +326,6 @@ public class Battler implements Comparable <Battler>{
 	@Override
 	public int compareTo(Battler o) {
 		// TODO Auto-generated method stub
-		int compare = Integer.compare(Agility, o.Agility);
-		return compare;
+		return Integer.compare(Agility, o.Agility) * -1; //reverse so higher comes first
 	}
 }

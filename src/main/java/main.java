@@ -138,14 +138,9 @@ public class main {
 					System.out.println(player.getName() + " fumbled and pressed an invalid number!\n");
 					Attack.sleep();
 				}
-
-				/*battlers.addAll(allies); // add all allies enemies to battler list
-				battlers.addAll(enemies);
-				battlers.add(player);*/
-				Collections.sort(battlers);
-				Collections.reverse(battlers);// sort Battler objects by agility
 				
 				if (!skipTurn) {
+					Collections.sort(battlers); // sort Battler objects by agility
 					int pos;
 					// Since we removed the removeDeadNpcs function so we didn't have to loop
 					// through
