@@ -51,11 +51,10 @@ public class main {
 
 		if (classChoice == 1) { // instantiate a RandomPlayer object with user input
 			player = RandomPlayer.randomFighter(level, charName);
-			battlers.add(player);
 		} else {
 			player = RandomPlayer.randomMage(level, charName);
-			battlers.add(player);
 		}
+		battlers.add(player);
 
 		int enemyLevel = 0;
 		while (enemyLevel > 3 || enemyLevel < 1) { // instantiate an RandomEnemy object with user input
@@ -161,13 +160,11 @@ public class main {
 					// them
 
 					// enemies.removeIf(enemy -> enemy.getHP() <= 0);
-
 					for (Battler battler : battlers) {
-						if (player.getHP() <= 0)
+						if (player.getHP() <= 0 || battler.getHP() <= 0)
 							break;
-						if (battler instanceof Player) {
-							if (battler == player && userInt != -1) {
-								// int targetPos = player.chooseTargetPosition(enemies);
+						if (battler instanceof Player && enemies.size() != 0) {
+							if (battler == player && userInt != -1 ) { //player attacks
 								if (targetPos == -1) { // target is user
 									player.useAction(player, "Attack");
 								} else if (targetPos < -1) { // target is ???
@@ -177,19 +174,17 @@ public class main {
 									if (enemies.get(targetPos).getHP() <= 0) // if dead
 										enemies.remove(targetPos);
 								}
-
-							}
-
-							else if (enemies.size() != 0) {
+							}else if (battler != player) { //allies attack
+								//System.out.println("userInt: " + userInt);
 								pos = Battler.randomEnemyPosition(enemies);
 								battler.randomAttackPattern(enemies.get(pos));
-								if (enemies.get(pos).getHP() <= 0) // if dead
+								if (enemies.get(pos).getHP() <= 0) { // if dead
 									enemies.remove(pos);
+									if(pos <= targetPos) //lower targetPos from player if earlier enemy/same enemy dies
+										targetPos--;
+								}
 							}
-
-						} else if (battler instanceof Enemy && battler.getHP() != 0) {
-							if (player.getHP() <= 0 )
-								break;
+						}else if (battler instanceof Enemy) { //enemies attack
 							pos = Battler.randomPlayerPosition(allies);
 							if (pos == -1) {
 								battler.randomAttackPattern(player);
@@ -197,11 +192,8 @@ public class main {
 								battler.randomAttackPattern(allies.get(pos));
 								if (allies.get(pos).getHP() <= 0) // if dead
 									allies.remove(pos);
-									
 							}
-
 						}
-
 					}
 
 					/*
@@ -222,11 +214,7 @@ public class main {
 					for (Enemy enemy : enemies) {
 						enemy.endTurn();
 					}
-					/*for (Battler battler : battlers) {
-						if (battler.getHP() == 0) {
-						battlers.remove(battler); 
-					}
-				}*/
+					battlers.removeIf(enemy -> enemy.getHP() <= 0); //remove dead characters from battlers array
 					
 					player.endTurn();
 				} else
@@ -279,6 +267,7 @@ public class main {
 			String response = sc.nextLine();
 			if (response.equals("yes")) {
 				System.out.println("NEW ROUND!!!\n");
+				battlers.clear(); //clear battlers list
 				setDifficulty();
 				fin = false;
 				break;
